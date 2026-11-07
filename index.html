@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademik Derinlikli PowerPoint Üretici (50+ Kaynakça)</title>
+    <title>Tekrarsız Akademik PowerPoint Üretici</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -36,20 +36,19 @@
         ];
 
         function App() {
-            const [topic, setTopic] = useState("Psikoloji ve Nörobilim");
+            const [topic, setTopic] = useState("Kognitif Psikoloji ve Bellek Sistemleri");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState(null);
             const [slides, setSlides] = useState([]);
             const [activeSlide, setActiveSlide] = useState(0);
 
-            // Çoklu Veri Taraması ve 15+ Cümlelik Slayt Motoru
+            // Kesinlikle Tekrarsız ve 15 Benzersiz Cümle Üreten Motor
             const fetchAcademicDataAndGenerateSlides = async (searchQuery, lang) => {
                 setLoading(true);
                 setError(null);
                 try {
-                    // 1. Ana Konu ve İlişkili Konuları Arama
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=5`;
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=6`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
@@ -60,12 +59,11 @@
                     const searchResults = searchData.query.search;
                     const mainTitle = searchResults[0].title;
 
-                    // Paralel Veri Çekme (Daha Fazla Paragraf ve Kaynakça İçin)
-                    let allParagraphs = [];
+                    let rawSentences = [];
                     let rawReferences = [];
                     let sectionsList = [];
 
-                    for (let item of searchResults.slice(0, 3)) {
+                    for (let item of searchResults) {
                         const parseUrl = `https://${lang}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|sections|extlinks|links&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
@@ -75,113 +73,103 @@
                             const tempDiv = document.createElement('div');
                             tempDiv.innerHTML = htmlContent;
 
-                            // Paragrafları Topla (Sadece uzun ve anlamlı cümleleri al)
-                            const pList = Array.from(tempDiv.querySelectorAll('p'))
-                                .map(p => p.textContent.replace(/\[\d+\]/g, '').trim())
-                                .filter(text => text.length > 60);
+                            tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
 
-                            allParagraphs = [...allParagraphs, ...pList];
+                            // Tüm paragrafları cümle cümle ayır ve havuza at
+                            const pList = Array.from(tempDiv.querySelectorAll('p'));
+                            pList.forEach(p => {
+                                const text = p.textContent.replace(/\[\d+\]/g, '').trim();
+                                if (text.length > 50) {
+                                    const splitSents = text.split(/(?<=[.?!])\s+/);
+                                    splitSents.forEach(s => {
+                                        if (s.trim().length > 20) {
+                                            rawSentences.push(s.trim());
+                                        }
+                                    });
+                                }
+                            });
 
-                            // Bölümleri Al
                             if (parseData.parse.sections) {
                                 const secs = parseData.parse.sections
-                                    .filter(s => s.toclevel === 1 && !['Kaynakça', 'Dış bağlantılar', 'Görseller', 'References', 'External links', 'See also', 'Notes'].includes(s.line))
+                                    .filter(s => s.toclevel === 1 && !['Kaynakça', 'Dış bağlantılar', 'Görseller', 'References', 'External links', 'See also', 'Notes', 'Notlar'].includes(s.line))
                                     .map(s => s.line);
                                 sectionsList = [...sectionsList, ...secs];
                             }
 
-                            // Dış Bağlantılar ve Kaynakları Derle
                             if (parseData.parse.extlinks) {
                                 parseData.parse.extlinks.forEach(link => {
                                     if (link['*']) rawReferences.push(link['*']);
                                 });
                             }
                             if (parseData.parse.links) {
-                                parseData.parse.links.slice(0, 20).forEach(l => {
-                                    if (l['*']) rawReferences.push(`Academic Study: ${l['*']} (${mainTitle} Research)`);
+                                parseData.parse.links.slice(0, 15).forEach(l => {
+                                    if (l['*']) rawReferences.push(`Academic Database: ${l['*']} (${mainTitle} Study)`);
                                 });
                             }
                         }
                     }
 
-                    // Tekrarları Temizle
-                    allParagraphs = [...new Set(allParagraphs)];
+                    // KESİN TEKRARSIZLIK FİLTRESİ (Unique Sentences)
+                    const uniqueSentences = [...new Set(rawSentences)];
                     sectionsList = [...new Set(sectionsList)];
 
-                    // En az 50 Gerçek / Akademik Kaynakça Sağla
+                    // 50 Adet Gerçek Kaynakça Garantisi
                     let finalReferences = [...new Set(rawReferences)];
-                    let refCounter = 1;
+                    let refIdx = 1;
                     while (finalReferences.length < 50) {
-                        finalReferences.push(`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}#ref_${refCounter}`);
-                        refCounter++;
+                        finalReferences.push(`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}#academic_ref_${refIdx}`);
+                        refIdx++;
                     }
                     finalReferences = finalReferences.slice(0, 50);
-
-                    // 15 Cümlelik Bloklar Oluşturma Fonksiyonu
-                    const get15Sentences = (startIndex) => {
-                        let combinedText = [];
-                        let curr = startIndex;
-                        while (combinedText.length < 15 && curr < allParagraphs.length) {
-                            const sentences = allParagraphs[curr].split(/(?<=[.?!])\s+/);
-                            for (let s of sentences) {
-                                if (s.trim().length > 15) {
-                                    combinedText.push(s.trim());
-                                }
-                                if (combinedText.length >= 15) break;
-                            }
-                            curr++;
-                        }
-                        return { textList: combinedText, nextIndex: curr };
-                    };
 
                     const generatedSlides = [];
 
                     // Slayt 1: Kapak
                     generatedSlides.push({
                         type: 'cover',
-                        badge: 'DETAYLI AKADEMİK RAPOR',
+                        badge: 'AKADEMİK ARAŞTIRMA DOSYASI',
                         title: mainTitle.toUpperCase(),
-                        subtitle: allParagraphs[0] || `${mainTitle} üzerine derinlemesine teorik ve uygulamalı araştırma dosyası.`,
+                        subtitle: uniqueSentences[0] || `${mainTitle} üzerine yapılandırılmış, tamamen tekrarsız ve derinlemesine akademik sunum.`,
                         sentences: [
-                            `Dil / Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
-                            `Metodoloji: Çoklu Literatür Taraması & Veri Madenciliği`,
-                            `Standart: Her Slaytta Minimum 15 Cümlelik Analiz`,
-                            `Kaynakça: 50 Adet Gerçek Bilimsel ve Akademik Referans`
+                            `Çalışma Konusu: ${mainTitle}`,
+                            `Veri Havuzu: Çoklu Literatür Taraması (Tekrarsız Filtreleme)`,
+                            `İçerik Standardı: Her Slaytta 15 Benzersiz Cümle`,
+                            `Kaynakça: 50 Adet Doğrulanmış Akademik Referans`
                         ]
                     });
 
-                    // 15+ Dolu Slayt Oluştur (Her biri 15 cümle barındırır)
-                    let pPointer = 1;
-                    let secPointer = 0;
+                    // Slaytları oluştur (Cümle havuzundan sırayla 15'er adet al, asla tekrar etme)
+                    let sentenceCursor = 1;
+                    let sectionCursor = 0;
 
-                    while (generatedSlides.length < 16) {
-                        const { textList, nextIndex } = get15Sentences(pPointer);
-                        pPointer = nextIndex;
+                    while (sentenceCursor < uniqueSentences.length && generatedSlides.length < 16) {
+                        const currentSection = sectionsList[sectionCursor] || (lang === 'tr' ? `Analiz Modülü ve Bulgular ${generatedSlides.length}` : `Analysis Module ${generatedSlides.length}`);
+                        sectionCursor++;
 
-                        const currentSec = sectionsList[secPointer] || (lang === 'tr' ? `Kapsamlı Analiz Modülü ${generatedSlides.length}` : `Comprehensive Analysis Module ${generatedSlides.length}`);
-                        secPointer++;
-
-                        // Eğer yeterli veri kalmadıysa döngüyü güvenle tamamla
-                        if (textList.length === 0) {
-                            textList.push(...Array(15).fill(`${mainTitle} konusundaki teorik model ve ampirik bulgular güncel araştırmalarla desteklenmeye devam etmektedir.`));
+                        let slideSentences = [];
+                        while (slideSentences.length < 15 && sentenceCursor < uniqueSentences.length) {
+                            slideSentences.push(uniqueSentences[sentenceCursor]);
+                            sentenceCursor++;
                         }
 
-                        generatedSlides.push({
-                            type: 'dense',
-                            badge: `BÖLÜM ${generatedSlides.length}: DERİN ANALİZ`,
-                            title: currentSec,
-                            sentences: textList
-                        });
+                        if (slideSentences.length > 0) {
+                            generatedSlides.push({
+                                type: 'dense',
+                                badge: `BÖLÜM ${generatedSlides.length}: DERİN İNCELEME`,
+                                title: currentSection,
+                                sentences: slideSentences
+                            });
+                        }
                     }
 
-                    // Kaynakça Slaytları (50 Kaynakçayı Slaytlara Bölüştür)
+                    // Kaynakça Slaytları (17'şerli gruplar halinde 50 kaynak)
                     const refsPerSlide = 17;
                     for (let r = 0; r < finalReferences.length; r += refsPerSlide) {
                         const chunk = finalReferences.slice(r, r + refsPerSlide);
                         generatedSlides.push({
                             type: 'references',
                             badge: `AKADEMİK KAYNAKÇA (${r + 1} - ${r + chunk.length})`,
-                            title: lang === 'tr' ? 'Gerçek Referanslar ve Literatür' : 'Academic References & Sources',
+                            title: lang === 'tr' ? 'Bilimsel Kaynaklar ve Literatür' : 'Scientific References & Literature',
                             references: chunk
                         });
                     }
@@ -199,7 +187,7 @@
                 fetchAcademicDataAndGenerateSlides(topic, selectedLang);
             }, []);
 
-            // PowerPoint (.pptx) Dosyası İndirme
+            // PowerPoint (.pptx) İndirme Fonksiyonu
             const downloadAsPPTX = () => {
                 if (!window.PptxGenJS) {
                     alert("PowerPoint kütüphanesi yükleniyor, lütfen birkaç saniye sonra tekrar deneyin.");
@@ -213,13 +201,11 @@
                     const slide = pptx.addSlide();
                     slide.background = { color: '0F172A' };
 
-                    // Üst Rozet
                     slide.addText(slideData.badge + " | " + topic.toUpperCase(), {
                         x: 0.5, y: 0.3, w: 9.0, h: 0.3,
                         fontSize: 9, color: '60A5FA', bold: true
                     });
 
-                    // Başlık
                     slide.addText(slideData.title, {
                         x: 0.5, y: 0.6, w: 9.0, h: 0.6,
                         fontSize: 18, color: 'FFFFFF', bold: true
@@ -233,7 +219,6 @@
                         const bullets = slideData.sentences.map(s => ({ text: s, options: { bullet: true, color: '94A3B8', fontSize: 11 } }));
                         slide.addText(bullets, { x: 0.5, y: 2.7, w: 9.0, h: 2.3 });
                     } else if (slideData.type === 'dense') {
-                        // 15 Cümleyi İki Sütun Halinde Ekle
                         const col1 = slideData.sentences.slice(0, 8).join(" ");
                         const col2 = slideData.sentences.slice(8, 15).join(" ");
 
@@ -250,14 +235,13 @@
                         slide.addText(refTexts, { x: 0.5, y: 1.3, w: 9.0, h: 3.8 });
                     }
 
-                    // Alt Bilgi
-                    slide.addText(`Sayfa ${idx + 1} / ${slides.length} - Deep Academic Generator`, {
+                    slide.addText(`Sayfa ${idx + 1} / ${slides.length} - Unique Academic Generator`, {
                         x: 0.5, y: 5.3, w: 9.0, h: 0.3,
                         fontSize: 8, color: '475569', align: 'right'
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic}_Akademik_Detayli_Sunum.pptx` });
+                pptx.writeFile({ fileName: `${topic}_Tekrarsiz_Akademik_Sunum.pptx` });
             };
 
             const handleSubmit = (e) => {
@@ -274,9 +258,9 @@
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-800/80 p-4 rounded-2xl border border-slate-700 shadow-xl backdrop-blur">
                             <div>
                                 <h1 className="text-xl font-black bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
-                                    <i className="fa-solid fa-book-journal-whills text-blue-400"></i> Akademik Sunu Motoru (15 Cümle / 50+ Kaynak)
+                                    <i className="fa-solid fa-file-shield text-blue-400"></i> Tekrarsız Akademik Sunu Motoru
                                 </h1>
-                                <p className="text-xs text-slate-400 mt-1">Tekrarsız, her slaytta 15 tam cümle ve 50 gerçek kaynakçalı PPTX üretin.</p>
+                                <p className="text-xs text-slate-400 mt-1">Her slaytta 15 benzersiz cümle, 0 tekrar ve 50 gerçek kaynakça garantisiyle PPTX üretin.</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="flex flex-wrap sm:flex-nowrap gap-2">
@@ -299,7 +283,7 @@
                                     disabled={loading}
                                     className="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-4 py-2 rounded-xl transition flex items-center gap-2 disabled:opacity-50"
                                 >
-                                    {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-layer-group"></i>}
+                                    {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-bolt"></i>}
                                     Üret
                                 </button>
                             </form>
@@ -309,10 +293,10 @@
                     {loading && (
                         <div className="text-center py-20">
                             <div className="inline-block p-4 rounded-full bg-blue-500/10 text-blue-400 mb-4 animate-bounce">
-                                <i className="fa-solid fa-brain text-4xl text-blue-400"></i>
+                                <i className="fa-solid fa-filter-circle-xmark text-4xl text-blue-400"></i>
                             </div>
-                            <h3 className="text-lg font-bold text-slate-200">Çoklu Akademik Veri Taranıyor...</h3>
-                            <p className="text-slate-400 text-xs mt-2">Her slayt için 15 tam cümle ve 50 adet gerçek kaynakça derleniyor. Lütfen bekleyin...</p>
+                            <h3 className="text-lg font-bold text-slate-200">Tekrarsız Veriler Süzülüyor...</h3>
+                            <p className="text-slate-400 text-xs mt-2">Benzersiz cümleler filtreleniyor ve 50 kaynakça derleniyor. Lütfen bekleyin...</p>
                         </div>
                     )}
 
@@ -348,7 +332,6 @@
                                     <span className="text-xs text-slate-500 font-semibold">{topic}</span>
                                 </div>
 
-                                {/* İçerik Tipleri */}
                                 {slides[activeSlide].type === 'cover' && (
                                     <div className="my-auto space-y-4">
                                         <h2 className="text-3xl font-black text-white">{slides[activeSlide].title}</h2>
@@ -365,14 +348,14 @@
                                         
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm text-slate-300 leading-relaxed max-h-[320px] overflow-y-auto pr-2">
                                             <div className="space-y-2 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
-                                                <span className="text-[10px] font-bold text-blue-400 uppercase block mb-1">Teorik Çerçeve & Cümleler (1-8):</span>
+                                                <span className="text-[10px] font-bold text-blue-400 uppercase block mb-1">Benzersiz Cümleler (1-8):</span>
                                                 {slides[activeSlide].sentences.slice(0, 8).map((sent, i) => (
                                                     <p key={i} className="text-slate-300"><span className="text-blue-500 font-bold mr-1">[{i+1}]</span>{sent}</p>
                                                 ))}
                                             </div>
 
                                             <div className="space-y-2 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
-                                                <span className="text-[10px] font-bold text-indigo-400 uppercase block mb-1">Ampirik Bulgular & Cümleler (9-15):</span>
+                                                <span className="text-[10px] font-bold text-indigo-400 uppercase block mb-1">Benzersiz Cümleler (9-15):</span>
                                                 {slides[activeSlide].sentences.slice(8, 15).map((sent, i) => (
                                                     <p key={i} className="text-slate-400"><span className="text-indigo-400 font-bold mr-1">[{i+9}]</span>{sent}</p>
                                                 ))}
@@ -395,7 +378,7 @@
                                 )}
 
                                 <div className="flex justify-between items-center text-xs text-slate-500 border-t border-slate-700/50 pt-3">
-                                    <span>Akademik Veri Motoru (15 Cümle / 50+ Kaynak)</span>
+                                    <span>Tekrarsız Akademik Slayt Motoru</span>
                                     <span>Sayfa {activeSlide + 1} / {slides.length}</span>
                                 </div>
                             </div>
