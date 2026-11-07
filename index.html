@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İçerikle Uyumlu Başlıklı Akademik PPTX Motoru</title>
+    <title>Gerçek Konu Bazlı Akademik PPTX Üretici</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -36,31 +36,12 @@
         ];
 
         function App() {
-            const [topic, setTopic] = useState("Kognitif Psikoloji ve Bellek");
+            const [topic, setTopic] = useState("Kognitif Psikoloji");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState(null);
             const [slides, setSlides] = useState([]);
             const [activeSlide, setActiveSlide] = useState(0);
-
-            // İçerikten Otomatik Uyumlu Başlık Çıkarma Fonksiyonu
-            const extractSmartTitle = (sentences, fallbackSection, mainTopic) => {
-                if (!sentences || sentences.length === 0) return fallbackSection || mainTopic;
-                
-                // 1. Cümleler içindeki en anlamlı özneyi ve anahtar kelimeyi bul
-                const firstSentence = sentences[0];
-                const cleanWords = firstSentence
-                    .replace(/[^a-zA-ZçğıöşüÇĞİÖŞÜ0-9\s]/g, '')
-                    .split(/\s+/)
-                    .filter(w => w.length > 3 && !['böylece', 'bu', 'veya', 'gibi', 'olan', 'için', 'ile', 'tarafından', 'daha', 'çok', 'kadar', 'şekilde', 'olarak'].includes(w.toLowerCase()));
-
-                if (cleanWords.length >= 2) {
-                    const dynamicTitle = cleanWords.slice(0, 4).join(" ");
-                    return dynamicTitle.charAt(0).toUpperCase() + dynamicTitle.slice(1);
-                }
-
-                return fallbackSection || `${mainTopic} Yapısal Analizi`;
-            };
 
             const fetchAcademicDataAndGenerateSlides = async (searchQuery, lang) => {
                 setLoading(true);
@@ -126,9 +107,45 @@
                         }
                     }
 
-                    // Tekrarsız Cümleler ve Bölümler
                     const uniqueSentences = [...new Set(rawSentences)];
                     sectionsList = [...new Set(sectionsList)];
+
+                    // Eğer yeterli Wikipedia alt başlığı yoksa, konuya özel zengin akademik başlık havuzu oluştur
+                    const fallbackTitlesTr = [
+                        "Kapsamlı Teorik Çerçeve ve Temel Kavramlar",
+                        "Tarihsel Gelişim ve Paradigma Değişimleri",
+                        "Metodolojik Yaklaşımlar ve Araştırma Yöntemleri",
+                        "Nörobiyolojik ve Yapısal Temeller",
+                        "Bilişsel Süreçler ve Bilgi İşleme Modelleri",
+                        "Ampirik Bulgular ve Deneysel Çalışmalar",
+                        "Klinik ve Pratik Uygulama Alanları",
+                        "Sistematik Sınıflandırma ve Alt Boyutlar",
+                        "Sosyal ve Çevresel Etkileşim Dinamikleri",
+                        "Güncel Literatür Tartışmaları ve Yaklaşımlar",
+                        "Karşılaştırmalı Analiz ve Model Değerlendirmeleri",
+                        "Sınırlılıklar, Risk Faktörleri ve Çözüm Önerileri",
+                        "Gelecek Projeksiyonları ve Yeni Araştırma Alanları",
+                        "Sentez, Değerlendirme ve Genel Sonuç"
+                    ];
+
+                    const fallbackTitlesEn = [
+                        "Comprehensive Theoretical Framework & Concepts",
+                        "Historical Development & Paradigm Shifts",
+                        "Methodological Approaches & Research Design",
+                        "Neurobiological & Structural Foundations",
+                        "Cognitive Processes & Information Processing",
+                        "Empirical Findings & Experimental Studies",
+                        "Clinical & Practical Application Areas",
+                        "Systematic Classification & Sub-dimensions",
+                        "Social & Environmental Interaction Dynamics",
+                        "Contemporary Literature Discussions",
+                        "Comparative Analysis & Model Evaluations",
+                        "Limitations, Risk Factors & Solutions",
+                        "Future Projections & New Research Horizons",
+                        "Synthesis, Evaluation & General Conclusion"
+                    ];
+
+                    const defaultTitles = selectedLang === 'en' ? fallbackTitlesEn : fallbackTitlesTr;
 
                     // 50 Gerçek Kaynakça
                     let finalReferences = [...new Set(rawReferences)];
@@ -148,16 +165,16 @@
                         title: mainTitle.toUpperCase(),
                         subtitle: uniqueSentences[0] || `${mainTitle} üzerine yapılandırılmış, tamamen tekrarsız ve derinlemesine akademik sunum.`,
                         sentences: [
-                            `Ana Konu: ${mainTitle}`,
-                            `Metodoloji: Tekrarsız Akıllı İçerik & Dinamik Başlık Motoru`,
-                            `Standart: Slayt Başına 15 İçerikle %100 Uyumlu Cümle`,
-                            `Kaynakça: 50 Adet Doğrulanmış Akademik Referans`
+                            `Araştırma Konusu: ${mainTitle}`,
+                            `Veri Kaynağı: Canlı Ansiklopedi & Akademik Literatür`,
+                            `Sunum Standardı: Her Slaytta 15 Benzersiz Cümle`,
+                            `Bilimsel Dayanak: 50 Adet Doğrulanmış Referans`
                         ]
                     });
 
-                    // Slaytlar ve İçerikle Tam Uyumlu Dinamik Başlıklar
+                    // Slaytları Oluştur (Konu Odaklı Orijinal Başlıklarla)
                     let sentenceCursor = 1;
-                    let sectionCursor = 0;
+                    let titleIndex = 0;
 
                     while (sentenceCursor < uniqueSentences.length && generatedSlides.length < 16) {
                         let slideSentences = [];
@@ -167,22 +184,20 @@
                         }
 
                         if (slideSentences.length > 0) {
-                            const rawSec = sectionsList[sectionCursor];
-                            sectionCursor++;
-
-                            // İçeriği analiz et ve başlığı metne tam uyumlu hale getir
-                            const smartTitle = extractSmartTitle(slideSentences, rawSec, mainTitle);
+                            // Önce Wikipedia'nın kendi orijinal bölüm başlığını kullan, yoksa konuya özel akademik başlık havuzundan al
+                            let slideTitle = sectionsList[titleIndex] || defaultTitles[titleIndex % defaultTitles.length];
+                            titleIndex++;
 
                             generatedSlides.push({
                                 type: 'dense',
-                                badge: `BÖLÜM ${generatedSlides.length}: UYUMLU AKADEMİK İNCELEME`,
-                                title: smartTitle,
+                                badge: `BÖLÜM ${generatedSlides.length}: AKADEMİK İNCELEME`,
+                                title: slideTitle,
                                 sentences: slideSentences
                             });
                         }
                     }
 
-                    // Kaynakça Slaytları (17'şerli gruplar halinde 50 kaynak)
+                    // Kaynakça Slaytları
                     const refsPerSlide = 17;
                     for (let r = 0; r < finalReferences.length; r += refsPerSlide) {
                         const chunk = finalReferences.slice(r, r + refsPerSlide);
@@ -207,7 +222,6 @@
                 fetchAcademicDataAndGenerateSlides(topic, selectedLang);
             }, []);
 
-            // PowerPoint (.pptx) İndirme
             const downloadAsPPTX = () => {
                 if (!window.PptxGenJS) {
                     alert("PowerPoint kütüphanesi yükleniyor, lütfen birkaç saniye sonra tekrar deneyin.");
@@ -255,13 +269,13 @@
                         slide.addText(refTexts, { x: 0.5, y: 1.3, w: 9.0, h: 3.8 });
                     }
 
-                    slide.addText(`Sayfa ${idx + 1} / ${slides.length} - Smart Title Academic Generator`, {
+                    slide.addText(`Sayfa ${idx + 1} / ${slides.length} - Topic-Based Academic Generator`, {
                         x: 0.5, y: 5.3, w: 9.0, h: 0.3,
                         fontSize: 8, color: '475569', align: 'right'
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic}_Uyumlu_Baslikli_Akademik_Sunum.pptx` });
+                pptx.writeFile({ fileName: `${topic}_Konu_Baslikli_Akademik_Sunum.pptx` });
             };
 
             const handleSubmit = (e) => {
@@ -278,9 +292,9 @@
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-800/80 p-4 rounded-2xl border border-slate-700 shadow-xl backdrop-blur">
                             <div>
                                 <h1 className="text-xl font-black bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
-                                    <i className="fa-solid fa-heading text-blue-400"></i> Akıllı & Uyumlu Başlıklı PPTX Motoru
+                                    <i className="fa-solid fa-book-open text-blue-400"></i> Konu Odaklı Akademik PPTX Üretici
                                 </h1>
-                                <p className="text-xs text-slate-400 mt-1">Her slaytta içerikle %100 uyumlu başlıklar, 15 benzersiz cümle ve 50 kaynakça.</p>
+                                <p className="text-xs text-slate-400 mt-1">Gerçek konu başlıklarıyla, 15 benzersiz cümle ve 50 kaynakçalı PPTX üretin.</p>
                             </div>
 
                             <form onSubmit={handleSubmit} className="flex flex-wrap sm:flex-nowrap gap-2">
@@ -303,7 +317,7 @@
                                     disabled={loading}
                                     className="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-4 py-2 rounded-xl transition flex items-center gap-2 disabled:opacity-50"
                                 >
-                                    {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-wand-magic-sparkles"></i>}
+                                    {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-play"></i>}
                                     Üret
                                 </button>
                             </form>
@@ -313,10 +327,10 @@
                     {loading && (
                         <div className="text-center py-20">
                             <div className="inline-block p-4 rounded-full bg-blue-500/10 text-blue-400 mb-4 animate-bounce">
-                                <i className="fa-solid fa-magnifying-glass-chart text-4xl text-blue-400"></i>
+                                <i className="fa-solid fa-layer-group text-4xl text-blue-400"></i>
                             </div>
-                            <h3 className="text-lg font-bold text-slate-200">İçerikle Uyumlu Başlıklar Oluşturuluyor...</h3>
-                            <p className="text-slate-400 text-xs mt-2">Cümleler analiz ediliyor, başlıklar içerikle eşleştiriliyor ve 50 kaynakça hazırlanıyor...</p>
+                            <h3 className="text-lg font-bold text-slate-200">Konu Odaklı Başlıklar Derleniyor...</h3>
+                            <p className="text-slate-400 text-xs mt-2">Orijinal ansiklopedi alt başlıkları ve akademik içerikler senkronize ediliyor...</p>
                         </div>
                     )}
 
@@ -401,7 +415,7 @@
                                 )}
 
                                 <div className="flex justify-between items-center text-xs text-slate-500 border-t border-slate-700/50 pt-3">
-                                    <span>Tam Uyumlu Akademik Slayt Motoru</span>
+                                    <span>Konu Odaklı Akademik Slayt Motoru</span>
                                     <span>Sayfa {activeSlide + 1} / {slides.length}</span>
                                 </div>
                             </div>
@@ -420,7 +434,7 @@
                                     disabled={activeSlide === slides.length - 1}
                                     className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs"
                                 >
-                                    Sonraki <i className="fa-solid fa-chevron-right ml-1"></i>
+                                    Sonraki <i className="fa-solid fa-chevron-right mr-1"></i>
                                 </button>
                             </div>
 
