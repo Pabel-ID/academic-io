@@ -3,179 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Çok Dilli Slayt Üretici</title>
+    <title>AI Real-Data Slide Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .slide-card { aspect-ratio: 16 / 9; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        
+        /* 16:9 PowerPoint Slayt Oranı */
+        .powerpoint-slide {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
         @media print {
             body { background: white !important; color: black !important; }
             .no-print { display: none !important; }
-            .slide-card { 
+            .powerpoint-slide { 
                 page-break-after: always; 
-                border: 2px solid #e2e8f0 !important;
+                border: 1px solid #cbd5e1 !important;
                 background: white !important;
                 color: black !important;
                 margin-bottom: 20px;
                 box-shadow: none !important;
+                aspect-ratio: 16 / 9;
+                width: 100% !important;
+                height: auto !important;
             }
-            .slide-card h3, .slide-card p, .slide-card span { color: black !important; }
+            .powerpoint-slide h1, .powerpoint-slide h2, .powerpoint-slide h3, .powerpoint-slide p, .powerpoint-slide li, .powerpoint-slide span { 
+                color: black !important; 
+            }
+            .powerpoint-slide .bg-slate-800\/50, .powerpoint-slide .bg-slate-900\/60 {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
+<body class="min-h-screen">
     <div id="root"></div>
+
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
 
         const LANGUAGES = [
-            { code: "tr", name: "Türkçe" },
-            { code: "en", name: "English" },
-            { code: "de", name: "Deutsch" },
-            { code: "fr", name: "Français" },
-            { code: "es", name: "Español" }
+            { code: "tr", name: "Türkçe (TR)" },
+            { code: "en", name: "English (EN)" },
+            { code: "de", name: "Deutsch (DE)" },
+            { code: "fr", name: "Français (FR)" },
+            { code: "es", name: "Español (ES)" }
         ];
 
-        const TEMPLATES = {
-            tr: [
-                { title: "Giriş ve Genel Bakış", content: "konusunun temel tanımı, önemi ve günümüzdeki stratejik yeri." },
-                { title: "Temel Dinamikler", content: "alanını şekillendiren ana faktörler ve uygulanan temel yöntemler." },
-                { title: "Gelecek Projeksiyonları", content: "konusunda önümüzdeki dönemde beklenen yenilikler ve dönüşümler." },
-                { title: "Sonuç ve Değerlendirme", content: "hakkında çıkarılacak ana fikirler ve stratejik kapanış önerileri." }
-            ],
-            en: [
-                { title: "Introduction & Overview", content: "Fundamental definition, significance, and current impact of" },
-                { title: "Key Dynamics", content: "Core factors and primary methodology shaping the field of" },
-                { title: "Future Outlook", content: "Upcoming innovations and transformative trends in" },
-                { title: "Conclusion & Summary", content: "Key takeaways and final strategic recommendations regarding" }
-            ],
-            de: [
-                { title: "Einführung & Überblick", content: "Grundlegende Definition und Bedeutung von" },
-                { title: "Kernfaktoren", content: "Wichtige Aspekte und Methoden im Bereich" },
-                { title: "Zukunftsaussichten", content: "Erwartete Innovationen und Trends für" },
-                { title: "Fazit & Zusammenfassung", content: "Wichtige Erkenntnisse und abschließende Empfehlungen zu" }
-            ],
-            fr: [
-                { title: "Introduction et Aperçu", content: "Définition fondamentale et importance de" },
-                { title: "Dynamiques Clés", content: "Facteurs essentiels et méthodologies façonnant le domaine de" },
-                { title: "Perspectives d'Avenir", content: "Innovations et tendances futures pour" },
-                { title: "Conclusion et Résumé", content: "Points clés à retenir et recommandations finales sur" }
-            ],
-            es: [
-                { title: "Introducción y Visión General", content: "Definición fundamental e importancia de" },
-                { title: "Dinámicas Clave", content: "Factores principales y metodologías en el área de" },
-                { title: "Perspectivas Futuras", content: "Innovaciones y tendencias clave para" },
-                { title: "Conclusión y Resumen", content: "Puntos clave y recomendaciones finales sobre" }
-            ]
-        };
-
         function App() {
-            const [topic, setTopic] = useState("Yapay Zeka ve Gelecek");
+            const [topic, setTopic] = useState("Yapay Zeka");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [loading, setLoading] = useState(false);
-            const [slides, setSlides] = useState([
-                { title: "Giriş ve Genel Bakış", content: "Yapay Zeka ve Gelecek konusunun temel tanımı, önemi ve günümüzdeki stratejik yeri." },
-                { title: "Temel Dinamikler", content: "Yapay Zeka ve Gelecek alanını şekillendiren ana faktörler ve uygulanan temel yöntemler." },
-                { title: "Gelecek Projeksiyonları", content: "Yapay Zeka ve Gelecek konusunda önümüzdeki dönemde beklenen yenilikler ve dönüşümler." },
-                { title: "Sonuç ve Değerlendirme", content: "Yapay Zeka ve Gelecek hakkında çıkarılacak ana fikirler ve stratejik kapanış önerileri." }
-            ]);
+            const [error, setError] = useState(null);
+            const [slides, setSlides] = useState([]);
+            const [activeSlide, setActiveSlide] = useState(0);
 
-            const handleGenerate = (e) => {
-                e.preventDefault();
-                if (!topic.trim()) return;
+            // Canlı Wikipedia API Veri Çekme Motoru
+            const fetchRealDataAndGenerateSlides = async (searchQuery, lang) => {
                 setLoading(true);
-                setTimeout(() => {
-                    const langSlides = TEMPLATES[selectedLang] || TEMPLATES.tr;
-                    const generated = langSlides.map(item => ({
-                        title: item.title,
-                        content: `${item.content} "${topic}".`
-                    }));
-                    setSlides(generated);
+                setError(null);
+                try {
+                    // 1. Wikipedia Arama API
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*`;
+                    const searchRes = await fetch(searchUrl);
+                    const searchData = await searchRes.json();
+
+                    if (!searchData.query.search || searchData.query.search.length === 0) {
+                        throw new Error(lang === 'tr' ? 'Aradığınız konuyla ilgili canlı bilgi bulunamadı.' : 'No data found for this topic.');
+                    }
+
+                    const pageTitle = searchData.query.search[0].title;
+
+                    // 2. Wikipedia Sayfa Detayı ve Metin İçeriği API
+                    const parseUrl = `https://${lang}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(pageTitle)}&prop=text|sections&format=json&origin=*`;
+                    const parseRes = await fetch(parseUrl);
+                    const parseData = await parseRes.json();
+
+                    if (!parseData.parse || !parseData.parse.text) {
+                        throw new Error('İçerik ayrıştırılamadı.');
+                    }
+
+                    const htmlContent = parseData.parse.text['*'];
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = htmlContent;
+
+                    // Gereksiz tabloları, referansları ve linkleri temizle
+                    tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script').forEach(el => el.remove());
+
+                    const paragraphs = Array.from(tempDiv.querySelectorAll('p'))
+                        .map(p => p.textContent.replace(/\[\d+\]/g, '').trim())
+                        .filter(text => text.length > 50);
+
+                    const sections = parseData.parse.sections
+                        .filter(s => s.toclevel === 1 && !['Kaynakça', 'Dış bağlantılar', 'Görseller', 'References', 'External links', 'See also'].includes(s.line))
+                        .map(s => s.line);
+
+                    // Slayt Yapısını İnşa Et (PowerPoint Tarzı)
+                    const generatedSlides = [];
+
+                    // Slayt 1: Başlık Slaydı
+                    generatedSlides.push({
+                        type: 'title',
+                        badge: 'CANLI BİLGİ SUNUMU',
+                        title: pageTitle,
+                        subtitle: paragraphs[0] ? paragraphs[0].substring(0, 160) + '...' : `${pageTitle} hakkında kapsamlı inceleme ve analiz.`
+                    });
+
+                    // Slayt 2: Giriş ve Genel Bakış
+                    if (paragraphs.length > 0) {
+                        generatedSlides.push({
+                            type: 'content',
+                            badge: 'SLAYT 2',
+                            title: lang === 'tr' ? 'Tanım ve Genel Bakış' : 'Overview & Definition',
+                            content: paragraphs[0],
+                            bullets: paragraphs[1] ? [paragraphs[1].substring(0, 120) + '...', paragraphs[2] ? paragraphs[2].substring(0, 120) + '...' : ''] : []
+                        });
+                    }
+
+                    // Slayt 3: Ana Alanlar ve Bölümler
+                    if (sections.length > 0) {
+                        generatedSlides.push({
+                            type: 'grid',
+                            badge: 'SLAYT 3',
+                            title: lang === 'tr' ? 'Temel Başlıklar ve Boyutlar' : 'Key Sections & Dimensions',
+                            items: sections.slice(0, 4).map((sec, i) => ({
+                                num: `0${i+1}`,
+                                title: sec,
+                                desc: paragraphs[i+2] ? paragraphs[i+2].substring(0, 100) + '...' : `${sec} konusuyla ilgili temel yapı taşları.`
+                            }))
+                        });
+                    }
+
+                    // Slayt 4-6: Detay Analizler
+                    for (let i = 2; i < Math.min(paragraphs.length, 6); i++) {
+                        generatedSlides.push({
+                            type: 'content',
+                            badge: `SLAYT ${generatedSlides.length + 1}`,
+                            title: sections[i - 2] || (lang === 'tr' ? `Detay Analiz ${i-1}` : `Detailed Analysis ${i-1}`),
+                            content: paragraphs[i],
+                            bullets: [
+                                paragraphs[i+1] ? paragraphs[i+1].substring(0, 130) + '...' : 'Detaylı araştırma verileri.',
+                                paragraphs[i+2] ? paragraphs[i+2].substring(0, 130) + '...' : 'Konuyla ilgili stratejik notlar.'
+                            ]
+                        });
+                    }
+
+                    // Slayt Kapanış
+                    generatedSlides.push({
+                        type: 'summary',
+                        badge: 'SONUÇ',
+                        title: lang === 'tr' ? 'Özet ve Değerlendirme' : 'Summary & Key Takeaways',
+                        summaryText: paragraphs[paragraphs.length - 1] || `${pageTitle} üzerine derlenen bilgiler güncel veriler ışığında hazırlanmıştır.`
+                    });
+
+                    setSlides(generatedSlides);
+                    setActiveSlide(0);
+                } catch (err) {
+                    setError(err.message || 'Veri çekilirken bir hata oluştu.');
+                } finally {
                     setLoading(false);
-                }, 500);
+                }
             };
 
-            const handleDownload = () => {
-                window.print();
+            useEffect(() => {
+                fetchRealDataAndGenerateSlides(topic, selectedLang);
+            }, []);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (topic.trim()) {
+                    fetchRealDataAndGenerateSlides(topic, selectedLang);
+                }
             };
 
             return (
-                <div className="max-w-4xl mx-auto p-6 min-h-screen flex flex-col justify-center">
-                    <div className="text-center mb-8 no-print">
-                        <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-                            AI Çok Dilli Slayt Üretici
-                        </h1>
-                        <p className="text-slate-400">Konunu yaz, dilini seç, sunumunu hazırla ve PDF olarak indir.</p>
-                    </div>
+                <div className="max-w-6xl mx-auto p-4 md:p-8 min-h-screen flex flex-col justify-between">
+                    
+                    {/* Üst Arama Barı */}
+                    <header className="no-print mb-8">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-800/80 p-4 rounded-2xl border border-slate-700 shadow-xl backdrop-blur">
+                            <div>
+                                <h1 className="text-2xl font-black bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent flex items-center gap-2">
+                                    <i className="fa-solid fa-cloud-arrow-down text-blue-400"></i> Live-Data Slide Engine
+                                </h1>
+                                <p className="text-xs text-slate-400 mt-1">Canlı ansiklopedi verisi ile anında 16:9 PowerPoint sunumları oluşturun.</p>
+                            </div>
 
-                    <form onSubmit={handleGenerate} className="bg-slate-800 p-4 rounded-xl shadow-lg flex flex-col sm:flex-row gap-4 mb-8 border border-slate-700 no-print">
-                        <input 
-                            type="text" 
-                            value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
-                            placeholder="Konu girin..." 
-                            className="flex-1 bg-slate-900 text-slate-100 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700"
-                        />
-                        <select 
-                            value={selectedLang}
-                            onChange={(e) => setSelectedLang(e.target.value)}
-                            className="bg-slate-900 text-slate-100 px-4 py-3 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-                        >
-                            {LANGUAGES.map(lang => (
-                                <option key={lang.code} value={lang.code}>{lang.name}</option>
-                            ))}
-                        </select>
-                        <button 
-                            type="submit" 
-                            disabled={loading}
-                            className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2 disabled:opacity-50"
-                        >
-                            {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-wand-magic-sparkles"></i>}
-                            Üret
-                        </button>
-                    </form>
+                            <form onSubmit={handleSubmit} className="flex flex-wrap sm:flex-nowrap gap-2">
+                                <input 
+                                    type="text" 
+                                    value={topic}
+                                    onChange={(e) => setTopic(e.target.value)}
+                                    placeholder="Herhangi bir konu yazın (Örn: Kuantum Fiziği, Sanayi Devrimi)..."
+                                    className="bg-slate-900 border border-slate-700 text-slate-100 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[240px] flex-1"
+                                />
+                                <select 
+                                    value={selectedLang}
+                                    onChange={(e) => setSelectedLang(e.target.value)}
+                                    className="bg-slate-900 border border-slate-700 text-slate-100 text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                >
+                                    {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
+                                </select>
+                                <button 
+                                    type="submit" 
+                                    disabled={loading}
+                                    className="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 disabled:opacity-50"
+                                >
+                                    {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-magnifying-glass"></i>}
+                                    Getir
+                                </button>
+                            </form>
+                        </div>
+                    </header>
 
+                    {/* Yükleniyor / Hata Durumları */}
                     {loading && (
-                        <div className="text-center py-12 text-slate-400 no-print">
-                            <i className="fa-solid fa-circle-notch animate-spin text-3xl text-blue-500 mb-3"></i>
-                            <p>Slaytlar seçilen dilde hazırlanıyor...</p>
+                        <div className="text-center py-24 no-print">
+                            <div className="inline-block p-4 rounded-full bg-blue-500/10 text-blue-400 mb-4 animate-bounce">
+                                <i className="fa-solid fa-globe text-4xl"></i>
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-200">Canlı Veriler Çekiliyor...</h3>
+                            <p className="text-slate-400 text-sm mt-2">"{topic}" hakkında ansiklopedik veriler taranıyor ve PowerPoint slaytına dönüştürülüyor.</p>
                         </div>
                     )}
 
-                    {slides.length > 0 && !loading && (
-                        <div className="space-y-6">
-                            <div className="flex justify-between items-center border-b border-slate-700 pb-3 no-print">
-                                <h2 className="text-xl font-bold text-slate-200">
-                                    Hazırlanan Slaytlar: <span className="text-blue-400">"{topic}"</span> ({LANGUAGES.find(l => l.code === selectedLang)?.name})
-                                </h2>
+                    {error && !loading && (
+                        <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-6 rounded-2xl text-center my-12 no-print">
+                            <i className="fa-solid fa-circle-exclamation text-3xl mb-2"></i>
+                            <p className="font-semibold">{error}</p>
+                            <button onClick={() => fetchRealDataAndGenerateSlides(topic, selectedLang)} className="mt-4 text-xs bg-red-500 text-white px-4 py-2 rounded-lg font-bold">Tekrar Dene</button>
+                        </div>
+                    )}
+
+                    {/* PowerPoint Slayt Alanı */}
+                    {!loading && !error && slides.length > 0 && (
+                        <main className="flex-1 flex flex-col justify-center">
+                            
+                            {/* Üst Kontrol & PDF İndir */}
+                            <div className="flex justify-between items-center mb-4 no-print">
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                    Slayt <span className="text-blue-400">{activeSlide + 1}</span> / {slides.length}
+                                </div>
                                 <button 
-                                    onClick={handleDownload}
-                                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2 text-sm shadow-md"
+                                    onClick={() => window.print()} 
+                                    className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-lg"
                                 >
-                                    <i className="fa-solid fa-file-pdf"></i>
-                                    Sunumu / PDF İndir
+                                    <i className="fa-solid fa-file-pdf"></i> Sunumu PDF İndir / Yazdır
                                 </button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {slides.map((slide, index) => (
-                                    <div key={index} className="slide-card bg-slate-800 border border-slate-700 rounded-xl p-6 flex flex-col justify-between shadow-xl">
-                                        <div>
-                                            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Slayt {index + 1}</span>
-                                            <h3 className="text-xl font-bold text-slate-100 mt-2 mb-4">{slide.title}</h3>
-                                            <p className="text-slate-300 text-base leading-relaxed">{slide.content}</p>
+                            {/* Ekran Slaydı (Canlı Görünüm) */}
+                            <div className="powerpoint-slide rounded-2xl border border-slate-700/60 p-8 md:p-12 flex flex-col justify-between relative overflow-hidden no-print">
+                                <div className="flex justify-between items-center border-b border-slate-700/50 pb-4">
+                                    <span className="text-xs font-bold text-blue-400 tracking-widest uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                                        {slides[activeSlide].badge}
+                                    </span>
+                                    <span className="text-xs text-slate-500 font-semibold">{topic}</span>
+                                </div>
+
+                                {/* Slayt İçerik Tipleri */}
+                                {slides[activeSlide].type === 'title' && (
+                                    <div className="my-auto space-y-4">
+                                        <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">{slides[activeSlide].title}</h1>
+                                        <p className="text-slate-300 text-base md:text-lg max-w-3xl leading-relaxed">{slides[activeSlide].subtitle}</p>
+                                    </div>
+                                )}
+
+                                {slides[activeSlide].type === 'content' && (
+                                    <div className="my-auto space-y-6">
+                                        <h2 className="text-2xl md:text-3xl font-bold text-slate-100">{slides[activeSlide].title}</h2>
+                                        <p className="text-slate-300 text-base leading-relaxed bg-slate-900/60 p-4 rounded-xl border border-slate-800">{slides[activeSlide].content}</p>
+                                        {slides[activeSlide].bullets && slides[activeSlide].bullets.length > 0 && (
+                                            <ul className="space-y-2">
+                                                {slides[activeSlide].bullets.map((b, idx) => (
+                                                    b && <li key={idx} className="flex items-start gap-3 text-sm text-slate-400">
+                                                        <i className="fa-solid fa-check text-blue-400 mt-1"></i>
+                                                        <span>{b}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                )}
+
+                                {slides[activeSlide].type === 'grid' && (
+                                    <div className="my-auto space-y-6">
+                                        <h2 className="text-2xl font-bold text-slate-100">{slides[activeSlide].title}</h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {slides[activeSlide].items.map((item, idx) => (
+                                                <div key={idx} className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
+                                                    <span className="text-xs font-black text-blue-400">{item.num}</span>
+                                                    <h3 className="font-bold text-slate-200 mt-1">{item.title}</h3>
+                                                    <p className="text-xs text-slate-400 mt-1">{item.desc}</p>
+                                                </div>
+                                            ))}
                                         </div>
-                                        <div className="text-right text-xs text-slate-500 mt-4 border-t border-slate-700/50 pt-2">AI Dual-Language Generator</div>
+                                    </div>
+                                )}
+
+                                {slides[activeSlide].type === 'summary' && (
+                                    <div className="my-auto space-y-4">
+                                        <h2 className="text-3xl font-extrabold text-slate-100">{slides[activeSlide].title}</h2>
+                                        <p className="text-slate-300 text-base leading-relaxed bg-blue-950/30 p-6 rounded-2xl border border-blue-800/40">{slides[activeSlide].summaryText}</p>
+                                    </div>
+                                )}
+
+                                <div className="flex justify-between items-center text-xs text-slate-500 border-t border-slate-700/50 pt-4">
+                                    <span>Live Data Presentation Engine</span>
+                                    <span>{activeSlide + 1} / {slides.length}</span>
+                                </div>
+                            </div>
+
+                            {/* Alt Slayt İlerleme Butonları */}
+                            <div className="flex justify-center items-center gap-4 mt-6 no-print">
+                                <button 
+                                    onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))}
+                                    disabled={activeSlide === 0}
+                                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2.5 rounded-xl border border-slate-700 transition disabled:opacity-30"
+                                >
+                                    <i className="fa-solid fa-chevron-left mr-2"></i> Önceki Slayt
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSlide(prev => Math.min(slides.length - 1, prev + 1))}
+                                    disabled={activeSlide === slides.length - 1}
+                                    className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl transition disabled:opacity-30"
+                                >
+                                    Sonraki Slayt <i className="fa-solid fa-chevron-right ml-2"></i>
+                                </button>
+                            </div>
+
+                            {/* Baskı/PDF İçin Tüm Slaytların Liste Görünümü (Gizli/Print-Only) */}
+                            <div className="hidden print:block space-y-8 mt-8">
+                                {slides.map((slide, index) => (
+                                    <div key={index} className="powerpoint-slide rounded-xl p-8 flex flex-col justify-between border border-slate-300">
+                                        <div className="flex justify-between items-center border-b pb-2">
+                                            <span className="font-bold text-xs">{slide.badge}</span>
+                                            <span className="text-xs">{topic}</span>
+                                        </div>
+                                        <div className="my-auto">
+                                            <h2 className="text-2xl font-bold mb-4">{slide.title}</h2>
+                                            {slide.subtitle && <p className="text-sm">{slide.subtitle}</p>}
+                                            {slide.content && <p className="text-sm mb-4">{slide.content}</p>}
+                                            {slide.summaryText && <p className="text-sm">{slide.summaryText}</p>}
+                                            {slide.bullets && (
+                                                <ul className="list-disc pl-5 text-xs space-y-1">
+                                                    {slide.bullets.map((b, i) => b && <li key={i}>{b}</li>)}
+                                                </ul>
+                                            )}
+                                        </div>
+                                        <div className="text-right text-xs">Sayfa {index + 1}</div>
                                     </div>
                                 ))}
                             </div>
-                        </div>
+
+                        </main>
                     )}
+
                 </div>
             );
         }
