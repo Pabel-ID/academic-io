@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AcademicSlide Pro Studio — Çoklu Varyasyon & Canlı Editör</title>
+    <title>AcademicSlide Pro — Canlı Saat & Dinamik Kullanıcı Motoru</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -39,7 +39,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
 
         const LANGUAGES = [
             { code: "tr", name: "Türkçe (TR)" },
@@ -80,6 +80,23 @@
             { name: "Fira Code (Teknik / Kod)", value: "font-mono" }
         ];
 
+        const shuffleArray = (array, seed) => {
+            let arr = [...array];
+            let m = arr.length, t, i;
+            let currentSeed = seed;
+            const random = () => {
+                const x = Math.sin(currentSeed++) * 10000;
+                return x - Math.floor(x);
+            };
+            while (m) {
+                i = Math.floor(random() * m--);
+                t = arr[m];
+                arr[m] = arr[i];
+                arr[i] = t;
+            }
+            return arr;
+        };
+
         function App() {
             const [view, setView] = useState('landing');
             const [topic, setTopic] = useState("Klinik Psikoloji");
@@ -90,10 +107,16 @@
             const [lineSpacing, setLineSpacing] = useState("normal");
             const [textAlign, setTextAlign] = useState("justify");
 
+            const [currentTime, setCurrentTime] = useState(new Date());
+
+            useEffect(() => {
+                const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+                return () => clearInterval(timer);
+            }, []);
+
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState(null);
 
-            // 3 Farklı Sunum Seçeneği (Varyasyon A, B, C)
             const [variations, setVariations] = useState({ A: [], B: [], C: [] });
             const [activeVarKey, setActiveVarKey] = useState('A');
             const [activeSlide, setActiveSlide] = useState(0);
@@ -102,7 +125,7 @@
                 setLoading(true);
                 setError(null);
                 try {
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=10`;
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=12`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
@@ -148,7 +171,9 @@
                         }
                     }
 
-                    const uniqueSentences = [...new Set(rawSentences)];
+                    const currentHour = new Date().getHours();
+                    const dynamicSeed = Date.now() + Math.random() * 1000;
+                    const uniqueSentences = shuffleArray([...new Set(rawSentences)], dynamicSeed + currentHour);
 
                     let finalReferences = [...new Set(rawReferences)];
                     let refIdx = 1;
@@ -158,18 +183,17 @@
                     }
                     finalReferences = finalReferences.slice(0, 50);
 
-                    // 3 Farklı Varyasyon Oluşturma Algoritması
                     const createSlideSet = (sentences, conceptName, sentenceOffset) => {
                         const slides = [];
                         slides.push({
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
                             title: mainTitle.toUpperCase(),
-                            subtitle: `${mainTitle} üzerine yapılandırılmış ${conceptName.toLowerCase()} slayt seti.`,
+                            subtitle: `${mainTitle} üzerine saat entegreli ve kişiye özel dinamik oluşturulmuş slayt seti.`,
                             sentences: [
                                 `Konu: ${mainTitle}`,
-                                `Konsept: ${conceptName}`,
-                                `Ölçek: ${targetCount} Sayfa`,
+                                `Oluşturulma Saati: ${new Date().toLocaleTimeString()}`,
+                                `Dinamik Oturum: #${Math.floor(dynamicSeed % 10000)}`,
                                 `Kaynakça: 50 Adet Doğrulanmış Referans`
                             ]
                         });
@@ -198,9 +222,9 @@
                         return slides;
                     };
 
-                    const varA = createSlideSet(uniqueSentences, "Seçenek A: Teorik & Derin Akademik Düzen", 0);
-                    const varB = createSlideSet(uniqueSentences, "Seçenek B: Ampirik & Uygulamalı Odak", 5);
-                    const varC = createSlideSet(uniqueSentences, "Seçenek C: Bütüncül & Analitik Sentez", 10);
+                    const varA = createSlideSet(uniqueSentences, "Seçenek A: Saat Odaklı Derleme", 0);
+                    const varB = createSlideSet(uniqueSentences, "Seçenek B: Anlık Dinamik Akış", 5);
+                    const varC = createSlideSet(uniqueSentences, "Seçenek C: Kişiye Özel Analitik Sentez", 10);
 
                     setVariations({ A: varA, B: varB, C: varC });
                     setActiveVarKey('A');
@@ -219,14 +243,12 @@
                 fetchAndBuildVariations(topic, selectedLang, slideCount);
             };
 
-            // Canlı Düzenleme Metni Güncelleme
             const handleSentenceChange = (slideIdx, sentIdx, newText) => {
                 const currentSlides = [...variations[activeVarKey]];
                 currentSlides[slideIdx].sentences[sentIdx] = newText;
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
             };
 
-            // Slayt Ekle / Sil
             const deleteCurrentSlide = () => {
                 const currentSlides = [...variations[activeVarKey]];
                 if (currentSlides.length <= 1) return;
@@ -246,7 +268,6 @@
                 setActiveSlide(activeSlide + 1);
             };
 
-            // PowerPoint İndir
             const downloadAsPPTX = () => {
                 if (!window.PptxGenJS) {
                     alert("PowerPoint kütüphanesi yükleniyor, lütfen tekrar deneyin.");
@@ -314,17 +335,21 @@
 
             return (
                 <div className="min-h-screen flex flex-col justify-between">
-                    
                     <nav className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-6 py-4 flex justify-between items-center">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('landing')}>
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                                <i className="fa-solid fa-[#1e293b]"></i>
-                                <i className="fa-solid fa-pen-to-square text-white text-lg"></i>
+                                <i className="fa-solid fa-clock text-white text-lg"></i>
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-base tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AcademicSlide Pro Studio</h1>
-                                <p className="text-[10px] text-slate-400">Çoklu Slayt Seçenekleri & Canlı PowerPoint Editörü</p>
+                                <h1 className="font-extrabold text-base tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AcademicSlide Pro</h1>
+                                <p className="text-[10px] text-slate-400">Canlı Saat Entegreli Sunum Stüdyosu</p>
                             </div>
+                        </div>
+
+                        <div className="hidden sm:flex items-center gap-2 bg-slate-950 border border-slate-800 px-3.5 py-1.5 rounded-xl font-mono text-xs text-blue-400 shadow-inner">
+                            <i className="fa-regular fa-clock animate-pulse"></i>
+                            <span className="font-bold">{currentTime.toLocaleTimeString()}</span>
+                            <span className="text-[10px] text-slate-500 border-l border-slate-800 pl-2">Her Saat Otomatik Yenilenir</span>
                         </div>
 
                         {view === 'studio' && (
@@ -337,19 +362,18 @@
                         )}
                     </nav>
 
-                    {/* 1. LANDING EKRANI */}
                     {view === 'landing' && (
                         <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center text-center">
                             <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold mb-6 tracking-wide uppercase">
-                                <i className="fa-solid fa-layer-group"></i> 3 Farklı Sunu Seçeneği & Canlı Düzenleme
+                                <i className="fa-solid fa-clock-rotate-left"></i> Saat Entegreli & Anlık Dinamik Üretici
                             </div>
 
                             <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-3xl mb-4">
-                                Her Konuda <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">3 Alternatifli Sunum</span> Üretin ve İndirmeden Önce Düzenleyin.
+                                Her Saatte ve Her Girişte <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Farklı Sunumlar</span> Elde Edin.
                             </h2>
 
                             <p className="text-slate-400 text-sm md:text-base max-w-2xl mb-8 leading-relaxed">
-                                Konunuzu yazın; sistem arka planda 3 farklı slayt seçeneği hazırlar. İstediğiniz alternatifi seçin, canlı editör ile metinleri düzeltin ve PowerPoint (.pptx) olarak indirin.
+                                Canlı saat entegrasyonu sayesinde aradığınız konular her saat başı yenilenir. 3 farklı slayt seçeneğini inceleyin, indirmeden önce canlı editörde düzenleyin ve PPTX olarak indirin.
                             </p>
 
                             <form onSubmit={handleStartGeneration} className="w-full max-w-3xl bg-slate-900/90 border border-slate-800 p-6 rounded-3xl shadow-2xl space-y-6 text-left">
@@ -359,7 +383,7 @@
                                         type="text" 
                                         value={topic}
                                         onChange={(e) => setTopic(e.target.value)}
-                                        placeholder="Örn: Klinik Psikoloji, Yapay Zeka..."
+                                        placeholder="Örn: Klinik Psikoloji, Kuantum Fiziği..."
                                         className="w-full bg-slate-950 border border-slate-700 text-slate-100 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
                                         required
                                     />
@@ -412,12 +436,12 @@
                                     {loading ? (
                                         <>
                                             <i className="fa-solid fa-spinner animate-spin text-lg"></i>
-                                            <span>3 Alternatifli Sunum Paketi Üretiliyor...</span>
+                                            <span>Saat Entegreli Dinamik Slaytlar Hazırlanıyor...</span>
                                         </>
                                     ) : (
                                         <>
                                             <i className="fa-solid fa-wand-magic-sparkles text-lg"></i>
-                                            <span>3 Slayt Alternatifini Üret ve Editöre Geç</span>
+                                            <span>3 Farklı Alternatifi Oluştur ve Düzenle</span>
                                         </>
                                     )}
                                 </button>
@@ -425,34 +449,28 @@
                         </main>
                     )}
 
-                    {/* 2. STÜDYO VE CANLI EDİTÖR EKRANI */}
                     {view === 'studio' && currentSlides.length > 0 && (
                         <main className="max-w-6xl mx-auto px-6 py-6 flex-1 flex flex-col justify-center w-full">
-                            
-                            {/* KULLANICIYA 3 ALTERNATİF SLAYT SEÇENEĞİ SUNAN ÜST PANEL */}
                             <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-3 shadow-xl">
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mr-2">Slayt Seçenekleri:</span>
-                                    
                                     <button 
                                         onClick={() => { setActiveVarKey('A'); setActiveSlide(0); }}
                                         className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'A' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/30' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'}`}
                                     >
-                                        <i className="fa-solid fa-bookmark"></i> Seçenek A (Teorik Düzen)
+                                        <i className="fa-solid fa-clock"></i> Seçenek A (Saat Odaklı)
                                     </button>
-
                                     <button 
                                         onClick={() => { setActiveVarKey('B'); setActiveSlide(0); }}
                                         className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'B' ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/30' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'}`}
                                     >
-                                        <i className="fa-solid fa-flask"></i> Seçenek B (Ampirik Odak)
+                                        <i className="fa-solid fa-bolt"></i> Seçenek B (Anlık Akış)
                                     </button>
-
                                     <button 
                                         onClick={() => { setActiveVarKey('C'); setActiveSlide(0); }}
                                         className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'C' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-600/30' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'}`}
                                     >
-                                        <i className="fa-solid fa-chart-pie"></i> Seçenek C (Analitik Sentez)
+                                        <i className="fa-solid fa-brain"></i> Seçenek C (Analitik Sentez)
                                     </button>
                                 </div>
 
@@ -464,14 +482,12 @@
                                 </button>
                             </div>
 
-                            {/* POWERPOINT CANLI DÜZENLEME & BİÇİMLENDİRME ARAÇ ÇUBUĞU */}
                             <div className="bg-slate-900 border border-slate-800 p-3 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-4 shadow-xl">
                                 <div className="flex items-center gap-3 flex-wrap">
                                     <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1">
                                         <i className="fa-solid fa-pen-ruler"></i> Canlı Editör:
                                     </span>
 
-                                    {/* Metin Hizalama */}
                                     <div className="flex border border-slate-700 rounded-lg overflow-hidden bg-slate-950">
                                         <button onClick={() => setTextAlign('left')} className={`px-2.5 py-1 text-xs ${textAlign === 'left' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-left"></i></button>
                                         <button onClick={() => setTextAlign('center')} className={`px-2.5 py-1 text-xs ${textAlign === 'center' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-center"></i></button>
@@ -479,7 +495,6 @@
                                         <button onClick={() => setTextAlign('justify')} className={`px-2.5 py-1 text-xs ${textAlign === 'justify' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-justify"></i></button>
                                     </div>
 
-                                    {/* Font & Punto */}
                                     <select 
                                         value={selectedFont.value}
                                         onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
@@ -499,7 +514,6 @@
                                     </select>
                                 </div>
 
-                                {/* Slayt Ekle / Sil İşlemleri */}
                                 <div className="flex items-center gap-2">
                                     <button 
                                         onClick={addNewSlide}
@@ -516,7 +530,6 @@
                                 </div>
                             </div>
 
-                            {/* CANLI DÜZENLENEBİLİR SLAYT ALANI (Live Editable Slide) */}
                             <div className={`powerpoint-slide rounded-2xl border border-slate-700/60 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}` }}>
                                 <div className="flex justify-between items-center border-b border-slate-700/50 pb-3">
                                     <span className="text-xs font-bold text-blue-400 tracking-widest uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
@@ -596,7 +609,6 @@
                                 </div>
                             </div>
 
-                            {/* Slayt Navigasyonu */}
                             <div className="flex justify-center items-center gap-4 mt-4">
                                 <button 
                                     onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))}
@@ -616,14 +628,12 @@
                                     Sonraki Sayfa <i className="fa-solid fa-chevron-right ml-1"></i>
                                 </button>
                             </div>
-
                         </main>
                     )}
 
                     <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 mt-12">
-                        <p>AcademicSlide Pro Studio &copy; 2026 — Çoklu Varyasyon & Canlı PowerPoint Editörü</p>
+                        <p>AcademicSlide Pro Studio &copy; 2026 — Saat Entegreli & Dinamik PowerPoint Motoru</p>
                     </footer>
-
                 </div>
             );
         }
