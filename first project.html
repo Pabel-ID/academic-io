@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #8486ff; -webkit-text-stroke: #8486ff}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #fc7dd1; -webkit-text-stroke: #fc7dd1}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #fed611; -webkit-text-stroke: #fed611}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #53d160; -webkit-text-stroke: #53d160}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #ffffff; -webkit-text-stroke: #ffffff}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #626262; -webkit-text-stroke: #626262}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #ffffff; -webkit-text-stroke: #ffffff; min-height: 16.0px}
+    span.s1 {font-kerning: none; background-color: #101010}
+    span.s2 {font-kerning: none; color: #ffffff; background-color: #101010; -webkit-text-stroke: 0px #ffffff}
+    span.s3 {font-kerning: none; color: #626262; background-color: #101010; -webkit-text-stroke: 0px #626262}
+    span.s4 {font-kerning: none; color: #fed611; background-color: #101010; -webkit-text-stroke: 0px #fed611}
+    span.s5 {font-kerning: none; color: #53d160; background-color: #101010; -webkit-text-stroke: 0px #53d160}
+    span.s6 {font-kerning: none; color: #fc7dd1; background-color: #101010; -webkit-text-stroke: 0px #fc7dd1}
+    span.s7 {font-kerning: none; color: #8486ff; background-color: #101010; -webkit-text-stroke: 0px #8486ff}
+    span.s8 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
+<p class="p2"><span class="s3">&lt;</span><span class="s1">html</span><span class="s2"> </span><span class="s4">lang</span><span class="s3">=</span><span class="s5">"tr"</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
+<p class="p3"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s2"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s5">"UTF-8"</span><span class="s3">&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s2"> </span><span class="s4">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s2"> </span><span class="s4">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">title</span><span class="s3">&gt;</span><span class="s1">AI Dual-Language Presentation Generator</span><span class="s3">&lt;/</span><span class="s6">title</span><span class="s3">&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Tailwind CSS --&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s2"> </span><span class="s4">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- FontAwesome for Icons --&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">link</span><span class="s2"> </span><span class="s4">rel</span><span class="s3">=</span><span class="s1">"stylesheet"</span><span class="s2"> </span><span class="s4">href</span><span class="s3">=</span><span class="s1">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"</span><span class="s3">&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- React &amp; ReactDOM --&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s2"> </span><span class="s4">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/react@18/umd/react.production.min.js"</span><span class="s2"> </span><span class="s4">crossorigin</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s2"> </span><span class="s4">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"</span><span class="s2"> </span><span class="s4">crossorigin</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
+<p class="p6"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Babel JS Compiler --&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s2"> </span><span class="s4">src</span><span class="s3">=</span><span class="s1">"https://unpkg.com/@babel/standalone/babel.min.js"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">        </span></span><span class="s7">@import</span><span class="s2"> </span><span class="s1">url</span><span class="s3">(</span><span class="s1">'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap'</span><span class="s3">);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">body</span><span class="s1"> </span><span class="s3">{</span></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">            </span></span><span class="s4">font-family:</span><span class="s2"> </span><span class="s1">'Inter'</span><span class="s3">,</span><span class="s2"> </span><span class="s1">sans-serif</span><span class="s3">;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">}</span></p>
+<p class="p2"><span class="s2"><span class="Apple-converted-space">        </span></span><span class="s1">.slide-card</span><span class="s2"> </span><span class="s3">{</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">aspect-ratio:</span><span class="s1"> </span><span class="s5">16</span><span class="s1"> </span><span class="s3">/</span><span class="s1"> </span><span class="s5">9</span><span class="s3">;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">}</span></p>
+<p class="p2"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
+<p class="p4"><span class="s3">&lt;</span><span class="s6">body</span><span class="s2"> </span><span class="s4">class</span><span class="s3">=</span><span class="s1">"bg-slate-900 text-slate-100 min-h-screen"</span><span class="s3">&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s2"> </span><span class="s4">id</span><span class="s3">=</span><span class="s1">"root"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p4"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s2"> </span><span class="s4">type</span><span class="s3">=</span><span class="s1">"text/babel"</span><span class="s3">&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>const { useState, useEffect } = React;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>const LANGUAGES = [</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "tr", name: "Türkçe" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "en", name: "English" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "de", name: "Deutsch" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "fr", name: "Français" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "es", name: "Español" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "it", name: "Italiano" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "ru", name: "Русский" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>{ code: "zh", name: "中文" }</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>];</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>function App() {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>// Form state</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [topic, setTopic] = useState("Yapay Zeka ve Gelecek Projeksiyonları");</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [lang1, setLang1] = useState("tr");</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [lang2, setLang2] = useState("en");</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [slideCount, setSlideCount] = useState(4);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [apiKey, setApiKey] = useState("");</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>// UI &amp; Generation state</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [loading, setLoading] = useState(false);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [slides, setSlides] = useState([]);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [currentSlideIndex, setCurrentSlideIndex] = useState(0);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [activeView, setActiveView] = useState("split"); // 'split', 'lang1', 'lang2'</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const [errorMsg, setErrorMsg] = useState("");</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>// Slayt Üretme Fonksiyonu (Gemini API Call)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const generateSlides = async () =&gt; {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>if (!topic.trim()) {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>setErrorMsg("Lütfen geçerli bir konu girin.");</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>return;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>setLoading(true);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>setErrorMsg("");</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>const l1Name = LANGUAGES.find(l =&gt; l.code === lang1)?.name || lang1;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>const l2Name = LANGUAGES.find(l =&gt; l.code === lang2)?.name || lang2;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>const systemPrompt = `You are a professional presentation creator. Generate a presentation with ${slideCount} slides about "${topic}".</span></p>
+<p class="p5"><span class="s1">Provide the title, bullet points (3-4 points), and speaker notes for EVERY slide in BOTH ${l1Name} and ${l2Name}.`;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>const responseSchema = {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>type: "OBJECT",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>properties: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>presentationTitle: { type: "STRING" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>slides: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>type: "ARRAY",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>items: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>type: "OBJECT",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>properties: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>slideNumber: { type: "INTEGER" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>lang1: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>type: "OBJECT",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>properties: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>title: { type: "STRING" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>bulletPoints: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>type: "ARRAY",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>items: { type: "STRING" }</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>speakerNotes: { type: "STRING" }</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>required: ["title", "bulletPoints", "speakerNotes"]</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>lang2: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>type: "OBJECT",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>properties: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>title: { type: "STRING" },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>bulletPoints: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>type: "ARRAY",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>items: { type: "STRING" }</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>speakerNotes: { type: "STRING" }</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>required: ["title", "bulletPoints", "speakerNotes"]</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>required: ["slideNumber", "lang1", "lang2"]</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>required: ["presentationTitle", "slides"]</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>const payload = {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>contents: [{</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>parts: [{ text: `Create a ${slideCount}-slide presentation on topic: "${topic}". First language: ${l1Name}, Second language: ${l2Name}.` }]</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}],</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>generationConfig: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>responseMimeType: "application/json",</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>responseSchema: responseSchema</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>},</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>systemInstruction: {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>parts: [{ text: systemPrompt }]</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>try {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>const res = await fetch(url, {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>method: 'POST',</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>headers: { 'Content-Type': 'application/json' },</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>body: JSON.stringify(payload)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>if (!res.ok) {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>const errData = await res.json();</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>throw new Error(errData.error?.message || "Gemini API yanıt vermedi.");</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>const data = await res.json();</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>if (!textResult) {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>throw new Error("Yapay zekadan geçerli bir içerik alınamadı.");</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>const parsed = JSON.parse(textResult);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>setSlides(parsed.slides || []);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>setCurrentSlideIndex(0);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>} catch (err) {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>console.error(err);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>setErrorMsg("Slaytlar oluşturulurken bir hata oluştu: " + err.message);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>} finally {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>setLoading(false);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>// Inline Edit handler</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const handleTextChange = (slideIdx, langKey, field, val, pointIdx = null) =&gt; {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>const updated = [...slides];</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>if (field === 'bulletPoints' &amp;&amp; pointIdx !== null) {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>updated[slideIdx][langKey].bulletPoints[pointIdx] = val;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>} else {</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>updated[slideIdx][langKey][field] = val;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>setSlides(updated);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const currentSlide = slides[currentSlideIndex];</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const l1Obj = LANGUAGES.find(l =&gt; l.code === lang1);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>const l2Obj = LANGUAGES.find(l =&gt; l.code === lang2);</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>return (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div className="flex flex-col min-h-screen"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>{/* Header */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;header className="bg-slate-800 border-b border-slate-700 px-6 py-4 flex flex-wrap justify-between items-center gap-4"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="flex items-center gap-3"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-indigo-600 text-white p-2 rounded-lg text-xl"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;i className="fa-solid fa-clone"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;h1 className="text-xl font-bold text-white"&gt;AI Dual-Slide Generator&lt;/h1&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;p className="text-xs text-slate-400"&gt;Gemini 3 Flash ile Çift Dilli Sunum Hazırlayıcı&lt;/p&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>{/* API Key Input */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;i className="fa-solid fa-key text-slate-400 text-xs"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;input<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>type="password"<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>placeholder="Gemini API Key (isteğe bağlı)"<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>value={apiKey}<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>onChange={(e) =&gt; setApiKey(e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>className="bg-transparent text-xs text-slate-200 outline-none w-48 focus:w-60 transition-all"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/header&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>{/* Main Content */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div className="flex-1 flex flex-col md:flex-row"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>{/* Left Sidebar - Controls */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;aside className="w-full md:w-80 bg-slate-800/50 border-r border-slate-800 p-6 flex flex-col gap-5"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider"&gt;Sunum Parametreleri&lt;/h2&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Topic */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;label className="block text-xs font-medium text-slate-400 mb-1"&gt;Sunum Konusu&lt;/label&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;textarea<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>rows="3"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>value={topic}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>onChange={(e) =&gt; setTopic(e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>placeholder="Örn: Psikolojik Dayanıklılık ve Liderlik"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-slate-100 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none resize-none"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Languages Selection */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div className="grid grid-cols-2 gap-3"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;label className="block text-xs font-medium text-slate-400 mb-1"&gt;1. Hedef Dil&lt;/label&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;select<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>value={lang1}<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>onChange={(e) =&gt; setLang1(e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:border-indigo-500 outline-none"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{LANGUAGES.map(l =&gt; &lt;option key={l.code} value={l.code}&gt;{l.name}&lt;/option&gt;)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/select&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;label className="block text-xs font-medium text-slate-400 mb-1"&gt;2. Hedef Dil&lt;/label&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;select<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>value={lang2}<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>onChange={(e) =&gt; setLang2(e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:border-indigo-500 outline-none"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{LANGUAGES.map(l =&gt; &lt;option key={l.code} value={l.code}&gt;{l.name}&lt;/option&gt;)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/select&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Slide Count */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="flex justify-between items-center mb-1"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;label className="text-xs font-medium text-slate-400"&gt;Slayt Sayısı&lt;/label&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;span className="text-xs font-bold text-indigo-400"&gt;{slideCount} Slayt&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;input<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>type="range"<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>min="2"<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>max="8"<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>value={slideCount}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>onChange={(e) =&gt; setSlideCount(parseInt(e.target.value))}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>className="w-full accent-indigo-500 bg-slate-700 h-1.5 rounded-lg appearance-none cursor-pointer"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Generate Button */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>onClick={generateSlides}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>disabled={loading}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>{loading ? (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;i className="fa-solid fa-spinner animate-spin"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;span&gt;Slaytlar Üretiliyor...&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>) : (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;i className="fa-solid fa-wand-magic-sparkles"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;span&gt;Sunumu Oluştur&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{errorMsg &amp;&amp; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs flex items-start gap-2"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;i className="fa-solid fa-circle-exclamation mt-0.5"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;span&gt;{errorMsg}&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>)}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{/* Slide List Navigator */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{slides.length &gt; 0 &amp;&amp; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="mt-4 flex flex-col gap-2 border-t border-slate-800 pt-4"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;span className="text-xs font-medium text-slate-400"&gt;Slayt Listesi&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex flex-col gap-1.5 max-h-48 overflow-y-auto"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{slides.map((s, idx) =&gt; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>key={idx}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setCurrentSlideIndex(idx)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>className={`text-left text-xs p-2 rounded-lg flex items-center gap-2 transition-all ${currentSlideIndex === idx ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30' : 'bg-slate-900/50 text-slate-400 hover:bg-slate-800'}`}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;span className="font-bold w-4"&gt;{idx + 1}.&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;span className="truncate"&gt;{s.lang1?.title || `Slayt ${idx + 1}`}&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>))}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/aside&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>{/* Right Display Area */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;main className="flex-1 p-6 flex flex-col items-center justify-start bg-slate-950 overflow-y-auto"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>{slides.length === 0 ? (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center my-auto text-center p-8 text-slate-500 max-w-md"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl mb-4 text-slate-400"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;i className="fa-solid fa-file-powerpoint"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;h3 className="text-lg font-semibold text-slate-300 mb-2"&gt;Henüz Sunum Oluşturulmadı&lt;/h3&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-xs text-slate-500 leading-relaxed"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>Sol paneldan konunuzu ve dillerinizi belirledikten sonra "Sunumu Oluştur" butonuna basarak yapay zekanın slaytlarınızı hazırlamasını sağlayabilirsiniz.</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/p&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>) : (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;div className="w-full max-w-5xl flex flex-col gap-6"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>{/* View Toggle Controls */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex justify-between items-center bg-slate-900 border border-slate-800 p-3 rounded-xl"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex items-center gap-2"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;span className="text-xs text-slate-400 font-medium ml-2"&gt;Görünüm:&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setActiveView("split")}<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeView === 'split' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;i className="fa-solid fa-columns mr-1.5"&gt;&lt;/i&gt; Yan Yana (Split)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setActiveView("lang1")}<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeView === 'lang1' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>Sadece {l1Obj?.name}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setActiveView("lang2")}<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeView === 'lang2' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>Sadece {l2Obj?.name}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{/* Slider Controls */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;div className="flex items-center gap-3"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setCurrentSlideIndex(prev =&gt; Math.max(0, prev - 1))}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>disabled={currentSlideIndex === 0}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-30 text-slate-200 flex items-center justify-center transition-all"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;i className="fa-solid fa-chevron-left"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;span className="text-xs font-bold text-slate-300"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>{currentSlideIndex + 1} / {slides.length}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/span&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;button<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setCurrentSlideIndex(prev =&gt; Math.min(slides.length - 1, prev + 1))}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>disabled={currentSlideIndex === slides.length - 1}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-30 text-slate-200 flex items-center justify-center transition-all"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;i className="fa-solid fa-chevron-right"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/button&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>{/* Main Slide Card Container */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;div className="grid grid-cols-1 md:grid-cols-2 gap-4"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{/* Language 1 Card */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{(activeView === 'split' || activeView === 'lang1') &amp;&amp; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;div className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative transition-all ${activeView === 'lang1' ? 'md:col-span-2 min-h-[400px]' : 'min-h-[360px]'}`}&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div className="absolute top-4 right-4 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>{l1Obj?.name}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;input<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>type="text"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>value={currentSlide.lang1.title}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>onChange={(e) =&gt; handleTextChange(currentSlideIndex, 'lang1', 'title', e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>className="w-full bg-transparent text-xl font-bold text-white mb-4 outline-none border-b border-transparent hover:border-slate-700 focus:border-indigo-500 pb-1"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>/&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;ul className="space-y-3"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>{currentSlide.lang1.bulletPoints.map((pt, pIdx) =&gt; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;li key={pIdx} className="flex items-start gap-2.5 text-sm text-slate-300"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                </span>&lt;i className="fa-solid fa-circle-dot text-[10px] text-indigo-400 mt-1.5"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                </span>&lt;input<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>type="text"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>value={pt}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>onChange={(e) =&gt; handleTextChange(currentSlideIndex, 'lang1', 'bulletPoints', e.target.value, pIdx)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>className="w-full bg-transparent outline-none border-b border-transparent hover:border-slate-700 focus:border-indigo-500"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;/li&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>))}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;/ul&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>{/* Speaker Notes */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div className="mt-6 pt-4 border-t border-slate-800/80"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>&lt;i className="fa-solid fa-note-sticky"&gt;&lt;/i&gt; Konuşmacı Notları</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;textarea<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>rows="2"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>value={currentSlide.lang1.speakerNotes}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>onChange={(e) =&gt; handleTextChange(currentSlideIndex, 'lang1', 'speakerNotes', e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>className="w-full bg-slate-950/50 border border-slate-800/60 rounded-lg p-2 text-xs text-slate-400 outline-none resize-none focus:border-indigo-500/50"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>)}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{/* Language 2 Card */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>{(activeView === 'split' || activeView === 'lang2') &amp;&amp; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;div className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative transition-all ${activeView === 'lang2' ? 'md:col-span-2 min-h-[400px]' : 'min-h-[360px]'}`}&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div className="absolute top-4 right-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>{l2Obj?.name}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;input<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>type="text"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>value={currentSlide.lang2.title}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>onChange={(e) =&gt; handleTextChange(currentSlideIndex, 'lang2', 'title', e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>className="w-full bg-transparent text-xl font-bold text-white mb-4 outline-none border-b border-transparent hover:border-slate-700 focus:border-emerald-500 pb-1"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>/&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;ul className="space-y-3"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>{currentSlide.lang2.bulletPoints.map((pt, pIdx) =&gt; (</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;li key={pIdx} className="flex items-start gap-2.5 text-sm text-slate-300"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                </span>&lt;i className="fa-solid fa-circle-dot text-[10px] text-emerald-400 mt-1.5"&gt;&lt;/i&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                </span>&lt;input<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>type="text"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>value={pt}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>onChange={(e) =&gt; handleTextChange(currentSlideIndex, 'lang2', 'bulletPoints', e.target.value, pIdx)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                    </span>className="w-full bg-transparent outline-none border-b border-transparent hover:border-slate-700 focus:border-emerald-500"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                                </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                            </span>&lt;/li&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>))}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;/ul&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>{/* Speaker Notes */}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;div className="mt-6 pt-4 border-t border-slate-800/80"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5"&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>&lt;i className="fa-solid fa-note-sticky"&gt;&lt;/i&gt; Speaker Notes</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>&lt;textarea<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>rows="2"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>value={currentSlide.lang2.speakerNotes}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>onChange={(e) =&gt; handleTextChange(currentSlideIndex, 'lang2', 'speakerNotes', e.target.value)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                        </span>className="w-full bg-slate-950/50 border border-slate-800/60 rounded-lg p-2 text-xs text-slate-400 outline-none resize-none focus:border-emerald-500/50"</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                    </span>/&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                        </span>)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>)}</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/main&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p7"><span class="s8"></span><br></p>
+<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>ReactDOM.createRoot(document.getElementById('root')).render(&lt;App /&gt;);</span></p>
+<p class="p2"><span class="s2"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
+<p class="p2"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+</body>
+</html>
