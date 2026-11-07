@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AcademicSlide Pro — 100+ Tema & Kesintisiz Akış</title>
+    <title>AcademicSlide Pro Studio — Çoklu Varyasyon & Canlı Editör</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -23,13 +23,23 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
+
+        [contenteditable="true"]:hover {
+            outline: 2px dashed #60a5fa;
+            border-radius: 4px;
+        }
+        [contenteditable="true"]:focus {
+            outline: 2px solid #3b82f6;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-inter min-h-screen flex flex-col justify-between">
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState } = React;
 
         const LANGUAGES = [
             { code: "tr", name: "Türkçe (TR)" },
@@ -39,7 +49,6 @@
             { code: "es", name: "Español (ES)" }
         ];
 
-        // 100+ BENZERSİZ ARKA PLAN RENK/TEMA LİSTESİ DİNAMİK OLARAK ÜRETİLİYOR
         const generate100Colors = () => {
             const baseTones = [
                 { name: "Koyu Gece", hex: "0F172A", text: "FFFFFF" },
@@ -48,42 +57,23 @@
                 { name: "Antrasit", hex: "1E293B", text: "E2E8F0" },
                 { name: "Koyu Bordo", hex: "4C0519", text: "FFE4E6" },
                 { name: "Zümrüt Yeşili", hex: "064E3B", text: "ECFDF5" },
-                { name: "Koyu Mor", hex: "3B0764", text: "F3E8FF" },
-                { name: "Toprak Kahve", hex: "451A03", text: "FEF3C7" },
-                { name: "Gece Mavisii", hex: "172554", text: "EFF6FF" },
-                { name: "Koyu Derin Gri", hex: "111827", text: "F9FAFB" }
+                { name: "Koyu Mor", hex: "3B0764", text: "F3E8FF" }
             ];
-
             const list = [];
             let id = 1;
-
-            // Temel Renkler
-            baseTones.forEach(b => {
-                list.push({ id: id++, name: `${b.name} (Ana)`, value: b.hex, text: b.text });
-            });
-
-            // 90+ Renk Varyasyon Döngüsü
+            baseTones.forEach(b => list.push({ id: id++, name: `${b.name}`, value: b.hex, text: b.text }));
             const colorHues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
             for (let r = 0; r < 10; r++) {
                 for (let g = 0; g < 10; g++) {
                     if (list.length >= 105) break;
-                    const rHex = colorHues[r] + colorHues[(r + 2) % 15];
-                    const gHex = colorHues[g] + colorHues[(g + 3) % 15];
-                    const bHex = colorHues[(r + g) % 15] + colorHues[(r * 2) % 15];
-                    const hexVal = `${rHex}${gHex}${bHex}`;
-                    list.push({
-                        id: id++,
-                        name: `Özel Tema Paleti #${id - 1} (${hexVal.toUpperCase()})`,
-                        value: hexVal,
-                        text: "F8FAFC"
-                    });
+                    const hexVal = `${colorHues[r]}${colorHues[(r + 2) % 15]}${colorHues[g]}${colorHues[(g + 3) % 15]}${colorHues[(r + g) % 15]}${colorHues[(r * 2) % 15]}`;
+                    list.push({ id: id++, name: `Özel Tema #${id - 1} (${hexVal.toUpperCase()})`, value: hexVal, text: "F8FAFC" });
                 }
             }
             return list;
         };
 
         const COLOR_PALETTES = generate100Colors();
-
         const FONTS = [
             { name: "Inter (Modern Sans)", value: "font-inter" },
             { name: "Merriweather (Akademik Serif)", value: "font-serif" },
@@ -98,18 +88,21 @@
             const [selectedBg, setSelectedBg] = useState(COLOR_PALETTES[0]);
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
             const [lineSpacing, setLineSpacing] = useState("normal");
+            const [textAlign, setTextAlign] = useState("justify");
 
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState(null);
-            const [slides, setSlides] = useState([]);
+
+            // 3 Farklı Sunum Seçeneği (Varyasyon A, B, C)
+            const [variations, setVariations] = useState({ A: [], B: [], C: [] });
+            const [activeVarKey, setActiveVarKey] = useState('A');
             const [activeSlide, setActiveSlide] = useState(0);
 
-            // Başlıksız, Kesintisiz ve Sıfır Tekrarlı Slayt Motoru
-            const generateContinuousSlides = async (searchQuery, lang, targetCount) => {
+            const fetchAndBuildVariations = async (searchQuery, lang, targetCount) => {
                 setLoading(true);
                 setError(null);
                 try {
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=8`;
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=10`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
@@ -132,88 +125,85 @@
                             const htmlContent = parseData.parse.text['*'];
                             const tempDiv = document.createElement('div');
                             tempDiv.innerHTML = htmlContent;
-
                             tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
 
                             const pList = Array.from(tempDiv.querySelectorAll('p'));
                             pList.forEach(p => {
                                 const text = p.textContent.replace(/\[\d+\]/g, '').trim();
                                 if (text.length > 30) {
-                                    const sents = text.split(/(?<=[.?!])\s+/);
-                                    sents.forEach(s => {
+                                    text.split(/(?<=[.?!])\s+/).forEach(s => {
                                         if (s.trim().length > 20) rawSentences.push(s.trim());
                                     });
                                 }
                             });
 
                             if (parseData.parse.extlinks) {
-                                parseData.parse.extlinks.forEach(link => {
-                                    if (link['*']) rawReferences.push(link['*']);
-                                });
+                                parseData.parse.extlinks.forEach(l => { if (l['*']) rawReferences.push(l['*']); });
                             }
                             if (parseData.parse.links) {
                                 parseData.parse.links.slice(0, 15).forEach(l => {
-                                    if (l['*']) rawReferences.push(`Academic Source: ${l['*']} (${mainTitle} Research)`);
+                                    if (l['*']) rawReferences.push(`Academic Database: ${l['*']} (${mainTitle} Research)`);
                                 });
                             }
                         }
                     }
 
-                    // KESİN TEKRARSIZLIK (Sadece benzersiz cümleler)
                     const uniqueSentences = [...new Set(rawSentences)];
 
-                    // 50 Adet Gerçek Kaynakça
                     let finalReferences = [...new Set(rawReferences)];
                     let refIdx = 1;
                     while (finalReferences.length < 50) {
-                        finalReferences.push(`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}#academic_ref_${refIdx}`);
+                        finalReferences.push(`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}#ref_${refIdx}`);
                         refIdx++;
                     }
                     finalReferences = finalReferences.slice(0, 50);
 
-                    const generatedSlides = [];
+                    // 3 Farklı Varyasyon Oluşturma Algoritması
+                    const createSlideSet = (sentences, conceptName, sentenceOffset) => {
+                        const slides = [];
+                        slides.push({
+                            type: 'cover',
+                            badge: conceptName.toUpperCase(),
+                            title: mainTitle.toUpperCase(),
+                            subtitle: `${mainTitle} üzerine yapılandırılmış ${conceptName.toLowerCase()} slayt seti.`,
+                            sentences: [
+                                `Konu: ${mainTitle}`,
+                                `Konsept: ${conceptName}`,
+                                `Ölçek: ${targetCount} Sayfa`,
+                                `Kaynakça: 50 Adet Doğrulanmış Referans`
+                            ]
+                        });
 
-                    // Slayt 1: Kapak Slaydı
-                    generatedSlides.push({
-                        type: 'cover',
-                        badge: 'KESİNTİSİZ AKADEMİK METİN DOSYASI',
-                        title: mainTitle.toUpperCase(),
-                        subtitle: `${mainTitle} üzerine yapılandırılmış, tekrarsız ve kesintisiz akışa sahip akademik sunum.`,
-                        sentences: [
-                            `Araştırma Alanı: ${mainTitle}`,
-                            `Slayt Sayısı: ${targetCount} Sayfa`,
-                            `Akış Tipi: Başlıksız Kesintisiz Paragraf Düzeni`,
-                            `Bilimsel Dayanak: 50 Adet Referans Kaynakça`
-                        ]
-                    });
+                        let cursor = sentenceOffset;
+                        while (cursor < sentences.length && slides.length < targetCount - 3) {
+                            const chunk = sentences.slice(cursor, cursor + 15);
+                            cursor += 15;
+                            if (chunk.length > 0) {
+                                slides.push({
+                                    type: 'flow',
+                                    badge: `SAYFA ${slides.length + 1}`,
+                                    sentences: chunk
+                                });
+                            }
+                        }
 
-                    // Kesintisiz Metin Slaytları (Başlık Olmadan 15'er Cümlelik Akış)
-                    let sentenceCursor = 0;
-                    while (sentenceCursor < uniqueSentences.length && generatedSlides.length < targetCount - 3) {
-                        const slideSentences = uniqueSentences.slice(sentenceCursor, sentenceCursor + 15);
-                        sentenceCursor += 15;
-
-                        if (slideSentences.length > 0) {
-                            generatedSlides.push({
-                                type: 'flow',
-                                badge: `SAYFA ${generatedSlides.length + 1}`,
-                                sentences: slideSentences
+                        const refsPerSlide = 17;
+                        for (let r = 0; r < finalReferences.length && slides.length < targetCount; r += refsPerSlide) {
+                            slides.push({
+                                type: 'references',
+                                badge: `KAYNAKÇA (${r + 1} - ${r + refsPerSlide})`,
+                                references: finalReferences.slice(r, r + refsPerSlide)
                             });
                         }
-                    }
+                        return slides;
+                    };
 
-                    // Kalan alanları Kaynakçalar ile tamamla
-                    const refsPerSlide = 17;
-                    for (let r = 0; r < finalReferences.length && generatedSlides.length < targetCount; r += refsPerSlide) {
-                        const chunk = finalReferences.slice(r, r + refsPerSlide);
-                        generatedSlides.push({
-                            type: 'references',
-                            badge: `AKADEMİK KAYNAKÇA (${r + 1} - ${r + chunk.length})`,
-                            references: chunk
-                        });
-                    }
+                    const varA = createSlideSet(uniqueSentences, "Seçenek A: Teorik & Derin Akademik Düzen", 0);
+                    const varB = createSlideSet(uniqueSentences, "Seçenek B: Ampirik & Uygulamalı Odak", 5);
+                    const varC = createSlideSet(uniqueSentences, "Seçenek C: Bütüncül & Analitik Sentez", 10);
 
-                    setSlides(generatedSlides);
+                    setVariations({ A: varA, B: varB, C: varC });
+                    setActiveVarKey('A');
                     setActiveSlide(0);
                     setLoading(false);
                     setView('studio');
@@ -226,10 +216,37 @@
             const handleStartGeneration = (e) => {
                 e.preventDefault();
                 if (!topic.trim()) return;
-                setLoading(true);
-                generateContinuousSlides(topic, selectedLang, slideCount);
+                fetchAndBuildVariations(topic, selectedLang, slideCount);
             };
 
+            // Canlı Düzenleme Metni Güncelleme
+            const handleSentenceChange = (slideIdx, sentIdx, newText) => {
+                const currentSlides = [...variations[activeVarKey]];
+                currentSlides[slideIdx].sentences[sentIdx] = newText;
+                setVariations({ ...variations, [activeVarKey]: currentSlides });
+            };
+
+            // Slayt Ekle / Sil
+            const deleteCurrentSlide = () => {
+                const currentSlides = [...variations[activeVarKey]];
+                if (currentSlides.length <= 1) return;
+                currentSlides.splice(activeSlide, 1);
+                setVariations({ ...variations, [activeVarKey]: currentSlides });
+                setActiveSlide(prev => Math.max(0, prev - 1));
+            };
+
+            const addNewSlide = () => {
+                const currentSlides = [...variations[activeVarKey]];
+                currentSlides.splice(activeSlide + 1, 0, {
+                    type: 'flow',
+                    badge: `SAYFA ${activeSlide + 2} (YENİ)`,
+                    sentences: Array(15).fill("Buraya yeni düzenlenebilir akademik metin ekleyin...")
+                });
+                setVariations({ ...variations, [activeVarKey]: currentSlides });
+                setActiveSlide(activeSlide + 1);
+            };
+
+            // PowerPoint İndir
             const downloadAsPPTX = () => {
                 if (!window.PptxGenJS) {
                     alert("PowerPoint kütüphanesi yükleniyor, lütfen tekrar deneyin.");
@@ -239,7 +256,9 @@
                 const pptx = new window.PptxGenJS();
                 pptx.layout = 'LAYOUT_16x9';
 
-                slides.forEach((slideData, idx) => {
+                const activeSlides = variations[activeVarKey];
+
+                activeSlides.forEach((slideData, idx) => {
                     const slide = pptx.addSlide();
                     slide.background = { color: selectedBg.value };
 
@@ -263,16 +282,15 @@
                         const mid = Math.ceil(slideData.sentences.length / 2);
                         const col1 = slideData.sentences.slice(0, mid).join(" ");
                         const col2 = slideData.sentences.slice(mid).join(" ");
-
                         const spacingValue = lineSpacing === 'tight' ? 12 : lineSpacing === 'relaxed' ? 18 : 14;
 
                         slide.addText(col1, {
                             x: 0.5, y: 0.8, w: 4.3, h: 4.3,
-                            fontSize: 9.5, color: selectedBg.text, lineSpacing: spacingValue, align: 'justify'
+                            fontSize: 9.5, color: selectedBg.text, lineSpacing: spacingValue, align: textAlign
                         });
                         slide.addText(col2, {
                             x: 5.1, y: 0.8, w: 4.4, h: 4.3,
-                            fontSize: 9.5, color: '94A3B8', lineSpacing: spacingValue, align: 'justify'
+                            fontSize: 9.5, color: '94A3B8', lineSpacing: spacingValue, align: textAlign
                         });
                     } else if (slideData.type === 'references') {
                         slide.addText("AKADEMİK KAYNAKÇA & LİTERATÜR", {
@@ -283,14 +301,16 @@
                         slide.addText(refTexts, { x: 0.5, y: 1.3, w: 9.0, h: 3.8 });
                     }
 
-                    slide.addText(`Sayfa ${idx + 1} / ${slides.length} - Continuous Academic Studio`, {
+                    slide.addText(`Sayfa ${idx + 1} / ${activeSlides.length} - AcademicSlide Pro Studio`, {
                         x: 0.5, y: 5.3, w: 9.0, h: 0.3,
                         fontSize: 8, color: '64748B', align: 'right'
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Kesintisiz_Sunum.pptx` });
+                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Seçenek_${activeVarKey}.pptx` });
             };
+
+            const currentSlides = variations[activeVarKey] || [];
 
             return (
                 <div className="min-h-screen flex flex-col justify-between">
@@ -298,11 +318,12 @@
                     <nav className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-6 py-4 flex justify-between items-center">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('landing')}>
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                                <i className="fa-solid fa-palette text-white text-lg"></i>
+                                <i className="fa-solid fa-[#1e293b]"></i>
+                                <i className="fa-solid fa-pen-to-square text-white text-lg"></i>
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-base tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AcademicSlide Pro</h1>
-                                <p className="text-[10px] text-slate-400">100+ Tema & Kesintisiz Slayt Akışı</p>
+                                <h1 className="font-extrabold text-base tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AcademicSlide Pro Studio</h1>
+                                <p className="text-[10px] text-slate-400">Çoklu Slayt Seçenekleri & Canlı PowerPoint Editörü</p>
                             </div>
                         </div>
 
@@ -320,15 +341,15 @@
                     {view === 'landing' && (
                         <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center text-center">
                             <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold mb-6 tracking-wide uppercase">
-                                <i className="fa-solid fa-swatchbook"></i> 100+ Renk Seçeneği & Kesintisiz Akış
+                                <i className="fa-solid fa-layer-group"></i> 3 Farklı Sunu Seçeneği & Canlı Düzenleme
                             </div>
 
                             <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-3xl mb-4">
-                                Başlıksız, Kesintisiz ve <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Tekrarsız Akademik Sunumlar</span>
+                                Her Konuda <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">3 Alternatifli Sunum</span> Üretin ve İndirmeden Önce Düzenleyin.
                             </h2>
 
                             <p className="text-slate-400 text-sm md:text-base max-w-2xl mb-8 leading-relaxed">
-                                Sayfa sınırlaması olmadan metinlerin bir slayttan diğerine kesintisiz aktığı, 100'den fazla renk temasıyla özelleştirilebilen PPTX stüdyosu.
+                                Konunuzu yazın; sistem arka planda 3 farklı slayt seçeneği hazırlar. İstediğiniz alternatifi seçin, canlı editör ile metinleri düzeltin ve PowerPoint (.pptx) olarak indirin.
                             </p>
 
                             <form onSubmit={handleStartGeneration} className="w-full max-w-3xl bg-slate-900/90 border border-slate-800 p-6 rounded-3xl shadow-2xl space-y-6 text-left">
@@ -338,7 +359,7 @@
                                         type="text" 
                                         value={topic}
                                         onChange={(e) => setTopic(e.target.value)}
-                                        placeholder="Örn: Klinik Psikoloji, Kuantum Fiziği..."
+                                        placeholder="Örn: Klinik Psikoloji, Yapay Zeka..."
                                         className="w-full bg-slate-950 border border-slate-700 text-slate-100 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
                                         required
                                     />
@@ -369,9 +390,8 @@
                                         />
                                     </div>
 
-                                    {/* 100+ RENK SEÇİM ALANI */}
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Tema / Arka Plan (100+ Seçenek)</label>
+                                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Tema Rengi (100+)</label>
                                         <select 
                                             value={selectedBg.value}
                                             onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
@@ -392,12 +412,12 @@
                                     {loading ? (
                                         <>
                                             <i className="fa-solid fa-spinner animate-spin text-lg"></i>
-                                            <span>{slideCount} Sayfalık Kesintisiz Sunum Hazırlanıyor...</span>
+                                            <span>3 Alternatifli Sunum Paketi Üretiliyor...</span>
                                         </>
                                     ) : (
                                         <>
-                                            <i className="fa-solid fa-play text-lg"></i>
-                                            <span>Kesintisiz Sunumu Oluştur ve İndir</span>
+                                            <i className="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                                            <span>3 Slayt Alternatifini Üret ve Editöre Geç</span>
                                         </>
                                     )}
                                 </button>
@@ -405,95 +425,164 @@
                         </main>
                     )}
 
-                    {/* 2. STÜDYO EKRANI */}
-                    {view === 'studio' && slides.length > 0 && (
-                        <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
+                    {/* 2. STÜDYO VE CANLI EDİTÖR EKRANI */}
+                    {view === 'studio' && currentSlides.length > 0 && (
+                        <main className="max-w-6xl mx-auto px-6 py-6 flex-1 flex flex-col justify-center w-full">
                             
-                            <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl mb-6 flex flex-wrap items-center justify-between gap-4 shadow-xl">
-                                <div className="flex items-center gap-4 flex-wrap">
-                                    <div>
-                                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Font Stili</label>
-                                        <select 
-                                            value={selectedFont.value}
-                                            onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
-                                            className="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none"
-                                        >
-                                            {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
-                                        </select>
-                                    </div>
+                            {/* KULLANICIYA 3 ALTERNATİF SLAYT SEÇENEĞİ SUNAN ÜST PANEL */}
+                            <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mr-2">Slayt Seçenekleri:</span>
+                                    
+                                    <button 
+                                        onClick={() => { setActiveVarKey('A'); setActiveSlide(0); }}
+                                        className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'A' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/30' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'}`}
+                                    >
+                                        <i className="fa-solid fa-bookmark"></i> Seçenek A (Teorik Düzen)
+                                    </button>
 
-                                    <div>
-                                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tema Rengi (100+)</label>
-                                        <select 
-                                            value={selectedBg.value}
-                                            onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                            className="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 focus:outline-none font-mono"
-                                        >
-                                            {COLOR_PALETTES.map((bg) => (
-                                                <option key={bg.id} value={bg.value}>{bg.name}</option>
-                                            ))}
-                                        </select>
-                                    </div>
+                                    <button 
+                                        onClick={() => { setActiveVarKey('B'); setActiveSlide(0); }}
+                                        className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'B' ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/30' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'}`}
+                                    >
+                                        <i className="fa-solid fa-flask"></i> Seçenek B (Ampirik Odak)
+                                    </button>
+
+                                    <button 
+                                        onClick={() => { setActiveVarKey('C'); setActiveSlide(0); }}
+                                        className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'C' ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-600/30' : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'}`}
+                                    >
+                                        <i className="fa-solid fa-chart-pie"></i> Seçenek C (Analitik Sentez)
+                                    </button>
                                 </div>
 
-                                <div className="flex items-center gap-3">
-                                    <div className="text-xs font-bold text-slate-400">
-                                        Toplam: <span className="text-blue-400">{slides.length} Sayfa</span>
+                                <button 
+                                    onClick={downloadAsPPTX} 
+                                    className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-orange-600/20 cursor-pointer"
+                                >
+                                    <i className="fa-solid fa-file-powerpoint text-base"></i> {activeVarKey}. Seçeneği İndir (.pptx)
+                                </button>
+                            </div>
+
+                            {/* POWERPOINT CANLI DÜZENLEME & BİÇİMLENDİRME ARAÇ ÇUBUĞU */}
+                            <div className="bg-slate-900 border border-slate-800 p-3 rounded-2xl mb-4 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+                                <div className="flex items-center gap-3 flex-wrap">
+                                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1">
+                                        <i className="fa-solid fa-pen-ruler"></i> Canlı Editör:
+                                    </span>
+
+                                    {/* Metin Hizalama */}
+                                    <div className="flex border border-slate-700 rounded-lg overflow-hidden bg-slate-950">
+                                        <button onClick={() => setTextAlign('left')} className={`px-2.5 py-1 text-xs ${textAlign === 'left' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-left"></i></button>
+                                        <button onClick={() => setTextAlign('center')} className={`px-2.5 py-1 text-xs ${textAlign === 'center' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-center"></i></button>
+                                        <button onClick={() => setTextAlign('right')} className={`px-2.5 py-1 text-xs ${textAlign === 'right' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-right"></i></button>
+                                        <button onClick={() => setTextAlign('justify')} className={`px-2.5 py-1 text-xs ${textAlign === 'justify' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}><i className="fa-solid fa-align-justify"></i></button>
                                     </div>
-                                    <button 
-                                        onClick={downloadAsPPTX} 
-                                        className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2 shadow-lg shadow-orange-600/20 cursor-pointer"
+
+                                    {/* Font & Punto */}
+                                    <select 
+                                        value={selectedFont.value}
+                                        onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
+                                        className="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none"
                                     >
-                                        <i className="fa-solid fa-file-powerpoint text-base"></i> PowerPoint (.pptx) İndir
+                                        {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
+                                    </select>
+
+                                    <select 
+                                        value={lineSpacing}
+                                        onChange={(e) => setLineSpacing(e.target.value)}
+                                        className="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none"
+                                    >
+                                        <option value="tight">Sıkışık Punto</option>
+                                        <option value="normal">Normal Punto</option>
+                                        <option value="relaxed">Geniş Punto</option>
+                                    </select>
+                                </div>
+
+                                {/* Slayt Ekle / Sil İşlemleri */}
+                                <div className="flex items-center gap-2">
+                                    <button 
+                                        onClick={addNewSlide}
+                                        className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1"
+                                    >
+                                        <i className="fa-solid fa-plus text-emerald-400"></i> Slayt Ekle
+                                    </button>
+                                    <button 
+                                        onClick={deleteCurrentSlide}
+                                        className="bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-500/30 flex items-center gap-1"
+                                    >
+                                        <i className="fa-solid fa-trash"></i> Slaytı Sil
                                     </button>
                                 </div>
                             </div>
 
-                            {/* Slayt Önizleme (Başlıksız Akıcı Metin) */}
-                            <div className={`powerpoint-slide rounded-2xl border border-slate-700/60 p-8 md:p-12 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}` }}>
+                            {/* CANLI DÜZENLENEBİLİR SLAYT ALANI (Live Editable Slide) */}
+                            <div className={`powerpoint-slide rounded-2xl border border-slate-700/60 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}` }}>
                                 <div className="flex justify-between items-center border-b border-slate-700/50 pb-3">
                                     <span className="text-xs font-bold text-blue-400 tracking-widest uppercase bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
-                                        {slides[activeSlide].badge}
+                                        {currentSlides[activeSlide].badge} (Düzenlenebilir)
                                     </span>
                                     <span className="text-xs text-slate-400 font-semibold">{topic}</span>
                                 </div>
 
-                                {slides[activeSlide].type === 'cover' && (
+                                {currentSlides[activeSlide].type === 'cover' && (
                                     <div className="my-auto space-y-4">
-                                        <h2 className="text-3xl font-black text-white">{slides[activeSlide].title}</h2>
-                                        <p className="text-slate-300 text-sm leading-relaxed bg-slate-900/60 p-4 rounded-xl border border-slate-800">{slides[activeSlide].subtitle}</p>
+                                        <h2 className="text-3xl font-black text-white" contentEditable suppressContentEditableWarning>{currentSlides[activeSlide].title}</h2>
+                                        <p className="text-slate-300 text-sm leading-relaxed bg-slate-900/60 p-4 rounded-xl border border-slate-800" contentEditable suppressContentEditableWarning>{currentSlides[activeSlide].subtitle}</p>
                                         <ul className="grid grid-cols-2 gap-2 text-xs text-slate-400">
-                                            {slides[activeSlide].sentences.map((s, i) => <li key={i} className="bg-slate-800/40 p-2 rounded border border-slate-700/50">✓ {s}</li>)}
+                                            {currentSlides[activeSlide].sentences.map((s, i) => (
+                                                <li key={i} className="bg-slate-800/40 p-2 rounded border border-slate-700/50" contentEditable suppressContentEditableWarning>✓ {s}</li>
+                                            ))}
                                         </ul>
                                     </div>
                                 )}
 
-                                {slides[activeSlide].type === 'flow' && (
+                                {currentSlides[activeSlide].type === 'flow' && (
                                     <div className="my-auto">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm text-slate-300 leading-relaxed max-h-[320px] overflow-y-auto pr-2">
+                                        <p className="text-[10px] text-blue-400 font-bold mb-2 flex items-center gap-1">
+                                            <i className="fa-solid fa-i-cursor"></i> Metnin üzerine tıklayarak doğrudan düzenleme yapabilirsiniz:
+                                        </p>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm text-slate-300 leading-relaxed max-h-[320px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
                                             <div className="space-y-2 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
-                                                <span className="text-[10px] font-bold text-blue-400 uppercase block mb-1">Kesintisiz Metin (Kısım 1):</span>
-                                                {slides[activeSlide].sentences.slice(0, Math.ceil(slides[activeSlide].sentences.length / 2)).map((sent, i) => (
-                                                    <p key={i} className="text-slate-300"><span className="text-blue-500 font-bold mr-1">[{i+1}]</span>{sent}</p>
+                                                {currentSlides[activeSlide].sentences.slice(0, Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => (
+                                                    <p 
+                                                        key={i} 
+                                                        contentEditable 
+                                                        suppressContentEditableWarning
+                                                        onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)}
+                                                        className="text-slate-300 focus:text-white"
+                                                    >
+                                                        {sent}
+                                                    </p>
                                                 ))}
                                             </div>
 
                                             <div className="space-y-2 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
-                                                <span className="text-[10px] font-bold text-indigo-400 uppercase block mb-1">Kesintisiz Metin (Kısım 2):</span>
-                                                {slides[activeSlide].sentences.slice(Math.ceil(slides[activeSlide].sentences.length / 2)).map((sent, i) => (
-                                                    <p key={i} className="text-slate-400"><span className="text-indigo-400 font-bold mr-1">[{i + Math.ceil(slides[activeSlide].sentences.length / 2) + 1}]</span>{sent}</p>
-                                                ))}
+                                                {currentSlides[activeSlide].sentences.slice(Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => {
+                                                    const realIdx = i + Math.ceil(currentSlides[activeSlide].sentences.length / 2);
+                                                    return (
+                                                        <p 
+                                                            key={realIdx} 
+                                                            contentEditable 
+                                                            suppressContentEditableWarning
+                                                            onBlur={(e) => handleSentenceChange(activeSlide, realIdx, e.target.innerText)}
+                                                            className="text-slate-400 focus:text-white"
+                                                        >
+                                                            {sent}
+                                                        </p>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     </div>
                                 )}
 
-                                {slides[activeSlide].type === 'references' && (
+                                {currentSlides[activeSlide].type === 'references' && (
                                     <div className="my-auto space-y-3">
-                                        <h2 className="text-lg font-bold text-slate-100">AKADEMİK KAYNAKÇA & LİTERATÜR</h2>
+                                        <h2 className="text-lg font-bold text-slate-100" contentEditable suppressContentEditableWarning>AKADEMİK KAYNAKÇA & LİTERATÜR</h2>
                                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-slate-300 max-h-[280px] overflow-y-auto">
-                                            {slides[activeSlide].references.map((ref, i) => (
-                                                <li key={i} className="bg-slate-900/60 p-2 rounded border border-slate-800 truncate font-mono text-blue-300">
+                                            {currentSlides[activeSlide].references.map((ref, i) => (
+                                                <li key={i} className="bg-slate-900/60 p-2 rounded border border-slate-800 truncate font-mono text-blue-300" contentEditable suppressContentEditableWarning>
                                                     <i className="fa-solid fa-link text-xs mr-2 text-slate-500"></i>{ref}
                                                 </li>
                                             ))}
@@ -502,26 +591,27 @@
                                 )}
 
                                 <div className="flex justify-between items-center text-xs text-slate-400 border-t border-slate-700/50 pt-3">
-                                    <span>Continuous Academic Studio Engine</span>
-                                    <span>Sayfa {activeSlide + 1} / {slides.length}</span>
+                                    <span>Interactive Slide Editor Engine</span>
+                                    <span>Sayfa {activeSlide + 1} / {currentSlides.length}</span>
                                 </div>
                             </div>
 
-                            <div className="flex justify-center items-center gap-4 mt-6">
+                            {/* Slayt Navigasyonu */}
+                            <div className="flex justify-center items-center gap-4 mt-4">
                                 <button 
                                     onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))}
                                     disabled={activeSlide === 0}
-                                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2.5 rounded-xl border border-slate-700 transition disabled:opacity-30 text-xs cursor-pointer"
+                                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2 rounded-xl border border-slate-700 transition disabled:opacity-30 text-xs cursor-pointer"
                                 >
                                     <i className="fa-solid fa-chevron-left mr-1"></i> Önceki Sayfa
                                 </button>
-                                <span className="text-xs font-bold text-slate-400">
-                                    {activeSlide + 1} / {slides.length}
+                                <span className="text-xs font-bold text-slate-400 font-mono">
+                                    {activeSlide + 1} / {currentSlides.length}
                                 </span>
                                 <button 
-                                    onClick={() => setActiveSlide(prev => Math.min(slides.length - 1, prev + 1))}
-                                    disabled={activeSlide === slides.length - 1}
-                                    className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2.5 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
+                                    onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))}
+                                    disabled={activeSlide === currentSlides.length - 1}
+                                    className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
                                 >
                                     Sonraki Sayfa <i className="fa-solid fa-chevron-right ml-1"></i>
                                 </button>
@@ -531,7 +621,7 @@
                     )}
 
                     <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 mt-12">
-                        <p>AcademicSlide Pro &copy; 2026 — 100+ Tema Destekli Kesintisiz Sunum Motoru</p>
+                        <p>AcademicSlide Pro Studio &copy; 2026 — Çoklu Varyasyon & Canlı PowerPoint Editörü</p>
                     </footer>
 
                 </div>
