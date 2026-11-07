@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Dual-Language Presentation Generator</title>
+    <title>AI Çok Dilli Slayt Üretici</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -13,32 +13,319 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .slide-card { aspect-ratio: 16 / 9; }
+        
+        @media print {
+            body { background: white !important; color: black !important; }
+            .no-print { display: none !important; }
+            .slide-card { 
+                page-break-after: always; 
+                border: 2px solid #e2e8f0 !important;
+                background: white !important;
+                color: black !important;
+                margin-bottom: 20px;
+                box-shadow: none !important;
+            }
+            .slide-card h3, .slide-card p, .slide-card span { color: black !important; }
+        }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
     <div id="root"></div>
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState } = React;
+
         const LANGUAGES = [
             { code: "tr", name: "Türkçe" },
             { code: "en", name: "English" },
             { code: "de", name: "Deutsch" },
             { code: "fr", name: "Français" },
-            { code: "es", name: "Español" },
-            { code: "it", name: "Italiano" },
-            { code: "ru", name: "Русский" },
-            { code: "zh", name: "中文" }
+            { code: "es", name: "Español" }
         ];
+
+        const TEMPLATES = {
+            tr: [
+                { title: "Giriş ve Genel Bakış", content: "konusunun temel tanımı, önemi ve günümüzdeki stratejik yeri." },
+                { title: "Temel Dinamikler", content: "alanını şekillendiren ana faktörler ve uygulanan temel yöntemler." },
+                { title: "Gelecek Projeksiyonları", content: "konusunda önümüzdeki dönemde beklenen yenilikler ve dönüşümler." },
+                { title: "Sonuç ve Değerlendirme", content: "hakkında çıkarılacak ana fikirler ve stratejik kapanış önerileri." }
+            ],
+            en: [
+                { title: "Introduction & Overview", content: "Fundamental definition, significance, and current impact of" },
+                { title: "Key Dynamics", content: "Core factors and primary methodology shaping the field of" },
+                { title: "Future Outlook", content: "Upcoming innovations and transformative trends in" },
+                { title: "Conclusion & Summary", content: "Key takeaways and final strategic recommendations regarding" }
+            ],
+            de: [
+                { title: "Einführung & Überblick", content: "Grundlegende Definition und Bedeutung von" },
+                { title: "Kernfaktoren", content: "Wichtige Aspekte und Methoden im Bereich" },
+                { title: "Zukunftsaussichten", content: "Erwartete Innovationen und Trends für" },
+                { title: "Fazit & Zusammenfassung", content: "Wichtige Erkenntnisse und abschließende Empfehlungen zu" }
+            ],
+            fr: [
+                { title: "Introduction et Aperçu", content: "Définition fondamentale et importance de" },
+                { title: "Dynamiques Clés", content: "Facteurs essentiels et méthodologies façonnant le domaine de" },
+                { title: "Perspectives d'Avenir", content: "Innovations et tendances futures pour" },
+                { title: "Conclusion et Résumé", content: "Points clés à retenir et recommandations finales sur" }
+            ],
+            es: [
+                { title: "Introducción y Visión General", content: "Definición fundamental e importancia de" },
+                { title: "Dinámicas Clave", content: "Factores principales y metodologías en el área de" },
+                { title: "Perspectivas Futuras", content: "Innovaciones y tendencias clave para" },
+                { title: "Conclusión y Resumen", content: "Puntos clave y recomendaciones finales sobre" }
+            ]
+        };
+
         function App() {
-            const [topic, setTopic] = useState("Yapay Zeka ve Gelecek Projeksiyonları");
+            const [topic, setTopic] = useState("");
+            const [selectedLang, setSelectedLang] = useState("tr");
+            const [loading, setLoading] = useState(false);
+            const [slides, setSlides] = useState([]);
+
+            const handleGenerate = (e) => {
+                e.preventDefault();
+                if (!topic.trim()) return;
+
+                setLoading(true);
+                setSlides([]);
+
+                setTimeout(() => {
+                    const langSlides = TEMPLATES[selectedLang] || TEMPLATES.tr;
+                    const generated = langSlides.map(item => ({
+                        title: item.title,
+                        content: `${item.content} "${topic}".`
+                    }));
+                    setSlides(generated);
+                    setLoading(false);
+                }, 800);
+            };
+
+            const handleDownload = () => {
+                window.print();
+            };
+
             return (
-                <div className="p-8 max-w-4xl mx-auto">
-                    <h1 className="text-3xl font-bold mb-4">AI Slayt Üretici</h1>
-                    <p className="text-slate-400">Proje başarıyla yüklendi! Konu: {topic}</p>
+                <div className="max-w-4xl mx-auto p-6 min-h-screen flex flex-col justify-center">
+                    <div className="text-center mb-8 no-print">
+                        <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                            AI Çok Dilli Slayt Üretici
+                        </h1>
+                        <p className="text-slate-400">Konunu yaz, dilini seç, sunumunu hazırla ve PDF olarak indir.</p>
+                    </div>
+
+                    <form onSubmit={handleGenerate} className="bg-slate-800 p-4 rounded-xl shadow-lg flex flex-col sm:flex-row gap-4 mb-8 border border-slate-700 no-print">
+                        <input 
+                            type="text" 
+                            value={topic}
+                            onChange={(e) => setTopic(e.target.value)}
+                            placeholder="Konu girin (Örn: Yapay Zeka, Psikoloji)..." 
+                            className="flex-1 bg-slate-900 text-slate-100 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700"
+                        />
+                        <select 
+                            value={selectedLang}
+                            onChange={(e) => setSelectedLang(e.target.value)}
+                            className="bg-slate-900 text-slate-100 px-4 py-3 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                        >
+                            {LANGUAGES.map(lang => (
+                                <option key={lang.code} value={lang.code}>{lang.name}</option>
+                            ))}
+                        </select>
+                        <button 
+                            type="submit" 
+                            disabled={loading}
+                            className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                            {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-wand-magic-sparkles"></i>}
+                            Üret
+                        </button>
+                    </form>
+
+                    {loading && (
+                        <div className="text-center py-12 text-slate-400 no-print">
+                            <i className="fa-solid fa-circle-notch animate-spin text
+git add index.html
+git commit -m "Coklu dil ve PDF indirme ozelligi eklendi"
+git push
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Çok Dilli Slayt Üretici</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .slide-card { aspect-ratio: 16 / 9; }
+        
+        @media print {
+            body { background: white !important; color: black !important; }
+            .no-print { display: none !important; }
+            .slide-card { 
+                page-break-after: always; 
+                border: 2px solid #e2e8f0 !important;
+                background: white !important;
+                color: black !important;
+                margin-bottom: 20px;
+                box-shadow: none !important;
+            }
+            .slide-card h3, .slide-card p, .slide-card span { color: black !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        const LANGUAGES = [
+            { code: "tr", name: "Türkçe" },
+            { code: "en", name: "English" },
+            { code: "de", name: "Deutsch" },
+            { code: "fr", name: "Français" },
+            { code: "es", name: "Español" }
+        ];
+
+        const TEMPLATES = {
+            tr: [
+                { title: "Giriş ve Genel Bakış", content: "konusunun temel tanımı, önemi ve günümüzdeki stratejik yeri." },
+                { title: "Temel Dinamikler", content: "alanını şekillendiren ana faktörler ve uygulanan temel yöntemler." },
+                { title: "Gelecek Projeksiyonları", content: "konusunda önümüzdeki dönemde beklenen yenilikler ve dönüşümler." },
+                { title: "Sonuç ve Değerlendirme", content: "hakkında çıkarılacak ana fikirler ve stratejik kapanış önerileri." }
+            ],
+            en: [
+                { title: "Introduction & Overview", content: "Fundamental definition, significance, and current impact of" },
+                { title: "Key Dynamics", content: "Core factors and primary methodology shaping the field of" },
+                { title: "Future Outlook", content: "Upcoming innovations and transformative trends in" },
+                { title: "Conclusion & Summary", content: "Key takeaways and final strategic recommendations regarding" }
+            ],
+            de: [
+                { title: "Einführung & Überblick", content: "Grundlegende Definition und Bedeutung von" },
+                { title: "Kernfaktoren", content: "Wichtige Aspekte und Methoden im Bereich" },
+                { title: "Zukunftsaussichten", content: "Erwartete Innovationen und Trends für" },
+                { title: "Fazit & Zusammenfassung", content: "Wichtige Erkenntnisse und abschließende Empfehlungen zu" }
+            ],
+            fr: [
+                { title: "Introduction et Aperçu", content: "Définition fondamentale et importance de" },
+                { title: "Dynamiques Clés", content: "Facteurs essentiels et méthodologies façonnant le domaine de" },
+                { title: "Perspectives d'Avenir", content: "Innovations et tendances futures pour" },
+                { title: "Conclusion et Résumé", content: "Points clés à retenir et recommandations finales sur" }
+            ],
+            es: [
+                { title: "Introducción y Visión General", content: "Definición fundamental e importancia de" },
+                { title: "Dinámicas Clave", content: "Factores principales y metodologías en el área de" },
+                { title: "Perspectivas Futuras", content: "Innovaciones y tendencias clave para" },
+                { title: "Conclusión y Resumen", content: "Puntos clave y recomendaciones finales sobre" }
+            ]
+        };
+
+        function App() {
+            const [topic, setTopic] = useState("");
+            const [selectedLang, setSelectedLang] = useState("tr");
+            const [loading, setLoading] = useState(false);
+            const [slides, setSlides] = useState([]);
+
+            const handleGenerate = (e) => {
+                e.preventDefault();
+                if (!topic.trim()) return;
+
+                setLoading(true);
+                setSlides([]);
+
+                setTimeout(() => {
+                    const langSlides = TEMPLATES[selectedLang] || TEMPLATES.tr;
+                    const generated = langSlides.map(item => ({
+                        title: item.title,
+                        content: `${item.content} "${topic}".`
+                    }));
+                    setSlides(generated);
+                    setLoading(false);
+                }, 800);
+            };
+
+            const handleDownload = () => {
+                window.print();
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto p-6 min-h-screen flex flex-col justify-center">
+                    <div className="text-center mb-8 no-print">
+                        <h1 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                            AI Çok Dilli Slayt Üretici
+                        </h1>
+                        <p className="text-slate-400">Konunu yaz, dilini seç, sunumunu hazırla ve PDF olarak indir.</p>
+                    </div>
+
+                    <form onSubmit={handleGenerate} className="bg-slate-800 p-4 rounded-xl shadow-lg flex flex-col sm:flex-row gap-4 mb-8 border border-slate-700 no-print">
+                        <input 
+                            type="text" 
+                            value={topic}
+                            onChange={(e) => setTopic(e.target.value)}
+                            placeholder="Konu girin (Örn: Yapay Zeka, Psikoloji)..." 
+                            className="flex-1 bg-slate-900 text-slate-100 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700"
+                        />
+                        <select 
+                            value={selectedLang}
+                            onChange={(e) => setSelectedLang(e.target.value)}
+                            className="bg-slate-900 text-slate-100 px-4 py-3 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                        >
+                            {LANGUAGES.map(lang => (
+                                <option key={lang.code} value={lang.code}>{lang.name}</option>
+                            ))}
+                        </select>
+                        <button 
+                            type="submit" 
+                            disabled={loading}
+                            className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                            {loading ? <i className="fa-solid fa-spinner animate-spin"></i> : <i className="fa-solid fa-wand-magic-sparkles"></i>}
+                            Üret
+                        </button>
+                    </form>
+
+                    {loading && (
+                        <div className="text-center py-12 text-slate-400 no-print">
+                            <i className="fa-solid fa-circle-notch animate-spin text-3xl text-blue-500 mb-3"></i>
+                            <p>Slaytlar seçilen dilde hazırlanıyor...</p>
+                        </div>
+                    )}
+
+                    {slides.length > 0 && !loading && (
+                        <div className="space-y-6">
+                            <div className="flex justify-between items-center border-b border-slate-700 pb-3 no-print">
+                                <h2 className="text-xl font-bold text-slate-200">
+                                    Hazırlanan Slaytlar: <span className="text-blue-400">"{topic}"</span> ({LANGUAGES.find(l => l.code === selectedLang)?.name})
+                                </h2>
+                                <button 
+                                    onClick={handleDownload}
+                                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2 text-sm shadow-md"
+                                >
+                                    <i className="fa-solid fa-file-pdf"></i>
+                                    Sunumu / PDF İndir
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {slides.map((slide, index) => (
+                                    <div key={index} className="slide-card bg-slate-800 border border-slate-700 rounded-xl p-6 flex flex-col justify-between shadow-xl">
+                                        <div>
+                                            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Slayt {index + 1}</span>
+                                            <h3 className="text-xl font-bold text-slate-100 mt-2 mb-4">{slide.title}</h3>
+                                            <p className="text-slate-300 text-base leading-relaxed">{slide.content}</p>
+                                        </div>
+                                        <div className="text-right text-xs text-slate-500 mt-4 border-t border-slate-700/50 pt-2">AI Dual-Language Generator</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
-        }
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        }ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
