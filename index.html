@@ -381,7 +381,6 @@
             return (
                 <div className="min-h-screen flex flex-col justify-between">
                     
-                    {/* AÇIK TEMA NAVİGASYON BAR - LIGHT MODE */}
                     <nav className="border-b border-slate-200 bg-white/80 backdrop-blur px-8 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
                         <div className="flex items-center gap-3.5 cursor-pointer" onClick={() => setView('portal')}>
                             <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
@@ -412,12 +411,16 @@
                         </div>
                     </nav>
 
-                    {/* AÇIK TEMA HERO BÖLÜMÜ - LIGHT MODE */}
+                    {/* YENİLENMİŞ KURUMSAL MİKRO ROZET BÖLÜMÜ */}
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
-                            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
-                                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                                <span>v2.4 • CANLI WIKIPEDIA DOKÜMAN ENTEGRASYONU</span>
+                            
+                            <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/90 hover:border-slate-300 text-slate-700 px-3.5 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
+                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.4</span>
+                                <span className="text-slate-300">•</span>
+                                <span className="flex items-center gap-1.5 text-slate-600 font-medium">
+                                    <i className="fa-solid fa-bolt text-amber-500 text-[11px]"></i> Canlı Akademik Veri Entegrasyonu
+                                </span>
                             </div>
 
                             <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
@@ -436,7 +439,6 @@
                                 <i className="fa-solid fa-wand-magic-sparkles text-lg"></i> Hemen Sunum Oluşturmaya Başla
                             </button>
 
-                            {/* AÇIK TEMA KARTLAR */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
@@ -465,7 +467,6 @@
                         </main>
                     )}
 
-                    {/* STÜDYO ALANI - LIGHT MODE */}
                     {view === 'studio' && (
                         <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
                             <div className="inline-flex items-center gap-2 bg-white border border-slate-200 p-4 rounded-2xl mb-6 shadow-sm">
@@ -692,7 +693,6 @@
                         </main>
                     )}
 
-                    {/* AÇIK TEMA FOOTER / DESTEK FORMU - LIGHT MODE */}
                     <footer className="border-t border-slate-200 bg-white py-12 px-6 mt-16 text-slate-600">
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
