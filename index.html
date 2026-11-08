@@ -20,22 +20,22 @@
         .powerpoint-slide {
             width: 100%;
             aspect-ratio: 16 / 9;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
 
         [contenteditable="true"]:hover {
-            outline: 2px dashed #60a5fa;
+            outline: 2px dashed #3b82f6;
             border-radius: 4px;
         }
         [contenteditable="true"]:focus {
-            outline: 2px solid #3b82f6;
-            background: rgba(15, 23, 42, 0.8);
+            outline: 2px solid #2563eb;
+            background: rgba(241, 245, 249, 0.9);
             border-radius: 4px;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-inter min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 font-inter min-h-screen flex flex-col justify-between selection:bg-blue-100 selection:text-blue-900">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -381,30 +381,30 @@
             return (
                 <div className="min-h-screen flex flex-col justify-between">
                     
-                    {/* YENİLENMİŞ PROFESYONEL NAVİGASYON */}
-                    <nav className="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur px-8 py-4 flex justify-between items-center">
+                    {/* AÇIK TEMA NAVİGASYON BAR - LIGHT MODE */}
+                    <nav className="border-b border-slate-200 bg-white/80 backdrop-blur px-8 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
                         <div className="flex items-center gap-3.5 cursor-pointer" onClick={() => setView('portal')}>
-                            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30">
+                            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
                                 <i className="fa-solid fa-graduation-cap text-white text-lg"></i>
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1.5">
-                                    Academic.io <span className="text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1.5 py-0.5 rounded">PRO</span>
+                                <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-1.5">
+                                    Academic.io <span className="text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded">PRO</span>
                                 </h1>
-                                <p className="text-xs text-slate-400 font-medium">Yapay Zeka Destekli Akademik Sunum Motoru</p>
+                                <p className="text-xs text-slate-500 font-medium">Yapay Zeka Destekli Akademik Sunum Motoru</p>
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex items-center gap-2 bg-slate-950 border border-slate-800/80 px-4 py-2 rounded-xl font-mono text-xs text-slate-300 shadow-inner">
-                            <i className="fa-regular fa-clock text-blue-400"></i>
-                            <span className="font-semibold">{currentTime.toLocaleTimeString()}</span>
+                        <div className="hidden sm:flex items-center gap-2 bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl font-mono text-xs text-slate-700 shadow-inner">
+                            <i className="fa-regular fa-clock text-blue-600"></i>
+                            <span className="font-bold">{currentTime.toLocaleTimeString()}</span>
                         </div>
 
                         <div className="flex items-center gap-2">
                             {view === 'studio' && (
                                 <button 
                                     onClick={() => setView('portal')}
-                                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-700/80 cursor-pointer shadow-sm"
+                                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-300 cursor-pointer shadow-sm"
                                 >
                                     <i className="fa-solid fa-house mr-1.5"></i> Ana Sayfaya Dön
                                 </button>
@@ -412,85 +412,86 @@
                         </div>
                     </nav>
 
-                    {/* YENİLENMİŞ PROFESYONEL HERO BÖLÜMÜ */}
+                    {/* AÇIK TEMA HERO BÖLÜMÜ - LIGHT MODE */}
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
-                            <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 text-slate-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
+                                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
                                 <span>v2.4 • CANLI WIKIPEDIA DOKÜMAN ENTEGRASYONU</span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mb-6">
+                            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
                                 Otomatik Araştırma ve <br />
-                                <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Akademik Sunum Asistanı</span>
+                                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Akademik Sunum Asistanı</span>
                             </h2>
 
-                            <p className="text-slate-400 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-normal">
+                            <p className="text-slate-600 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-normal">
                                 Canlı kaynaklardan çekilen akademik verilerle saniyeler içinde düzenlenebilir PowerPoint slaytları üretin. Saat bazı dinamik varyasyonlar ve 100+ profesyonel renk teması ile.
                             </p>
 
                             <button 
                                 onClick={() => setView('studio')}
-                                className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-blue-600/25 flex items-center gap-3 cursor-pointer mb-20"
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-blue-600/20 flex items-center gap-3 cursor-pointer mb-20 hover:scale-[1.02]"
                             >
                                 <i className="fa-solid fa-wand-magic-sparkles text-lg"></i> Hemen Sunum Oluşturmaya Başla
                             </button>
 
-                            {/* YENİLENMİŞ PROFESYONEL ÖZELLİK KARTLARI */}
+                            {/* AÇIK TEMA KARTLAR */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
-                                <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-slate-700 transition">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 text-base">
+                                <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-300 transition">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
                                         <i className="fa-solid fa-palette"></i>
                                     </div>
-                                    <h3 className="font-bold text-white text-base mb-1.5">100+ Kurumsal Renk Paleti</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">HEX kod önizlemeleri ve saf beyaz minimalist mod dahil tüm akademiye uygun renk tonları.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">100+ Kurumsal Renk Paleti</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">HEX kod önizlemeleri ve saf beyaz minimalist mod dahil tüm akademiye uygun renk tonları.</p>
                                 </div>
 
-                                <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-slate-700 transition">
-                                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 text-base">
+                                <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition">
+                                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-base font-bold">
                                         <i className="fa-solid fa-layer-group"></i>
                                     </div>
-                                    <h3 className="font-bold text-white text-base mb-1.5">Dinamik Algoritma Motoru</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">Aynı konuda her saat başı tamamen özgün içerik harmanlayan 3 farklı varyasyon seçeneği.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">Dinamik Algoritma Motoru</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">Aynı konuda her saat başı tamamen özgün içerik harmanlayan 3 farklı varyasyon seçeneği.</p>
                                 </div>
 
-                                <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-slate-700 transition">
-                                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 text-base">
+                                <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-300 transition">
+                                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 text-base font-bold">
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </div>
-                                    <h3 className="font-bold text-white text-base mb-1.5">Canlı PowerPoint Stüdyosu</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">İndirmeden önce metinleri anında düzenleyin, sayfa ekleyip silin ve doğrudan .pptx olarak indirin.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">Canlı PowerPoint Stüdyosu</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">İndirmeden önce metinleri anında düzenleyin, sayfa ekleyip silin ve doğrudan .pptx olarak indirin.</p>
                                 </div>
                             </div>
                         </main>
                     )}
 
+                    {/* STÜDYO ALANI - LIGHT MODE */}
                     {view === 'studio' && (
                         <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
-                            <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 p-4 rounded-2xl mb-6">
-                                <h3 className="text-sm font-bold text-slate-200"><i className="fa-solid fa-sliders text-blue-400 mr-2"></i> Sunum Parametreleri ve Renk Seçimi</h3>
+                            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 p-4 rounded-2xl mb-6 shadow-sm">
+                                <h3 className="text-sm font-bold text-slate-800"><i className="fa-solid fa-sliders text-blue-600 mr-2"></i> Sunum Parametreleri ve Renk Seçimi</h3>
                             </div>
 
-                            <form onSubmit={handleStartGeneration} className="bg-slate-900/90 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-6 mb-8 text-left">
+                            <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-md space-y-6 mb-8 text-left">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Sunum Konusu</label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Sunum Konusu</label>
                                         <input 
                                             type="text" 
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
                                             placeholder="Örn: Klinik Psikoloji, Kuantum Fiziği..."
-                                            className="w-full bg-slate-950 border border-slate-700 text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
+                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium"
                                             required
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Dil</label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Dil</label>
                                         <select 
                                             value={selectedLang}
                                             onChange={(e) => setSelectedLang(e.target.value)}
-                                            className="w-full bg-slate-950 border border-slate-700 text-slate-100 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm cursor-pointer"
+                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer"
                                         >
                                             {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
                                         </select>
@@ -499,7 +500,7 @@
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Slayt Sayısı: <span className="text-blue-400 font-extrabold">{slideCount} Sayfa</span></label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Slayt Sayısı: <span className="text-blue-600 font-extrabold">{slideCount} Sayfa</span></label>
                                         <input 
                                             type="range" 
                                             min="5" 
@@ -507,31 +508,31 @@
                                             step="1"
                                             value={slideCount}
                                             onChange={(e) => setSlideCount(Number(e.target.value))}
-                                            className="w-full accent-blue-500 cursor-pointer mt-2"
+                                            className="w-full accent-blue-600 cursor-pointer mt-2"
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                                            Arka Plan Rengi & Kodları (<span className="text-blue-400">#FFFFFF Beyaz Dahil 100+</span>)
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                            Arka Plan Rengi & Kodları (<span className="text-blue-600">#FFFFFF Beyaz Dahil 100+</span>)
                                         </label>
                                         <select 
                                             value={selectedBg.value}
                                             onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                            className="w-full bg-slate-950 border border-slate-700 text-slate-100 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm cursor-pointer font-mono"
+                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer font-mono"
                                         >
                                             {COLOR_PALETTES.map((bg) => (
                                                 <option key={bg.id} value={bg.value}>{bg.name}</option>
                                             ))}
                                         </select>
-                                        <p className="text-[10px] text-slate-500 mt-1">Seçilen Kod: <span className="text-blue-400 font-mono">#{selectedBg.value}</span></p>
+                                        <p className="text-[10px] text-slate-500 mt-1">Seçilen Kod: <span className="text-blue-600 font-mono">#{selectedBg.value}</span></p>
                                     </div>
                                 </div>
 
                                 <button 
                                     type="submit" 
                                     disabled={loading}
-                                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 text-sm disabled:opacity-50 cursor-pointer"
+                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 cursor-pointer"
                                 >
                                     {loading ? (
                                         <>
@@ -549,24 +550,24 @@
 
                             {currentSlides.length > 0 && (
                                 <div className="space-y-4">
-                                    <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-xl">
+                                    <div className="bg-white border border-slate-200 p-3 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm">
                                         <div className="flex items-center gap-2 flex-wrap">
-                                            <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mr-2">Varyasyonlar:</span>
+                                            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider mr-2">Varyasyonlar:</span>
                                             <button 
                                                 onClick={() => { setActiveVarKey('A'); setActiveSlide(0); }}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'A' ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-950 text-slate-400 border-slate-800'}`}
+                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'A' ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
                                             >
                                                 Seçenek A
                                             </button>
                                             <button 
                                                 onClick={() => { setActiveVarKey('B'); setActiveSlide(0); }}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'B' ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-950 text-slate-400 border-slate-800'}`}
+                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'B' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
                                             >
                                                 Seçenek B
                                             </button>
                                             <button 
                                                 onClick={() => { setActiveVarKey('C'); setActiveSlide(0); }}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'C' ? 'bg-purple-600 text-white border-purple-500' : 'bg-slate-950 text-slate-400 border-slate-800'}`}
+                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'C' ? 'bg-purple-600 text-white border-purple-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
                                             >
                                                 Seçenek C
                                             </button>
@@ -574,26 +575,26 @@
 
                                         <button 
                                             onClick={downloadAsPPTX} 
-                                            className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-orange-600/20 cursor-pointer"
+                                            className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md shadow-orange-600/20 cursor-pointer"
                                         >
                                             <i className="fa-solid fa-file-powerpoint text-base"></i> {activeVarKey}. Seçeneği İndir (.pptx)
                                         </button>
                                     </div>
 
-                                    <div className="bg-slate-900 border border-slate-800 p-3 rounded-2xl flex flex-wrap items-center justify-between gap-4 shadow-xl">
+                                    <div className="bg-white border border-slate-200 p-3 rounded-2xl flex flex-wrap items-center justify-between gap-4 shadow-sm">
                                         <div className="flex items-center gap-3 flex-wrap">
-                                            <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Canlı Editör:</span>
+                                            <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Canlı Editör:</span>
                                             <select 
                                                 value={selectedFont.value}
                                                 onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
-                                                className="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none"
+                                                className="bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-2 py-1 focus:outline-none"
                                             >
                                                 {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
                                             </select>
                                             <select 
                                                 value={selectedBg.value}
                                                 onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                                className="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none font-mono"
+                                                className="bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-2 py-1 focus:outline-none font-mono"
                                             >
                                                 {COLOR_PALETTES.map((bg) => (
                                                     <option key={bg.id} value={bg.value}>{bg.name}</option>
@@ -602,18 +603,18 @@
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            <button onClick={addNewSlide} className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1">
-                                                <i className="fa-solid fa-plus text-emerald-400"></i> Slayt Ekle
+                                            <button onClick={addNewSlide} className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-300 flex items-center gap-1">
+                                                <i className="fa-solid fa-plus text-emerald-600"></i> Slayt Ekle
                                             </button>
-                                            <button onClick={deleteCurrentSlide} className="bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-500/30 flex items-center gap-1">
+                                            <button onClick={deleteCurrentSlide} className="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-200 flex items-center gap-1">
                                                 <i className="fa-solid fa-trash"></i> Slaytı Sil
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div className={`powerpoint-slide rounded-2xl border border-slate-700/60 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : '#F8FAFC' }}>
-                                        <div className="flex justify-between items-center border-b border-slate-500/30 pb-3">
-                                            <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-100 text-blue-700 border-blue-200' : 'bg-blue-500/10 text-blue-400 border-blue-500/20'}`}>
+                                    <div className={`powerpoint-slide rounded-2xl border border-slate-300 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
+                                        <div className="flex justify-between items-center border-b border-slate-300 pb-3">
+                                            <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-blue-500/20 text-blue-300 border-blue-400/30'}`}>
                                                 {currentSlides[activeSlide].badge} (Düzenlenebilir)
                                             </span>
                                             <span className="text-xs font-semibold opacity-75">{topic}</span>
@@ -622,10 +623,10 @@
                                         {currentSlides[activeSlide].type === 'cover' && (
                                             <div className="my-auto space-y-4">
                                                 <h2 className="text-3xl font-black" contentEditable suppressContentEditableWarning>{currentSlides[activeSlide].title}</h2>
-                                                <p className="text-sm leading-relaxed p-4 rounded-xl border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#1e293b' }}>{currentSlides[activeSlide].subtitle}</p>
+                                                <p className="text-sm leading-relaxed p-4 rounded-xl border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>{currentSlides[activeSlide].subtitle}</p>
                                                 <ul className="grid grid-cols-2 gap-2 text-xs opacity-80">
                                                     {currentSlides[activeSlide].sentences.map((s, i) => (
-                                                        <li key={i} className="p-2 rounded border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#e2e8f0' : '#334155' }}>✓ {s}</li>
+                                                        <li key={i} className="p-2 rounded border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#e2e8f0' : '#475569' }}>✓ {s}</li>
                                                     ))}
                                                 </ul>
                                             </div>
@@ -633,18 +634,18 @@
 
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto">
-                                                <p className="text-[10px] text-blue-500 font-bold mb-2 flex items-center gap-1">
+                                                <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1">
                                                     <i className="fa-solid fa-i-cursor"></i> Metnin üzerine tıklayarak doğrudan düzenleme yapabilirsiniz:
                                                 </p>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
-                                                    <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>
+                                                    <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
                                                         {currentSlides[activeSlide].sentences.slice(0, Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => (
                                                             <p key={i} contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)} className="focus:opacity-100">
                                                                 {sent}
                                                             </p>
                                                         ))}
                                                     </div>
-                                                    <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>
+                                                    <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
                                                         {currentSlides[activeSlide].sentences.slice(Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => {
                                                             const realIdx = i + Math.ceil(currentSlides[activeSlide].sentences.length / 2);
                                                             return (
@@ -663,7 +664,7 @@
                                                 <h2 className="text-lg font-bold" contentEditable suppressContentEditableWarning>AKADEMİK KAYNAKÇA & LİTERATÜR</h2>
                                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] max-h-[260px] overflow-y-auto">
                                                     {currentSlides[activeSlide].references.map((ref, i) => (
-                                                        <li key={i} className="p-2 rounded border truncate font-mono opacity-80" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>
+                                                        <li key={i} className="p-2 rounded border truncate font-mono opacity-80" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
                                                             <i className="fa-solid fa-link text-xs mr-2 opacity-50"></i>{ref}
                                                         </li>
                                                     ))}
@@ -671,18 +672,18 @@
                                             </div>
                                         )}
 
-                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-500/30 pt-3">
+                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300 pt-3">
                                             <span>Interactive Slide Editor</span>
                                             <span>Sayfa {activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
                                     <div className="flex justify-center items-center gap-4 mt-4">
-                                        <button onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} disabled={activeSlide === 0} className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2 rounded-xl border border-slate-700 transition disabled:opacity-30 text-xs cursor-pointer">
+                                        <button onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} disabled={activeSlide === 0} className="bg-white hover:bg-slate-100 text-slate-700 font-bold px-5 py-2 rounded-xl border border-slate-300 transition disabled:opacity-30 text-xs cursor-pointer shadow-sm">
                                             <i className="fa-solid fa-chevron-left mr-1"></i> Önceki Sayfa
                                         </button>
-                                        <span className="text-xs font-bold text-slate-400 font-mono">{activeSlide + 1} / {currentSlides.length}</span>
-                                        <button onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))} disabled={activeSlide === currentSlides.length - 1} className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer">
+                                        <span className="text-xs font-bold text-slate-600 font-mono">{activeSlide + 1} / {currentSlides.length}</span>
+                                        <button onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))} disabled={activeSlide === currentSlides.length - 1} className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer shadow-sm">
                                             Sonraki Sayfa <i className="fa-solid fa-chevron-right ml-1"></i>
                                         </button>
                                     </div>
@@ -691,75 +692,76 @@
                         </main>
                     )}
 
-                    <footer className="border-t border-slate-800 bg-slate-900/80 py-12 px-6 mt-16 text-slate-400">
+                    {/* AÇIK TEMA FOOTER / DESTEK FORMU - LIGHT MODE */}
+                    <footer className="border-t border-slate-200 bg-white py-12 px-6 mt-16 text-slate-600">
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
-                                <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-headset text-blue-400"></i> Academic.io Destek ve Takip Paneli
+                                <h4 className="text-slate-900 font-bold text-base mb-2 flex items-center gap-2">
+                                    <i className="fa-solid fa-headset text-blue-600"></i> Academic.io Destek ve Takip Paneli
                                 </h4>
                                 <p className="text-xs leading-relaxed mb-4">
-                                    Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir <strong className="text-slate-200">Destek Takip Numarası</strong> üretilir ve ekranda görüntülenir. Mesajınız doğrudan <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine iletilir.
+                                    Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir <strong className="text-slate-900">Destek Takip Numarası</strong> üretilir ve ekranda görüntülenir. Mesajınız doğrudan <strong className="text-slate-900">mayonez.contact@gmail.com</strong> adresine iletilir.
                                 </p>
-                                <div className="text-xs font-mono text-blue-400 bg-slate-950 p-3 rounded-xl border border-slate-800 inline-block">
+                                <div className="text-xs font-mono text-blue-700 bg-blue-50 p-3 rounded-xl border border-blue-200 inline-block font-semibold">
                                     <i className="fa-solid fa-ticket mr-2"></i> Anında Otomatik Onay & Takip Kodu Aktif
                                 </div>
                             </div>
 
-                            <div className="bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-3">
+                            <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3 shadow-sm">
                                 {supportSuccess ? (
-                                    <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-4 rounded-xl text-center space-y-3">
-                                        <i className="fa-solid fa-circle-check text-3xl text-emerald-400"></i>
+                                    <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl text-center space-y-3">
+                                        <i className="fa-solid fa-circle-check text-3xl text-emerald-600"></i>
                                         <div>
-                                            <h5 className="font-bold text-sm text-white">Destek Talebiniz Alındı!</h5>
-                                            <p className="text-xs text-slate-300 mt-1">Sistem tarafından otomatik onay kodu oluşturuldu:</p>
-                                            <div className="inline-block bg-slate-900 border border-emerald-500/40 text-emerald-300 font-mono text-sm font-bold px-3 py-1 rounded-lg mt-2">
+                                            <h5 className="font-bold text-sm text-slate-900">Destek Talebiniz Alındı!</h5>
+                                            <p className="text-xs text-slate-600 mt-1">Sistem tarafından otomatik onay kodu oluşturuldu:</p>
+                                            <div className="inline-block bg-white border border-emerald-300 text-emerald-700 font-mono text-sm font-bold px-3 py-1 rounded-lg mt-2 shadow-sm">
                                                 Takip Kodu: {ticketId}
                                             </div>
                                         </div>
-                                        <p className="text-[11px] text-slate-400">Mesajınız başarıyla mayonez.contact@gmail.com adresine yönlendirildi. En kısa sürede geri dönüş yapılacaktır.</p>
-                                        <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-bold mt-1 cursor-pointer w-full transition">
+                                        <p className="text-[11px] text-slate-500">Mesajınız başarıyla mayonez.contact@gmail.com adresine yönlendirildi. En kısa sürede geri dönüş yapılacaktır.</p>
+                                        <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-bold mt-1 cursor-pointer w-full transition shadow-sm">
                                             Yeni Bildirim Gönder
                                         </button>
                                     </div>
                                 ) : (
                                     <form onSubmit={handleSupportSubmit} className="space-y-3">
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">E-Posta Adresiniz</label>
+                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">E-Posta Adresiniz</label>
                                             <input 
                                                 type="email" 
                                                 value={supportEmail} 
                                                 onChange={(e) => setSupportEmail(e.target.value)}
                                                 placeholder="ornek@email.com" 
-                                                className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                                className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
                                                 required 
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Adınız / Soyadınız</label>
+                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Adınız / Soyadınız</label>
                                             <input 
                                                 type="text" 
                                                 value={supportName} 
                                                 onChange={(e) => setSupportName(e.target.value)}
                                                 placeholder="Adınız..." 
-                                                className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                                className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
                                                 required 
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Yaşadığınız Sorun veya Şikayetiniz</label>
+                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Yaşadığınız Sorun veya Şikayetiniz</label>
                                             <textarea 
                                                 value={supportMsg} 
                                                 onChange={(e) => setSupportMsg(e.target.value)}
                                                 placeholder="Sorunuzu veya karşılaştığınız problemi detaylıca açıklayın..." 
                                                 rows="3"
-                                                className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
+                                                className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
                                                 required 
                                             />
                                         </div>
                                         <button 
                                             type="submit" 
                                             disabled={supportSending}
-                                            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-3 rounded-xl transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 shadow-md shadow-blue-600/10"
                                         >
                                             {supportSending ? (
                                                 <>
@@ -777,7 +779,7 @@
                                 )}
                             </div>
                         </div>
-                        <div className="border-t border-slate-800/60 mt-8 pt-6 text-center text-xs text-slate-600">
+                        <div className="border-t border-slate-200 mt-8 pt-6 text-center text-xs text-slate-500">
                             <p>Academic.io &copy; 2026 — Tüm Hakları Saklıdır.</p>
                         </div>
                     </footer>
