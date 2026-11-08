@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — Yapay Zeka Destekli Akademik Sunum Motoru</title>
+    <title>Academic.io — Yapay Zeka Destekli Çok Dilli Akademik Sunum Motoru</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -34,7 +34,6 @@
             border-radius: 6px;
         }
 
-        /* Standart tarayıcı select okunu özelleştirme */
         select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -57,7 +56,14 @@
             { code: "en", name: "English (EN)" },
             { code: "de", name: "Deutsch (DE)" },
             { code: "fr", name: "Français (FR)" },
-            { code: "es", name: "Español (ES)" }
+            { code: "es", name: "Español (ES)" },
+            { code: "it", name: "Italiano (IT)" },
+            { code: "ru", name: "Русский (RU)" },
+            { code: "ar", name: "العربية (AR)" },
+            { code: "zh", name: "中文 (ZH)" },
+            { code: "ja", name: "日本語 (JA)" },
+            { code: "ko", name: "한국어 (KO)" },
+            { code: "az", name: "Azərbaycan (AZ)" }
         ];
 
         const generate100Colors = () => {
@@ -117,7 +123,6 @@
             const [slideCount, setSlideCount] = useState(20);
             const [selectedBg, setSelectedBg] = useState(COLOR_PALETTES[0]);
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
-            const [lineSpacing, setLineSpacing] = useState("normal");
             const [textAlign, setTextAlign] = useState("justify");
 
             const [currentTime, setCurrentTime] = useState(new Date());
@@ -177,26 +182,58 @@
                 }
             };
 
+            // GOOGLE TRANSLATE ALTYAPILI ÇEVİRİ VE WIKIPEDIA ENTEGRASYONU
+            const translateTextWithGoogle = async (text, targetLang) => {
+                if (targetLang === 'tr') return text;
+                try {
+                    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+                    const data = await res.json();
+                    if (data && data[0]) {
+                        return data[0].map(item => item[0]).join('');
+                    }
+                } catch (e) {
+                    console.error("Çeviri hatası:", e);
+                }
+                return text;
+            };
+
             const fetchAndBuildVariations = async (searchQuery, lang, targetCount) => {
                 setLoading(true);
                 setError(null);
                 try {
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=12`;
+                    // Google Translate / Çok Dilli Arama Altyapısı
+                    let queryToSearch = searchQuery;
+                    if (lang !== 'tr') {
+                        queryToSearch = await translateTextWithGoogle(searchQuery, lang);
+                    }
+
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(queryToSearch)}&format=json&origin=*&srlimit=12`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
-                    if (!searchData.query.search || searchData.query.search.length === 0) {
-                        throw new Error(lang === 'tr' ? 'Aradığınız konuyla ilgili akademik veri bulunamadı.' : 'No data found for this topic.');
+                    let searchResults = searchData.query ? searchData.query.search : [];
+                    
+                    // Eğer yerel dilde sonuç bulunamazsa İngilizce altyapıyafallback yapıp Google Translate ile çevir
+                    if (searchResults.length === 0 && lang !== 'en') {
+                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=12`;
+                        const fbRes = await fetch(fallbackUrl);
+                        const fbData = await fbRes.json();
+                        searchResults = fbData.query ? fbData.query.search : [];
                     }
 
-                    const searchResults = searchData.query.search;
+                    if (searchResults.length === 0) {
+                        throw new Error(`Aradığınız konu (${searchQuery}) için akademik veri bulunamadı.`);
+                    }
+
                     const mainTitle = searchResults[0].title;
+                    const translatedMainTitle = lang !== 'tr' ? await translateTextWithGoogle(mainTitle, lang) : mainTitle;
 
                     let rawSentences = [];
                     let rawReferences = [];
 
                     for (let item of searchResults) {
-                        const parseUrl = `https://${lang}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|links&format=json&origin=*`;
+                        const sourceWiki = searchResults === searchData.query.search ? lang : 'en';
+                        const parseUrl = `https://${sourceWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|links&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
 
@@ -207,22 +244,20 @@
                             tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
 
                             const pList = Array.from(tempDiv.querySelectorAll('p'));
-                            pList.forEach(p => {
-                                const text = p.textContent.replace(/\[\d+\]/g, '').trim();
+                            for (let p of pList) {
+                                let text = p.textContent.replace(/\[\d+\]/g, '').trim();
                                 if (text.length > 30) {
+                                    if (sourceWiki === 'en' && lang !== 'en') {
+                                        text = await translateTextWithGoogle(text, lang);
+                                    }
                                     text.split(/(?<=[.?!])\s+/).forEach(s => {
                                         if (s.trim().length > 20) rawSentences.push(s.trim());
                                     });
                                 }
-                            });
+                            }
 
                             if (parseData.parse.extlinks) {
                                 parseData.parse.extlinks.forEach(l => { if (l['*']) rawReferences.push(l['*']); });
-                            }
-                            if (parseData.parse.links) {
-                                parseData.parse.links.slice(0, 15).forEach(l => {
-                                    if (l['*']) rawReferences.push(`Academic Database: ${l['*']} (${mainTitle} Research)`);
-                                });
                             }
                         }
                     }
@@ -244,12 +279,12 @@
                         slides.push({
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
-                            title: mainTitle.toUpperCase(),
-                            subtitle: `${mainTitle} üzerine canlı veri kaynaklarıyla sentezlenmiş akademik sunum seti.`,
+                            title: translatedMainTitle.toUpperCase(),
+                            subtitle: `${translatedMainTitle} (${LANGUAGES.find(l => l.code === lang)?.name}) - Google Translate & Wiki Entegrasyonu.`,
                             sentences: [
-                                `Konu: ${mainTitle}`,
+                                `Konu / Subject: ${translatedMainTitle}`,
+                                `Dil / Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
                                 `Oluşturulma Saati: ${new Date().toLocaleTimeString()}`,
-                                `Arka Plan Kodu: #${selectedBg.value}`,
                                 `Doğrulanmış Literatür: 50 Adet Referans`
                             ]
                         });
@@ -271,7 +306,7 @@
                         for (let r = 0; r < finalReferences.length && slides.length < targetCount; r += refsPerSlide) {
                             slides.push({
                                 type: 'references',
-                                badge: `KAYNAKÇA (${r + 1} - ${r + refsPerSlide})`,
+                                badge: `KAYNAKÇA / REFERENCES (${r + 1} - ${r + refsPerSlide})`,
                                 references: finalReferences.slice(r, r + refsPerSlide)
                             });
                         }
@@ -359,15 +394,14 @@
                         const mid = Math.ceil(slideData.sentences.length / 2);
                         const col1 = slideData.sentences.slice(0, mid).join(" ");
                         const col2 = slideData.sentences.slice(mid).join(" ");
-                        const spacingValue = lineSpacing === 'tight' ? 12 : lineSpacing === 'relaxed' ? 18 : 14;
 
                         slide.addText(col1, {
                             x: 0.5, y: 0.8, w: 4.3, h: 4.3,
-                            fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '0F172A' : selectedBg.text, lineSpacing: spacingValue, align: textAlign
+                            fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '0F172A' : selectedBg.text, lineSpacing: 14, align: textAlign
                         });
                         slide.addText(col2, {
                             x: 5.1, y: 0.8, w: 4.4, h: 4.3,
-                            fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '334155' : '94A3B8', lineSpacing: spacingValue, align: textAlign
+                            fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '334155' : '94A3B8', lineSpacing: 14, align: textAlign
                         });
                     } else if (slideData.type === 'references') {
                         slide.addText("AKADEMİK KAYNAKÇA & LİTERATÜR", {
@@ -384,7 +418,7 @@
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Seçenek_${activeVarKey}.pptx` });
+                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_${selectedLang}_${activeVarKey}.pptx` });
             };
 
             const currentSlides = variations[activeVarKey] || [];
@@ -401,7 +435,7 @@
                                 <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-1.5">
                                     Academic.io <span className="text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded">PRO</span>
                                 </h1>
-                                <p className="text-xs text-slate-500 font-medium">Yapay Zeka Destekli Akademik Sunum Motoru</p>
+                                <p className="text-xs text-slate-500 font-medium">Yapay Zeka Destekli Çok Dilli Akademik Motor</p>
                             </div>
                         </div>
 
@@ -426,20 +460,20 @@
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
                             
                             <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/90 hover:border-slate-300 text-slate-700 px-3.5 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
-                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.4</span>
+                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.5</span>
                                 <span className="text-slate-300">•</span>
                                 <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                                    <i className="fa-solid fa-bolt text-amber-500 text-[11px]"></i> Canlı Akademik Veri Entegrasyonu
+                                    <i className="fa-solid fa-globe text-blue-600 text-[11px]"></i> Google Translate & Wiki Çok Dilli Altyapı
                                 </span>
                             </div>
 
                             <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
-                                Otomatik Araştırma ve <br />
+                                Çok Dilli Küresel <br />
                                 <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Akademik Sunum Asistanı</span>
                             </h2>
 
                             <p className="text-slate-600 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-normal">
-                                Canlı kaynaklardan çekilen akademik verilerle saniyeler içinde düzenlenebilir PowerPoint slaytları üretin. Saat bazı dinamik varyasyonlar ve 100+ profesyonel renk teması ile.
+                                İstediğiniz dilde konu girin; Google Translate çeviri altyapısı ve küresel veritabanları ile hedef dilde kusursuz akademik sunumlar üretin.
                             </p>
 
                             <button 
@@ -452,18 +486,18 @@
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-palette"></i>
+                                        <i className="fa-solid fa-language"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">100+ Kurumsal Renk Paleti</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">HEX kod önizlemeleri ve saf beyaz minimalist mod dahil tüm akademiye uygun renk tonları.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">12+ Küresel Dil Desteği</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">İngilizce, Almanca, Fransızca, Rusça, Çince, Arapça ve daha birçok dilde yerel içerik üretimi.</p>
                                 </div>
 
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-layer-group"></i>
+                                        <i className="fa-solid fa-bolt"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">Dinamik Algoritma Motoru</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">Aynı konuda her saat başı tamamen özgün içerik harmanlayan 3 farklı varyasyon seçeneği.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">Google Translate Entegrasyonu</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">Seçilen hedef dil altyapısına göre anlık çeviri ve akademik sentez motoru.</p>
                                 </div>
 
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-300 transition">
@@ -471,7 +505,7 @@
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">Canlı PowerPoint Stüdyosu</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">İndirmeden önce metinleri anında düzenleyin, sayfa ekleyip silin ve doğrudan .pptx olarak indirin.</p>
+                                    <p className="text-xs text-slate-600 leading-relaxed">Üretilen çok dilli slaytları ekranda düzenleyin ve .pptx formatında indirin.</p>
                                 </div>
                             </div>
                         </main>
@@ -480,13 +514,12 @@
                     {view === 'studio' && (
                         <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
                             
-                            {/* FORM ALANI */}
                             <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm space-y-6 mb-8 text-left">
                                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                                        <i className="fa-solid fa-sliders text-blue-600"></i> Sunum Oluşturma Paneli
+                                        <i className="fa-solid fa-globe text-blue-600"></i> Çok Dilli Sunum Üretim Paneli
                                     </h3>
-                                    <span className="text-xs text-slate-400 font-medium">İstediğiniz konuyu girin ve slaytlarınızı anında üretin</span>
+                                    <span className="text-xs text-slate-400 font-medium">Google Translate Altyapısı Aktif</span>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -496,14 +529,14 @@
                                             type="text" 
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
-                                            placeholder="Örn: Klinik Psikoloji, Kuantum Fiziği..."
+                                            placeholder="Örn: Yapay Zeka, Kuantum Fiziği..."
                                             className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium transition"
                                             required
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Dil Seçeneği</label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Hedef Dil (Google Translate Çeviri)</label>
                                         <select 
                                             value={selectedLang}
                                             onChange={(e) => setSelectedLang(e.target.value)}
@@ -552,24 +585,22 @@
                                     {loading ? (
                                         <>
                                             <i className="fa-solid fa-spinner animate-spin text-base"></i>
-                                            <span>Akademik Veriler İşleniyor & 3 Alternatif Üretiliyor...</span>
+                                            <span>Google Translate Altyapısı ile Çevriliyor ve Üretiliyor...</span>
                                         </>
                                     ) : (
                                         <>
-                                            <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
-                                            <span>Sunum Setini Üret ve Düzenle</span>
+                                            <i className="fa-solid fa-globe text-base"></i>
+                                            <span>Seçilen Dilde Sunum Üret ve Düzenle</span>
                                         </>
                                     )}
                                 </button>
                             </form>
 
-                            {/* YENİLENMİŞ TEK PARÇA KONTROL VE EDİTÖR PANELİ (UNIFIED TOOLBAR) */}
                             {currentSlides.length > 0 && (
                                 <div className="space-y-4">
                                     
                                     <div className="bg-white border border-slate-200 p-2.5 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4">
                                         
-                                        {/* VARYASYON SEÇİCİ (SEGMENTED CONTROL) */}
                                         <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl border border-slate-200/60">
                                             <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center gap-1">
                                                 <i className="fa-solid fa-layer-group text-slate-500"></i> Set:
@@ -600,7 +631,6 @@
                                             </button>
                                         </div>
 
-                                        {/* TİPOGRAFİ VE RENK AYARLARI */}
                                         <div className="flex items-center gap-2">
                                             <div className="relative">
                                                 <select 
@@ -625,12 +655,10 @@
                                             </div>
                                         </div>
 
-                                        {/* SLAYT DÜZENLEME VE İNDİRME AKSİYONLARI */}
                                         <div className="flex items-center gap-2">
                                             <button 
                                                 onClick={addNewSlide} 
                                                 className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition border border-slate-200 flex items-center gap-1.5 cursor-pointer"
-                                                title="Mevcut slaytın arkasına yeni boş sayfa ekle"
                                             >
                                                 <i className="fa-solid fa-plus text-emerald-600"></i> Sayfa Ekle
                                             </button>
@@ -638,7 +666,6 @@
                                             <button 
                                                 onClick={deleteCurrentSlide} 
                                                 className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold px-3 py-2 rounded-xl transition border border-rose-200/70 flex items-center gap-1.5 cursor-pointer"
-                                                title="Aktif slaytı sil"
                                             >
                                                 <i className="fa-solid fa-trash-can text-rose-500"></i> Sil
                                             </button>
@@ -656,12 +683,11 @@
 
                                     </div>
 
-                                    {/* SLAYT KAVRASA ÖNİZLEME ALANI */}
                                     <div className={`powerpoint-slide rounded-2xl border border-slate-200/90 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
                                         
                                         <div className="flex justify-between items-center border-b border-slate-300/60 pb-3">
                                             <span className={`text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-blue-500/20 text-blue-300 border-blue-400/30'}`}>
-                                                {currentSlides[activeSlide].badge} (Tıkla ve Düzenle)
+                                                {currentSlides[activeSlide].badge} ({LANGUAGES.find(l => l.code === selectedLang)?.name})
                                             </span>
                                             <span className="text-xs font-semibold opacity-75">{topic}</span>
                                         </div>
@@ -719,12 +745,11 @@
                                         )}
 
                                         <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300/60 pt-3">
-                                            <span>Academic.io Stüdyo Editörü</span>
+                                            <span>Academic.io Çok Dilli Stüdyo</span>
                                             <span>Sayfa {activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
-                                    {/* SLAYT SAYFALAMA (PAGINATION) */}
                                     <div className="flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-2xl shadow-sm">
                                         <button 
                                             onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} 
