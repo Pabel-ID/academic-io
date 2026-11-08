@@ -123,7 +123,7 @@
             const [activeVarKey, setActiveVarKey] = useState('A');
             const [activeSlide, setActiveSlide] = useState(0);
 
-            // Gelişmiş Kesintisiz Destek Formu State'leri
+            // Destek Formu State
             const [supportEmail, setSupportEmail] = useState("");
             const [supportName, setSupportName] = useState("");
             const [supportMsg, setSupportMsg] = useState("");
@@ -136,30 +136,28 @@
                 setSupportSuccess(false);
 
                 try {
-                    // Sayfadan ayrılmadan doğrudan sunucu üzerinden gönderim yapan API
+                    const formData = new FormData();
+                    // Web3Forms Doğrudan Gönderim Altyapısı
+                    formData.append("access_key", "099a9b1c-99d6-444a-8d3f-5b651bc19e3d");
+                    formData.append("name", supportName || "AcademicSlide Kullanıcısı");
+                    formData.append("email", supportEmail);
+                    formData.append("subject", `AcademicSlide Pro Destek/Şikayet: ${supportName}`);
+                    formData.append("message", supportMsg);
+
                     const response = await fetch("https://api.web3forms.com/submit", {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json"
-                        },
-                        body: JSON.stringify({
-                            access_key: "099a9b1c-99d6-444a-8d3f-5b651bc19e3d", // Akademik Destek Servisi Entegrasyonu
-                            to_email: "mayonez.contact@gmail.com",
-                            from_name: supportName || "AcademicSlide Kullanıcısı",
-                            replyto: supportEmail,
-                            subject: `AcademicSlide Pro Destek/Şikayet: ${supportName}`,
-                            message: `Kullanıcı E-Postası: ${supportEmail}\nKullanıcı Adı: ${supportName}\n\nMesaj/Şikayet:\n${supportMsg}`
-                        })
+                        body: formData
                     });
 
-                    if (response.ok) {
+                    const resData = await response.json();
+
+                    if (resData.success) {
                         setSupportSuccess(true);
                         setSupportName("");
                         setSupportEmail("");
                         setSupportMsg("");
                     } else {
-                        alert("Mesaj iletilirken bir aksaklık oluştu, lütfen tekrar deneyin.");
+                        alert(resData.message || "Mesaj iletilirken bir aksaklık oluştu, lütfen e-posta kutunuzu kontrol edip servisi onaylayın.");
                     }
                 } catch (err) {
                     alert("Ağ hatası oluştu, lütfen internet bağlantınızı kontrol edin.");
@@ -382,8 +380,6 @@
 
             return (
                 <div className="min-h-screen flex flex-col justify-between">
-                    
-                    {/* Navigasyon Barı */}
                     <nav className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-6 py-4 flex justify-between items-center">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
@@ -412,7 +408,6 @@
                         </div>
                     </nav>
 
-                    {/* 1. KARŞILAMA / YÖNLENDİRME PORTALI (LANDING) */}
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center text-center">
                             <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold mb-6 tracking-wide uppercase">
@@ -462,7 +457,6 @@
                         </main>
                     )}
 
-                    {/* 2. ÇALIŞMA STÜDYOSU EKRANI */}
                     {view === 'studio' && (
                         <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
                             <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 p-4 rounded-2xl mb-6">
@@ -689,7 +683,7 @@
                         </main>
                     )}
 
-                    {/* 3. ENTEGRE DESTEK & ŞİKAYET FORMU (SAYFADAN AYRILMADAN BİREBİR GÖNDERİM) */}
+                    {/* 3. ENTEGRE DESTEK & ŞİKAYET FORMU */}
                     <footer className="border-t border-slate-800 bg-slate-900/80 py-12 px-6 mt-16 text-slate-400">
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
@@ -697,7 +691,7 @@
                                     <i className="fa-solid fa-headset text-blue-400"></i> Doğrudan Destek & Şikayet Paneli
                                 </h4>
                                 <p className="text-xs leading-relaxed mb-4">
-                                    Mail uygulamanız açılmadan yaşadığınız sorunları, hataları veya geri bildirimlerinizi doğrudan bu form üzerinden iletebilirsiniz. Mesajınız anında <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine ulaşacaktır.
+                                    Mail uygulamanız açılmadan yaşadığınız sorunları, hataları veya geri bildirimlerinizi doğrudan bu form üzerinden iletebilirsiniz. Mesajınız anında <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine ulaştırılacaktır.
                                 </p>
                                 <div className="text-xs font-mono text-blue-400 bg-slate-950 p-3 rounded-xl border border-slate-800 inline-block">
                                     <i className="fa-solid fa-shield-halved mr-2"></i> Güvenli & Doğrudan İletişim Servisi
