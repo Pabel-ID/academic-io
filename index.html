@@ -182,9 +182,9 @@
                 }
             };
 
-            // GOOGLE TRANSLATE ALTYAPILI ÇEVİRİ VE WIKIPEDIA ENTEGRASYONU
+            // GOOGLE TRANSLATE ÇEVİRİ KÖPRÜSÜ
             const translateTextWithGoogle = async (text, targetLang) => {
-                if (targetLang === 'tr') return text;
+                if (!text || targetLang === 'tr') return text;
                 try {
                     const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
                     const data = await res.json();
@@ -201,24 +201,27 @@
                 setLoading(true);
                 setError(null);
                 try {
-                    // Google Translate / Çok Dilli Arama Altyapısı
-                    let queryToSearch = searchQuery;
+                    // 1. Arama konusunu seçilen hedef dile otomatik çevir
+                    let translatedQuery = searchQuery;
                     if (lang !== 'tr') {
-                        queryToSearch = await translateTextWithGoogle(searchQuery, lang);
+                        translatedQuery = await translateTextWithGoogle(searchQuery, lang);
                     }
 
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(queryToSearch)}&format=json&origin=*&srlimit=12`;
+                    // 2. Hedef dilin Wikipedia API'sinden arama yap
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=12`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
                     let searchResults = searchData.query ? searchData.query.search : [];
                     
-                    // Eğer yerel dilde sonuç bulunamazsa İngilizce altyapıyafallback yapıp Google Translate ile çevir
+                    // Eğer yerel dilde sonuç çıkmazsa İngilizce arayıp içeriği hedef dile çevir
+                    let activeLangForWiki = lang;
                     if (searchResults.length === 0 && lang !== 'en') {
                         const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=12`;
                         const fbRes = await fetch(fallbackUrl);
                         const fbData = await fbRes.json();
                         searchResults = fbData.query ? fbData.query.search : [];
+                        activeLangForWiki = 'en';
                     }
 
                     if (searchResults.length === 0) {
@@ -226,14 +229,16 @@
                     }
 
                     const mainTitle = searchResults[0].title;
-                    const translatedMainTitle = lang !== 'tr' ? await translateTextWithGoogle(mainTitle, lang) : mainTitle;
+                    let displayTitle = mainTitle;
+                    if (activeLangForWiki === 'en' && lang !== 'en') {
+                        displayTitle = await translateTextWithGoogle(mainTitle, lang);
+                    }
 
                     let rawSentences = [];
                     let rawReferences = [];
 
                     for (let item of searchResults) {
-                        const sourceWiki = searchResults === searchData.query.search ? lang : 'en';
-                        const parseUrl = `https://${sourceWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|links&format=json&origin=*`;
+                        const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|links&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
 
@@ -247,7 +252,8 @@
                             for (let p of pList) {
                                 let text = p.textContent.replace(/\[\d+\]/g, '').trim();
                                 if (text.length > 30) {
-                                    if (sourceWiki === 'en' && lang !== 'en') {
+                                    // Eğer içerik İngilizce gelip hedef dil farklıysa Google Translate ile anında çevir
+                                    if (activeLangForWiki === 'en' && lang !== 'en') {
                                         text = await translateTextWithGoogle(text, lang);
                                     }
                                     text.split(/(?<=[.?!])\s+/).forEach(s => {
@@ -279,10 +285,10 @@
                         slides.push({
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
-                            title: translatedMainTitle.toUpperCase(),
-                            subtitle: `${translatedMainTitle} (${LANGUAGES.find(l => l.code === lang)?.name}) - Google Translate & Wiki Entegrasyonu.`,
+                            title: displayTitle.toUpperCase(),
+                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Google Translate & Wiki Entegrasyonu).`,
                             sentences: [
-                                `Konu / Subject: ${translatedMainTitle}`,
+                                `Konu / Subject: ${displayTitle}`,
                                 `Dil / Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
                                 `Oluşturulma Saati: ${new Date().toLocaleTimeString()}`,
                                 `Doğrulanmış Literatür: 50 Adet Referans`
@@ -460,10 +466,10 @@
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
                             
                             <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/90 hover:border-slate-300 text-slate-700 px-3.5 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
-                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.5</span>
+                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.6</span>
                                 <span className="text-slate-300">•</span>
                                 <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                                    <i className="fa-solid fa-globe text-blue-600 text-[11px]"></i> Google Translate & Wiki Çok Dilli Altyapı
+                                    <i className="fa-solid fa-globe text-blue-600 text-[11px]"></i> Google Translate & Wiki Çok Dilli Altyapı Aktif
                                 </span>
                             </div>
 
@@ -519,7 +525,7 @@
                                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
                                         <i className="fa-solid fa-globe text-blue-600"></i> Çok Dilli Sunum Üretim Paneli
                                     </h3>
-                                    <span className="text-xs text-slate-400 font-medium">Google Translate Altyapısı Aktif</span>
+                                    <span className="text-xs text-slate-400 font-medium">Google Translate Çeviri Köprüsü Aktif</span>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -529,7 +535,7 @@
                                             type="text" 
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
-                                            placeholder="Örn: Yapay Zeka, Kuantum Fiziği..."
+                                            placeholder="Örn: Yapay Zeka, Clinical Psychology..."
                                             className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium transition"
                                             required
                                         />
@@ -585,7 +591,7 @@
                                     {loading ? (
                                         <>
                                             <i className="fa-solid fa-spinner animate-spin text-base"></i>
-                                            <span>Google Translate Altyapısı ile Çevriliyor ve Üretiliyor...</span>
+                                            <span>Konu Çevriliyor ve Seçilen Dilde Slaytlar Üretiliyor...</span>
                                         </>
                                     ) : (
                                         <>
