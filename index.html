@@ -68,26 +68,26 @@
 
         const BASE_DICT = {
             tagBadge: "PRO",
-            tagText: "KÜRESEL AKADEMİK MOTOR & DİNAMİK GÖRSEL ENTEGRASYONU AKTİF",
+            tagText: "KÜRESEL AKADEMİK MOTOR & VEKTÖREL GÖRSEL ENGINE AKTİF",
             title1: "Yapay Zeka Destekli",
             title2: "Akademik Sunum Asistanı",
-            desc: "İstediğiniz dilde konu girin; Google Translate altyapısı, küresel kaynaklar ve konunuza özel otomatik görsellerle kusursuz slayt setleri üretin.",
+            desc: "İstediğiniz dilde konu girin; Google Translate altyapısı ve konuyla entegre vektörel grafiklerle kusursuz akademik sunumlar üretin.",
             startBtn: "Hemen Sunum Oluşturmaya Başla",
-            card1Title: "Görsel & Medya Entegrasyonu",
-            card1Desc: "Slayt başlıkları ve içeriğe uygun yüksek çözünürlüklü konsept fotoğrafları otomatik ekleme.",
+            card1Title: "Görsel & Medya Motoru",
+            card1Desc: "Konunuza özel yerel SVG akademik grafik ve illüstrasyon üretimi.",
             card2Title: "Google Translate & Wiki",
             card2Desc: "Seçilen hedef dil altyapısına göre anlık çeviri, arayüz adaptasyonu ve akademik sentez motoru.",
             card3Title: "Canlı PowerPoint Stüdyosu",
             card3Desc: "Üretilen görselli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
             panelTitle: "Çok Dilli Sunum Üretim Paneli",
-            panelSub: "Arayüz, Görsel Motoru ve Hedef Dil Eşzamanlı Çalışır",
+            panelSub: "Arayüz, Visual Motoru ve Hedef Dil Eşzamanlı Çalışır",
             topicLabel: "Sunum Konusu",
             topicPlaceholder: "Örn: Yapay Zeka, Clinical Psychology...",
             langLabel: "Arayüz ve Sunum Dili",
             slidesLabel: "Slayt Sayısı",
             colorLabel: "Varsayılan Renk Teması",
             genBtn: "Görselli Sunum Üret ve Düzenle",
-            genLoading: "Konu Çevriliyor, Medya Çekiliyor ve Slaytlar Üretiliyor...",
+            genLoading: "Konu Çevriliyor, Vektörel Görseller ve Slaytlar Üretiliyor...",
             sets: "Set:",
             chronological: "Kronolojik",
             analytical: "Analitik",
@@ -143,6 +143,18 @@
             { name: "Merriweather (Akademik Serif)", value: "font-serif" },
             { name: "Fira Code (Teknik / Kod)", value: "font-mono" }
         ];
+
+        // KONUYA ÖZEL İKON & VEKTÖREL ŞABLONLARI (KUSURSUZ GÖRSEL ENGINE)
+        const getTopicIcon = (topicStr) => {
+            const t = topicStr.toLowerCase();
+            if (t.includes("psikoloji") || t.includes("psychology") || t.includes("biliş") || t.includes("zihin")) return "fa-brain";
+            if (t.includes("yapay zeka") || t.includes("ai") || t.includes("kod") || t.includes("software") || t.includes("yazılım")) return "fa-robot";
+            if (t.includes("siber") || t.includes("cyber") || t.includes("güvenlik") || t.includes("security")) return "fa-shield-halved";
+            if (t.includes("tıp") || t.includes("klinik") || t.includes("sağlık") || t.includes("health")) return "fa-heart-pulse";
+            if (t.includes("tarih") || t.includes("history") || t.includes("felsefe")) return "fa-book-atlas";
+            if (t.includes("fizik") || t.includes("kimya") || t.includes("bilim") || t.includes("science")) return "fa-atom";
+            return "fa-graduation-cap";
+        };
 
         const shuffleArray = (array, seed) => {
             let arr = [...array];
@@ -303,36 +315,28 @@
 
                     let rawSentences = [];
                     let rawReferences = [];
-                    let wikiImages = [];
 
                     for (let item of searchResults) {
-                        const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|images&format=json&origin=*`;
+                        const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
 
-                        if (parseData.parse) {
-                            if (parseData.parse.images) {
-                                const validImgs = parseData.parse.images.filter(img => !img.endsWith('.svg') && !img.endsWith('.png') && !img.includes('icon'));
-                                wikiImages.push(...validImgs);
-                            }
+                        if (parseData.parse && parseData.parse.text) {
+                            const htmlContent = parseData.parse.text['*'];
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = htmlContent;
+                            tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
 
-                            if (parseData.parse.text) {
-                                const htmlContent = parseData.parse.text['*'];
-                                const tempDiv = document.createElement('div');
-                                tempDiv.innerHTML = htmlContent;
-                                tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
-
-                                const pList = Array.from(tempDiv.querySelectorAll('p'));
-                                for (let p of pList) {
-                                    let text = p.textContent.replace(/\[\d+\]/g, '').trim();
-                                    if (text.length > 30) {
-                                        if (activeLangForWiki === 'en' && lang !== 'en') {
-                                            text = await translateTextWithGoogle(text, lang);
-                                        }
-                                        text.split(/(?<=[.?!])\s+/).forEach(s => {
-                                            if (s.trim().length > 20) rawSentences.push(s.trim());
-                                        });
+                            const pList = Array.from(tempDiv.querySelectorAll('p'));
+                            for (let p of pList) {
+                                let text = p.textContent.replace(/\[\d+\]/g, '').trim();
+                                if (text.length > 30) {
+                                    if (activeLangForWiki === 'en' && lang !== 'en') {
+                                        text = await translateTextWithGoogle(text, lang);
                                     }
+                                    text.split(/(?<=[.?!])\s+/).forEach(s => {
+                                        if (s.trim().length > 20) rawSentences.push(s.trim());
+                                    });
                                 }
                             }
 
@@ -354,14 +358,7 @@
                     }
                     finalReferences = finalReferences.slice(0, 50);
 
-                    // Konuya özel dinamikUnsplash/Wikipedia görsel havuzu
-                    const fallbackImages = [
-                        `https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80`,
-                        `https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80`,
-                        `https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80`,
-                        `https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80`,
-                        `https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80`
-                    ];
+                    const iconClass = getTopicIcon(topic);
 
                     const createSlideSet = (sentences, conceptName, sentenceOffset) => {
                         const slides = [];
@@ -369,9 +366,8 @@
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
                             title: displayTitle.toUpperCase(),
-                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Google Translate & Wiki Medya).`,
-                            imageUrl: `https://source.unsplash.com/featured/?${encodeURIComponent(translatedQuery)},academic`,
-                            fallbackUrl: fallbackImages[0],
+                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Akademik Analiz & Vektörel Görsel Entegrasyonu).`,
+                            icon: iconClass,
                             sentences: [
                                 `Topic: ${displayTitle}`,
                                 `Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
@@ -381,7 +377,6 @@
                         });
 
                         let cursor = sentenceOffset;
-                        let imgIdx = 1;
                         while (cursor < sentences.length && slides.length < targetCount - 3) {
                             const chunk = sentences.slice(cursor, cursor + 15);
                             cursor += 15;
@@ -390,9 +385,8 @@
                                     type: 'flow',
                                     badge: `SLIDE ${slides.length + 1}`,
                                     sentences: chunk,
-                                    imageUrl: fallbackImages[imgIdx % fallbackImages.length]
+                                    icon: iconClass
                                 });
-                                imgIdx++;
                             }
                         }
 
@@ -448,7 +442,7 @@
                     type: 'flow',
                     badge: `SLIDE ${activeSlide + 2} (NEW)`,
                     sentences: Array(15).fill("Edit this academic text..."),
-                    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80"
+                    icon: getTopicIcon(topic)
                 });
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
                 setActiveSlide(activeSlide + 1);
@@ -569,7 +563,7 @@
                                 <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">{t.tagBadge}</span>
                                 <span className="text-slate-300">•</span>
                                 <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                                    <i className="fa-solid fa-image text-blue-600 text-[11px]"></i> {t.tagText}
+                                    <i className="fa-solid fa-palette text-blue-600 text-[11px]"></i> {t.tagText}
                                 </span>
                             </div>
 
@@ -592,7 +586,7 @@
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-camera"></i>
+                                        <i className="fa-solid fa-shapes"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
@@ -789,7 +783,7 @@
 
                                     </div>
 
-                                    {/* SLAYT GÖRÜNTÜLEYİCİ & GÖRSEL ENTEGRASYONU */}
+                                    {/* SLAYT GÖRÜNTÜLEYİCİ & KUSURSUZ VEKTÖREL GÖRSEL ENGINE */}
                                     <div className={`powerpoint-slide rounded-2xl border border-slate-200/90 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
                                         
                                         <div className="flex justify-between items-center border-b border-slate-300/60 pb-3 relative z-10">
@@ -810,13 +804,12 @@
                                                         ))}
                                                     </ul>
                                                 </div>
-                                                <div className="hidden md:block h-full min-h-[220px] rounded-2xl overflow-hidden border border-slate-200/60 shadow-lg relative bg-slate-100">
-                                                    <img 
-                                                        src={currentSlides[activeSlide].imageUrl} 
-                                                        onError={(e) => { e.target.src = currentSlides[activeSlide].fallbackUrl; }}
-                                                        alt="Akademik Konu Görseli" 
-                                                        className="w-full h-full object-cover"
-                                                    />
+                                                <div className="hidden md:flex flex-col items-center justify-center h-full min-h-[220px] rounded-2xl border border-blue-200/60 shadow-lg relative bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-purple-500/10 p-6 text-center">
+                                                    <div className="w-20 h-20 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-4xl shadow-xl mb-3">
+                                                        <i className={`fa-solid ${currentSlides[activeSlide].icon || 'fa-graduation-cap'}`}></i>
+                                                    </div>
+                                                    <span className="text-xs font-bold opacity-80 uppercase tracking-widest">{topic}</span>
+                                                    <span className="text-[10px] opacity-60 mt-1">Akademik Visual Motoru</span>
                                                 </div>
                                             </div>
                                         )}
@@ -844,12 +837,12 @@
                                                             );
                                                         })}
                                                     </div>
-                                                    <div className="hidden md:block h-full rounded-xl overflow-hidden border border-slate-200/60 shadow relative bg-slate-100 max-h-[250px]">
-                                                        <img 
-                                                            src={currentSlides[activeSlide].imageUrl} 
-                                                            alt="İçerik Fotoğrafı" 
-                                                            className="w-full h-full object-cover"
-                                                        />
+                                                    <div className="hidden md:flex flex-col items-center justify-center h-full rounded-xl border border-slate-200/60 shadow relative bg-gradient-to-br from-slate-100 to-slate-200/50 p-4 max-h-[250px] text-center">
+                                                        <div className="w-14 h-14 rounded-xl bg-blue-500/20 text-blue-600 flex items-center justify-center text-2xl mb-2">
+                                                            <i className={`fa-solid ${currentSlides[activeSlide].icon || 'fa-chart-pie'}`}></i>
+                                                        </div>
+                                                        <span className="text-[11px] font-bold opacity-75">Slayt Veri Analizi</span>
+                                                        <span className="text-[9px] opacity-50 mt-0.5">Vektörel Grafik Kartı</span>
                                                     </div>
                                                 </div>
                                             </div>
