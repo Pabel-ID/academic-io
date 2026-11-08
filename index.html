@@ -20,18 +20,29 @@
         .powerpoint-slide {
             width: 100%;
             aspect-ratio: 16 / 9;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.08), 0 10px 15px -5px rgba(15, 23, 42, 0.04);
             transition: all 0.3s ease;
         }
 
         [contenteditable="true"]:hover {
             outline: 2px dashed #3b82f6;
-            border-radius: 4px;
+            border-radius: 6px;
         }
         [contenteditable="true"]:focus {
             outline: 2px solid #2563eb;
-            background: rgba(241, 245, 249, 0.9);
-            border-radius: 4px;
+            background: rgba(241, 245, 249, 0.95);
+            border-radius: 6px;
+        }
+
+        /* Standart tarayıcı select okunu özelleştirme */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.25rem !important;
         }
     </style>
 </head>
@@ -411,7 +422,6 @@
                         </div>
                     </nav>
 
-                    {/* YENİLENMİŞ KURUMSAL MİKRO ROZET BÖLÜMÜ */}
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
                             
@@ -469,11 +479,16 @@
 
                     {view === 'studio' && (
                         <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
-                            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 p-4 rounded-2xl mb-6 shadow-sm">
-                                <h3 className="text-sm font-bold text-slate-800"><i className="fa-solid fa-sliders text-blue-600 mr-2"></i> Sunum Parametreleri ve Renk Seçimi</h3>
-                            </div>
+                            
+                            {/* FORM ALANI */}
+                            <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm space-y-6 mb-8 text-left">
+                                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                        <i className="fa-solid fa-sliders text-blue-600"></i> Sunum Oluşturma Paneli
+                                    </h3>
+                                    <span className="text-xs text-slate-400 font-medium">İstediğiniz konuyu girin ve slaytlarınızı anında üretin</span>
+                                </div>
 
-                            <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-md space-y-6 mb-8 text-left">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Sunum Konusu</label>
@@ -482,17 +497,17 @@
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
                                             placeholder="Örn: Klinik Psikoloji, Kuantum Fiziği..."
-                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium"
+                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium transition"
                                             required
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Dil</label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Dil Seçeneği</label>
                                         <select 
                                             value={selectedLang}
                                             onChange={(e) => setSelectedLang(e.target.value)}
-                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer"
+                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer font-medium"
                                         >
                                             {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
                                         </select>
@@ -515,18 +530,17 @@
 
                                     <div>
                                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                            Arka Plan Rengi & Kodları (<span className="text-blue-600">#FFFFFF Beyaz Dahil 100+</span>)
+                                            Varsayılan Renk Teması (<span className="text-blue-600">100+ Ton</span>)
                                         </label>
                                         <select 
                                             value={selectedBg.value}
                                             onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer font-mono"
+                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer font-mono"
                                         >
                                             {COLOR_PALETTES.map((bg) => (
                                                 <option key={bg.id} value={bg.value}>{bg.name}</option>
                                             ))}
                                         </select>
-                                        <p className="text-[10px] text-slate-500 mt-1">Seçilen Kod: <span className="text-blue-600 font-mono">#{selectedBg.value}</span></p>
                                     </div>
                                 </div>
 
@@ -538,85 +552,116 @@
                                     {loading ? (
                                         <>
                                             <i className="fa-solid fa-spinner animate-spin text-base"></i>
-                                            <span>3 Alternatifli Slayt Seti Oluşturuluyor...</span>
+                                            <span>Akademik Veriler İşleniyor & 3 Alternatif Üretiliyor...</span>
                                         </>
                                     ) : (
                                         <>
                                             <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
-                                            <span>Slaytları Oluştur ve Önizle</span>
+                                            <span>Sunum Setini Üret ve Düzenle</span>
                                         </>
                                     )}
                                 </button>
                             </form>
 
+                            {/* YENİLENMİŞ TEK PARÇA KONTROL VE EDİTÖR PANELİ (UNIFIED TOOLBAR) */}
                             {currentSlides.length > 0 && (
                                 <div className="space-y-4">
-                                    <div className="bg-white border border-slate-200 p-3 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-sm">
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider mr-2">Varyasyonlar:</span>
+                                    
+                                    <div className="bg-white border border-slate-200 p-2.5 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4">
+                                        
+                                        {/* VARYASYON SEÇİCİ (SEGMENTED CONTROL) */}
+                                        <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl border border-slate-200/60">
+                                            <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center gap-1">
+                                                <i className="fa-solid fa-layer-group text-slate-500"></i> Set:
+                                            </span>
+                                            
                                             <button 
                                                 onClick={() => { setActiveVarKey('A'); setActiveSlide(0); }}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'A' ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'A' ? 'bg-white text-blue-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
                                             >
-                                                Seçenek A
+                                                <span>A</span>
+                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">Kronolojik</span>
                                             </button>
+                                            
                                             <button 
                                                 onClick={() => { setActiveVarKey('B'); setActiveSlide(0); }}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'B' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'B' ? 'bg-white text-indigo-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
                                             >
-                                                Seçenek B
+                                                <span>B</span>
+                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">Analitik</span>
                                             </button>
+
                                             <button 
                                                 onClick={() => { setActiveVarKey('C'); setActiveSlide(0); }}
-                                                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 border ${activeVarKey === 'C' ? 'bg-purple-600 text-white border-purple-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'}`}
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'C' ? 'bg-white text-purple-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
                                             >
-                                                Seçenek C
+                                                <span>C</span>
+                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">Kavramsal</span>
                                             </button>
                                         </div>
 
-                                        <button 
-                                            onClick={downloadAsPPTX} 
-                                            className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-md shadow-orange-600/20 cursor-pointer"
-                                        >
-                                            <i className="fa-solid fa-file-powerpoint text-base"></i> {activeVarKey}. Seçeneği İndir (.pptx)
-                                        </button>
-                                    </div>
-
-                                    <div className="bg-white border border-slate-200 p-3 rounded-2xl flex flex-wrap items-center justify-between gap-4 shadow-sm">
-                                        <div className="flex items-center gap-3 flex-wrap">
-                                            <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Canlı Editör:</span>
-                                            <select 
-                                                value={selectedFont.value}
-                                                onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
-                                                className="bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-2 py-1 focus:outline-none"
-                                            >
-                                                {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
-                                            </select>
-                                            <select 
-                                                value={selectedBg.value}
-                                                onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                                className="bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-lg px-2 py-1 focus:outline-none font-mono"
-                                            >
-                                                {COLOR_PALETTES.map((bg) => (
-                                                    <option key={bg.id} value={bg.value}>{bg.name}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-
+                                        {/* TİPOGRAFİ VE RENK AYARLARI */}
                                         <div className="flex items-center gap-2">
-                                            <button onClick={addNewSlide} className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-300 flex items-center gap-1">
-                                                <i className="fa-solid fa-plus text-emerald-600"></i> Slayt Ekle
+                                            <div className="relative">
+                                                <select 
+                                                    value={selectedFont.value}
+                                                    onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
+                                                    className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-sm"
+                                                >
+                                                    {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
+                                                </select>
+                                            </div>
+
+                                            <div className="relative">
+                                                <select 
+                                                    value={selectedBg.value}
+                                                    onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
+                                                    className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-mono font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-sm"
+                                                >
+                                                    {COLOR_PALETTES.map((bg) => (
+                                                        <option key={bg.id} value={bg.value}>{bg.name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        {/* SLAYT DÜZENLEME VE İNDİRME AKSİYONLARI */}
+                                        <div className="flex items-center gap-2">
+                                            <button 
+                                                onClick={addNewSlide} 
+                                                className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+                                                title="Mevcut slaytın arkasına yeni boş sayfa ekle"
+                                            >
+                                                <i className="fa-solid fa-plus text-emerald-600"></i> Sayfa Ekle
                                             </button>
-                                            <button onClick={deleteCurrentSlide} className="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-200 flex items-center gap-1">
-                                                <i className="fa-solid fa-trash"></i> Slaytı Sil
+
+                                            <button 
+                                                onClick={deleteCurrentSlide} 
+                                                className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold px-3 py-2 rounded-xl transition border border-rose-200/70 flex items-center gap-1.5 cursor-pointer"
+                                                title="Aktif slaytı sil"
+                                            >
+                                                <i className="fa-solid fa-trash-can text-rose-500"></i> Sil
+                                            </button>
+
+                                            <div className="h-4 w-px bg-slate-200 mx-1"></div>
+
+                                            <button 
+                                                onClick={downloadAsPPTX} 
+                                                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer"
+                                            >
+                                                <i className="fa-solid fa-file-powerpoint text-orange-400 text-sm"></i>
+                                                <span>.PPTX İndir</span>
                                             </button>
                                         </div>
+
                                     </div>
 
-                                    <div className={`powerpoint-slide rounded-2xl border border-slate-300 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
-                                        <div className="flex justify-between items-center border-b border-slate-300 pb-3">
-                                            <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-blue-500/20 text-blue-300 border-blue-400/30'}`}>
-                                                {currentSlides[activeSlide].badge} (Düzenlenebilir)
+                                    {/* SLAYT KAVRASA ÖNİZLEME ALANI */}
+                                    <div className={`powerpoint-slide rounded-2xl border border-slate-200/90 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
+                                        
+                                        <div className="flex justify-between items-center border-b border-slate-300/60 pb-3">
+                                            <span className={`text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-blue-500/20 text-blue-300 border-blue-400/30'}`}>
+                                                {currentSlides[activeSlide].badge} (Tıkla ve Düzenle)
                                             </span>
                                             <span className="text-xs font-semibold opacity-75">{topic}</span>
                                         </div>
@@ -635,8 +680,8 @@
 
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto">
-                                                <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1">
-                                                    <i className="fa-solid fa-i-cursor"></i> Metnin üzerine tıklayarak doğrudan düzenleme yapabilirsiniz:
+                                                <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1 opacity-75">
+                                                    <i className="fa-solid fa-i-cursor"></i> Canlı metin alanı - Değiştirmek istediğiniz kelimelere tıklayabilirsiniz:
                                                 </p>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
                                                     <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
@@ -673,21 +718,36 @@
                                             </div>
                                         )}
 
-                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300 pt-3">
-                                            <span>Interactive Slide Editor</span>
+                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300/60 pt-3">
+                                            <span>Academic.io Stüdyo Editörü</span>
                                             <span>Sayfa {activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-center items-center gap-4 mt-4">
-                                        <button onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} disabled={activeSlide === 0} className="bg-white hover:bg-slate-100 text-slate-700 font-bold px-5 py-2 rounded-xl border border-slate-300 transition disabled:opacity-30 text-xs cursor-pointer shadow-sm">
-                                            <i className="fa-solid fa-chevron-left mr-1"></i> Önceki Sayfa
+                                    {/* SLAYT SAYFALAMA (PAGINATION) */}
+                                    <div className="flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-2xl shadow-sm">
+                                        <button 
+                                            onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} 
+                                            disabled={activeSlide === 0} 
+                                            className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer flex items-center gap-1.5"
+                                        >
+                                            <i className="fa-solid fa-chevron-left text-[10px]"></i> Önceki Sayfa
                                         </button>
-                                        <span className="text-xs font-bold text-slate-600 font-mono">{activeSlide + 1} / {currentSlides.length}</span>
-                                        <button onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))} disabled={activeSlide === currentSlides.length - 1} className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer shadow-sm">
-                                            Sonraki Sayfa <i className="fa-solid fa-chevron-right ml-1"></i>
+                                        
+                                        <div className="text-xs font-semibold text-slate-600 flex items-center gap-2">
+                                            <span>Slayt Konumu:</span>
+                                            <span className="font-mono bg-slate-100 px-2.5 py-1 rounded-lg text-slate-900 border border-slate-200">{activeSlide + 1} / {currentSlides.length}</span>
+                                        </div>
+
+                                        <button 
+                                            onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))} 
+                                            disabled={activeSlide === currentSlides.length - 1} 
+                                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer flex items-center gap-1.5 shadow-sm"
+                                        >
+                                            Sonraki Sayfa <i className="fa-solid fa-chevron-right text-[10px]"></i>
                                         </button>
                                     </div>
+
                                 </div>
                             )}
                         </main>
