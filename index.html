@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AcademicSlide Pro — Portâl, Canlı Stüdyo & Entegre Destek</title>
+    <title>AcademicSlide Pro — Portâl, Canlı Stüdyo & Otomatik Destek</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -136,7 +136,6 @@
                 setSupportSuccess(false);
 
                 try {
-                    // Sayfadan ayrılmadan, hata vermeyen doğrudan AJAX gönderim yapısı
                     const res = await fetch("https://formsubmit.co/ajax/mayonez.contact@gmail.com", {
                         method: "POST",
                         headers: { 
@@ -147,7 +146,9 @@
                             name: supportName,
                             email: supportEmail,
                             message: supportMsg,
-                            _subject: `AcademicSlide Pro Şikayet/Destek: ${supportName}`
+                            _subject: `AcademicSlide Pro Destek Bildirimi: ${supportName}`,
+                            // Otomatik yanıt (Auto-response) ayarı - Kullanıcıya giden mesaj
+                            _autoresponse: `Merhaba ${supportName},\n\nAcademicSlide Pro destek ekibine ilettiğiniz mesaj başarıyla alınmıştır. Talebiniz incelenmek üzere kuyruğa eklenmiştir.\n\nBu e-posta otomatik olarak oluşturulmuştur ve bu adrese gelen yanıtlar dikkate alınmamaktadır (No-Reply).\n\nİyi çalışmalar dileriz,\nAcademicSlide Pro Ekibi\nmayonez.contact@gmail.com`
                         })
                     });
 
@@ -157,7 +158,6 @@
                         setSupportEmail("");
                         setSupportMsg("");
                     } else {
-                        // Yedek yönteme yumuşak geçiş
                         setSupportSuccess(true);
                     }
                 } catch (err) {
@@ -389,7 +389,7 @@
                             </div>
                             <div>
                                 <h1 className="font-extrabold text-base tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AcademicSlide Pro</h1>
-                                <p className="text-[10px] text-slate-400">Canlı Saat & Destek Paneli</p>
+                                <p className="text-[10px] text-slate-400">Canlı Saat & Otomatik Yanıt Destek Paneli</p>
                             </div>
                         </div>
 
@@ -685,18 +685,18 @@
                         </main>
                     )}
 
-                    {/* 3. ENTEGRE DESTEK & ŞİKAYET FORMU */}
+                    {/* 3. ENTEGRE DESTEK & ŞİKAYET FORMU (OTOMATİK NO-REPLY YANITLI) */}
                     <footer className="border-t border-slate-800 bg-slate-900/80 py-12 px-6 mt-16 text-slate-400">
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
                                 <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-headset text-blue-400"></i> Doğrudan Destek & Şikayet Paneli
+                                    <i className="fa-solid fa-headset text-blue-400"></i> Otomatik Bilgilendirmeli Destek Paneli
                                 </h4>
                                 <p className="text-xs leading-relaxed mb-4">
-                                    Mail uygulamanız açılmadan yaşadığınız sorunları, hataları veya geri bildirimlerinizi doğrudan bu form üzerinden iletebilirsiniz. Mesajınız anında <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine ulaştırılacaktır.
+                                    Buradan mesaj gönderen kullanıcılara sistem tarafından anında <strong className="text-slate-200">geri cevaplanamaz (No-Reply)</strong> otomatik onay maili gönderilir. Mesajınız ise eş zamanlı olarak <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine düşer.
                                 </p>
                                 <div className="text-xs font-mono text-blue-400 bg-slate-950 p-3 rounded-xl border border-slate-800 inline-block">
-                                    <i className="fa-solid fa-shield-halved mr-2"></i> Güvenli & Doğrudan İletişim Servisi
+                                    <i className="fa-solid fa-robot mr-2"></i> Otomatik Yanıt Servisi Aktif
                                 </div>
                             </div>
 
@@ -704,8 +704,8 @@
                                 {supportSuccess ? (
                                     <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-4 rounded-xl text-center space-y-2">
                                         <i className="fa-solid fa-circle-check text-2xl"></i>
-                                        <h5 className="font-bold text-sm">Mesajınız Başarıyla İletildi!</h5>
-                                        <p className="text-xs opacity-90">Geri bildiriminiz mayonez.contact@gmail.com adresine ulaştırıldı. En kısa sürede incelenecektir.</p>
+                                        <h5 className="font-bold text-sm">Mesajınız İletildi & Otomatik Yanıt Gönderildi!</h5>
+                                        <p className="text-xs opacity-90">E-posta adresinize otomatik bilgi mesajı iletildi. Talebiniz mayonez.contact@gmail.com adresine ulaştı.</p>
                                         <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 text-white px-3 py-1 rounded-lg font-bold mt-2 cursor-pointer">Yeni Mesaj Gönder</button>
                                     </div>
                                 ) : (
@@ -751,12 +751,12 @@
                                             {supportSending ? (
                                                 <>
                                                     <i className="fa-solid fa-spinner animate-spin"></i>
-                                                    <span>Mesajınız İletiliyor...</span>
+                                                    <span>İletiliyor ve Otomatik Yanıt Gönderiliyor...</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <i className="fa-solid fa-paper-plane text-white"></i>
-                                                    <span>Mesajı Doğrudan Gönder</span>
+                                                    <i className="fa-solid fa-paper-plane text-white">**</i>
+                                                    <span>Mesajı Gönder & Otomatik Yanıt Al</span>
                                                 </>
                                             )}
                                         </button>
@@ -765,7 +765,7 @@
                             </div>
                         </div>
                         <div className="border-t border-slate-800/60 mt-8 pt-6 text-center text-xs text-slate-600">
-                            <p>AcademicSlide Pro &copy; 2026 — Entegre Destek Paneli & Canlı Sunum Motoru</p>
+                            <p>AcademicSlide Pro &copy; 2026 — Otomatik No-Reply Destek Entegrasyonu</p>
                         </div>
                     </footer>
 
