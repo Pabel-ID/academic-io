@@ -66,29 +66,28 @@
             { code: "az", name: "Azərbaycan (AZ)" }
         ];
 
-        // TEMEL DİL ŞABLONU (DİĞER TÜM DİLLER İÇİN GOOGLE TRANSLATE ANLIK ÇEVİRİR)
         const BASE_DICT = {
             tagBadge: "PRO",
-            tagText: "KÜRESEL AKADEMİK MOTOR & TÜM DİLLERDE ENTEGRASYON AKTİF",
+            tagText: "KÜRESEL AKADEMİK MOTOR & DİNAMİK GÖRSEL ENTEGRASYONU AKTİF",
             title1: "Yapay Zeka Destekli",
             title2: "Akademik Sunum Asistanı",
-            desc: "İstediğiniz dilde konu girin; Google Translate çeviri altyapısı ve küresel veritabanları ile hedef dilde kusursuz akademik sunumlar üretin.",
+            desc: "İstediğiniz dilde konu girin; Google Translate altyapısı, küresel kaynaklar ve konunuza özel otomatik görsellerle kusursuz slayt setleri üretin.",
             startBtn: "Hemen Sunum Oluşturmaya Başla",
-            card1Title: "Tüm Dünya Dillerinde Destek",
-            card1Desc: "İngilizce, Almanca, Fransızca, Rusça, Çince, Arapça ve daha birçok dilde anında yerel içerik üretimi.",
-            card2Title: "Google Translate Entegrasyonu",
-            card2Desc: "Seçilen hedef dil altyapısına göre anlık arayüz çevirisi ve akademik sentez motoru.",
+            card1Title: "Görsel & Medya Entegrasyonu",
+            card1Desc: "Slayt başlıkları ve içeriğe uygun yüksek çözünürlüklü konsept fotoğrafları otomatik ekleme.",
+            card2Title: "Google Translate & Wiki",
+            card2Desc: "Seçilen hedef dil altyapısına göre anlık çeviri, arayüz adaptasyonu ve akademik sentez motoru.",
             card3Title: "Canlı PowerPoint Stüdyosu",
-            card3Desc: "Üretilen çok dilli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
+            card3Desc: "Üretilen görselli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
             panelTitle: "Çok Dilli Sunum Üretim Paneli",
-            panelSub: "Arayüz ve Hedef Dil Eşzamanlı Çalışır",
+            panelSub: "Arayüz, Görsel Motoru ve Hedef Dil Eşzamanlı Çalışır",
             topicLabel: "Sunum Konusu",
             topicPlaceholder: "Örn: Yapay Zeka, Clinical Psychology...",
             langLabel: "Arayüz ve Sunum Dili",
             slidesLabel: "Slayt Sayısı",
             colorLabel: "Varsayılan Renk Teması",
-            genBtn: "Seçilen Dilde Sunum Üret ve Düzenle",
-            genLoading: "Konu ve Arayüz Çevriliyor, Slaytlar Üretiliyor...",
+            genBtn: "Görselli Sunum Üret ve Düzenle",
+            genLoading: "Konu Çevriliyor, Medya Çekiliyor ve Slaytlar Üretiliyor...",
             sets: "Set:",
             chronological: "Kronolojik",
             analytical: "Analitik",
@@ -181,7 +180,6 @@
                 return () => clearInterval(timer);
             }, []);
 
-            // GOOGLE TRANSLATE SERVİSİ
             const translateTextWithGoogle = async (text, targetLang) => {
                 if (!text || targetLang === 'tr') return text;
                 try {
@@ -196,7 +194,6 @@
                 return text;
             };
 
-            // DİL DEĞİŞTİĞİNDE ARAYÜZÜN TAMAMINI ANINDA SEÇİLEN DİLE ÇEVİRİR
             useEffect(() => {
                 const updateUiLanguage = async () => {
                     if (selectedLang === 'tr') {
@@ -229,7 +226,6 @@
             const [activeVarKey, setActiveVarKey] = useState('A');
             const [activeSlide, setActiveSlide] = useState(0);
 
-            // Destek Formu State
             const [supportEmail, setSupportEmail] = useState("");
             const [supportName, setSupportName] = useState("");
             const [supportMsg, setSupportMsg] = useState("");
@@ -307,28 +303,36 @@
 
                     let rawSentences = [];
                     let rawReferences = [];
+                    let wikiImages = [];
 
                     for (let item of searchResults) {
-                        const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|links&format=json&origin=*`;
+                        const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks|images&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
 
-                        if (parseData.parse && parseData.parse.text) {
-                            const htmlContent = parseData.parse.text['*'];
-                            const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = htmlContent;
-                            tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
+                        if (parseData.parse) {
+                            if (parseData.parse.images) {
+                                const validImgs = parseData.parse.images.filter(img => !img.endsWith('.svg') && !img.endsWith('.png') && !img.includes('icon'));
+                                wikiImages.push(...validImgs);
+                            }
 
-                            const pList = Array.from(tempDiv.querySelectorAll('p'));
-                            for (let p of pList) {
-                                let text = p.textContent.replace(/\[\d+\]/g, '').trim();
-                                if (text.length > 30) {
-                                    if (activeLangForWiki === 'en' && lang !== 'en') {
-                                        text = await translateTextWithGoogle(text, lang);
+                            if (parseData.parse.text) {
+                                const htmlContent = parseData.parse.text['*'];
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = htmlContent;
+                                tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
+
+                                const pList = Array.from(tempDiv.querySelectorAll('p'));
+                                for (let p of pList) {
+                                    let text = p.textContent.replace(/\[\d+\]/g, '').trim();
+                                    if (text.length > 30) {
+                                        if (activeLangForWiki === 'en' && lang !== 'en') {
+                                            text = await translateTextWithGoogle(text, lang);
+                                        }
+                                        text.split(/(?<=[.?!])\s+/).forEach(s => {
+                                            if (s.trim().length > 20) rawSentences.push(s.trim());
+                                        });
                                     }
-                                    text.split(/(?<=[.?!])\s+/).forEach(s => {
-                                        if (s.trim().length > 20) rawSentences.push(s.trim());
-                                    });
                                 }
                             }
 
@@ -350,13 +354,24 @@
                     }
                     finalReferences = finalReferences.slice(0, 50);
 
+                    // Konuya özel dinamikUnsplash/Wikipedia görsel havuzu
+                    const fallbackImages = [
+                        `https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80`,
+                        `https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80`,
+                        `https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80`,
+                        `https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80`,
+                        `https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80`
+                    ];
+
                     const createSlideSet = (sentences, conceptName, sentenceOffset) => {
                         const slides = [];
                         slides.push({
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
                             title: displayTitle.toUpperCase(),
-                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Google Translate & Wiki).`,
+                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Google Translate & Wiki Medya).`,
+                            imageUrl: `https://source.unsplash.com/featured/?${encodeURIComponent(translatedQuery)},academic`,
+                            fallbackUrl: fallbackImages[0],
                             sentences: [
                                 `Topic: ${displayTitle}`,
                                 `Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
@@ -366,6 +381,7 @@
                         });
 
                         let cursor = sentenceOffset;
+                        let imgIdx = 1;
                         while (cursor < sentences.length && slides.length < targetCount - 3) {
                             const chunk = sentences.slice(cursor, cursor + 15);
                             cursor += 15;
@@ -373,8 +389,10 @@
                                 slides.push({
                                     type: 'flow',
                                     badge: `SLIDE ${slides.length + 1}`,
-                                    sentences: chunk
+                                    sentences: chunk,
+                                    imageUrl: fallbackImages[imgIdx % fallbackImages.length]
                                 });
+                                imgIdx++;
                             }
                         }
 
@@ -429,7 +447,8 @@
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
                     badge: `SLIDE ${activeSlide + 2} (NEW)`,
-                    sentences: Array(15).fill("Edit this academic text...")
+                    sentences: Array(15).fill("Edit this academic text..."),
+                    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80"
                 });
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
                 setActiveSlide(activeSlide + 1);
@@ -550,7 +569,7 @@
                                 <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">{t.tagBadge}</span>
                                 <span className="text-slate-300">•</span>
                                 <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                                    <i className="fa-solid fa-shield-halved text-blue-600 text-[11px]"></i> {t.tagText}
+                                    <i className="fa-solid fa-image text-blue-600 text-[11px]"></i> {t.tagText}
                                 </span>
                             </div>
 
@@ -573,7 +592,7 @@
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-language"></i>
+                                        <i className="fa-solid fa-camera"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
@@ -676,7 +695,7 @@
                                         </>
                                     ) : (
                                         <>
-                                            <i className="fa-solid fa-globe text-base"></i>
+                                            <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
                                             <span>{t.genBtn}</span>
                                         </>
                                     )}
@@ -770,9 +789,10 @@
 
                                     </div>
 
+                                    {/* SLAYT GÖRÜNTÜLEYİCİ & GÖRSEL ENTEGRASYONU */}
                                     <div className={`powerpoint-slide rounded-2xl border border-slate-200/90 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
                                         
-                                        <div className="flex justify-between items-center border-b border-slate-300/60 pb-3">
+                                        <div className="flex justify-between items-center border-b border-slate-300/60 pb-3 relative z-10">
                                             <span className={`text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-blue-500/20 text-blue-300 border-blue-400/30'}`}>
                                                 {currentSlides[activeSlide].badge} ({LANGUAGES.find(l => l.code === selectedLang)?.name})
                                             </span>
@@ -780,23 +800,33 @@
                                         </div>
 
                                         {currentSlides[activeSlide].type === 'cover' && (
-                                            <div className="my-auto space-y-4">
-                                                <h2 className="text-3xl font-black" contentEditable suppressContentEditableWarning>{currentSlides[activeSlide].title}</h2>
-                                                <p className="text-sm leading-relaxed p-4 rounded-xl border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>{currentSlides[activeSlide].subtitle}</p>
-                                                <ul className="grid grid-cols-2 gap-2 text-xs opacity-80">
-                                                    {currentSlides[activeSlide].sentences.map((s, i) => (
-                                                        <li key={i} className="p-2 rounded border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#e2e8f0' : '#475569' }}>✓ {s}</li>
-                                                    ))}
-                                                </ul>
+                                            <div className="my-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-center relative z-10">
+                                                <div className="md:col-span-2 space-y-4">
+                                                    <h2 className="text-3xl font-black" contentEditable suppressContentEditableWarning>{currentSlides[activeSlide].title}</h2>
+                                                    <p className="text-sm leading-relaxed p-4 rounded-xl border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>{currentSlides[activeSlide].subtitle}</p>
+                                                    <ul className="grid grid-cols-2 gap-2 text-xs opacity-80">
+                                                        {currentSlides[activeSlide].sentences.map((s, i) => (
+                                                            <li key={i} className="p-2 rounded border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#e2e8f0' : '#475569' }}>✓ {s}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                <div className="hidden md:block h-full min-h-[220px] rounded-2xl overflow-hidden border border-slate-200/60 shadow-lg relative bg-slate-100">
+                                                    <img 
+                                                        src={currentSlides[activeSlide].imageUrl} 
+                                                        onError={(e) => { e.target.src = currentSlides[activeSlide].fallbackUrl; }}
+                                                        alt="Akademik Konu Görseli" 
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
                                             </div>
                                         )}
 
                                         {currentSlides[activeSlide].type === 'flow' && (
-                                            <div className="my-auto">
+                                            <div className="my-auto relative z-10">
                                                 <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1 opacity-75">
                                                     <i className="fa-solid fa-i-cursor"></i> Editör - Metne tıklayarak düzenleyebilirsiniz:
                                                 </p>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
                                                     <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
                                                         {currentSlides[activeSlide].sentences.slice(0, Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => (
                                                             <p key={i} contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)} className="focus:opacity-100">
@@ -814,12 +844,19 @@
                                                             );
                                                         })}
                                                     </div>
+                                                    <div className="hidden md:block h-full rounded-xl overflow-hidden border border-slate-200/60 shadow relative bg-slate-100 max-h-[250px]">
+                                                        <img 
+                                                            src={currentSlides[activeSlide].imageUrl} 
+                                                            alt="İçerik Fotoğrafı" 
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
 
                                         {currentSlides[activeSlide].type === 'references' && (
-                                            <div className="my-auto space-y-3">
+                                            <div className="my-auto space-y-3 relative z-10">
                                                 <h2 className="text-lg font-bold" contentEditable suppressContentEditableWarning>REFERENCES</h2>
                                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] max-h-[260px] overflow-y-auto">
                                                     {currentSlides[activeSlide].references.map((ref, i) => (
@@ -831,7 +868,7 @@
                                             </div>
                                         )}
 
-                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300/60 pt-3">
+                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300/60 pt-3 relative z-10">
                                             <span>Academic.io Studio</span>
                                             <span>Slide {activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
