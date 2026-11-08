@@ -66,6 +66,184 @@
             { code: "az", name: "Azərbaycan (AZ)" }
         ];
 
+        // ARAYÜZ ÇEVİRİLERİ (İ18N)
+        const DICT = {
+            tr: {
+                tag: "v2.7 • ULUSLARARASI ÇOK DİLLİ ARAYÜZ AKTİF",
+                title1: "Yapay Zeka Destekli",
+                title2: "Akademik Sunum Asistanı",
+                desc: "İstediğiniz dilde konu girin; Google Translate çeviri altyapısı ve küresel veritabanları ile hedef dilde kusursuz akademik sunumlar üretin.",
+                startBtn: "Hemen Sunum Oluşturmaya Başla",
+                card1Title: "12+ Küresel Dil Desteği",
+                card1Desc: "İngilizce, Almanca, Fransızca, Rusça ve daha birçok dilde yerel içerik üretimi.",
+                card2Title: "Google Translate Entegrasyonu",
+                card2Desc: "Seçilen hedef dil altyapısına göre anlık çeviri ve akademik sentez motoru.",
+                card3Title: "Canlı PowerPoint Stüdyosu",
+                card3Desc: "Üretilen çok dilli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
+                panelTitle: "Çok Dilli Sunum Üretim Paneli",
+                panelSub: "Arayüz ve Hedef Dil Eşzamanlı Çalışır",
+                topicLabel: "Sunum Konusu",
+                topicPlaceholder: "Örn: Yapay Zeka, Clinical Psychology...",
+                langLabel: "Arayüz ve Sunum Dili",
+                slidesLabel: "Slayt Sayısı",
+                colorLabel: "Varsayılan Renk Teması",
+                genBtn: "Seçilen Dilde Sunum Üret ve Düzenle",
+                genLoading: "Konu Çevriliyor ve Seçilen Dilde Slaytlar Üretiliyor...",
+                sets: "Set:",
+                chronological: "Kronolojik",
+                analytical: "Analitik",
+                conceptual: "Kavramsal",
+                addSlide: "Sayfa Ekle",
+                deleteSlide: "Sil",
+                downloadBtn: ".PPTX İndir",
+                prevPage: "Önceki Sayfa",
+                nextPage: "Sonraki Sayfa",
+                slidePos: "Slayt Konumu:",
+                homeBtn: "Ana Sayfaya Dön",
+                supportTitle: "Academic.io Destek ve Takip Paneli",
+                supportDesc: "Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir Destek Takip Numarası üretilir.",
+                supportEmail: "E-Posta Adresiniz",
+                supportName: "Adınız / Soyadınız",
+                supportMsg: "Yaşadığınız Sorun veya Şikayetiniz",
+                supportBtn: "Destek Talebi Gönder & Takip Kodu Al",
+                supportSending: "Takip Kodu Üretiliyor...",
+                supportSuccessTitle: "Destek Talebiniz Alındı!",
+                newTicket: "Yeni Bildirim Gönder",
+                rights: "Academic.io © 2026 — Tüm Hakları Saklıdır."
+            },
+            en: {
+                tag: "v2.7 • INTERNATIONAL MULTILINGUAL UI ACTIVE",
+                title1: "AI-Powered",
+                title2: "Academic Presentation Assistant",
+                desc: "Enter a topic in any language; generate flawless academic presentations in your target language using Google Translate and global databases.",
+                startBtn: "Start Creating Presentations Now",
+                card1Title: "12+ Global Languages",
+                card1Desc: "Local content generation in English, German, French, Russian, and many more.",
+                card2Title: "Google Translate Integration",
+                card2Desc: "Instant translation and academic synthesis engine based on the target language.",
+                card3Title: "Live PowerPoint Studio",
+                card3Desc: "Edit generated multilingual slides on screen and download as .pptx.",
+                panelTitle: "Multilingual Presentation Panel",
+                panelSub: "UI and Target Language Synchronized",
+                topicLabel: "Presentation Topic",
+                topicPlaceholder: "e.g., Artificial Intelligence, Quantum Physics...",
+                langLabel: "Interface & Presentation Language",
+                slidesLabel: "Slide Count",
+                colorLabel: "Default Color Theme",
+                genBtn: "Generate & Edit Presentation in Selected Language",
+                genLoading: "Translating Topic & Generating Slides...",
+                sets: "Set:",
+                chronological: "Chronological",
+                analytical: "Analytical",
+                conceptual: "Conceptual",
+                addSlide: "Add Slide",
+                deleteSlide: "Delete",
+                downloadBtn: "Download .PPTX",
+                prevPage: "Previous Page",
+                nextPage: "Next Page",
+                slidePos: "Slide Position:",
+                homeBtn: "Back to Home",
+                supportTitle: "Academic.io Support & Tracking Panel",
+                supportDesc: "Every feedback you send automatically generates a unique Support Tracking Number.",
+                supportEmail: "Your Email Address",
+                supportName: "Full Name",
+                supportMsg: "Your Issue or Feedback",
+                supportBtn: "Send Support Request & Get Tracking Code",
+                supportSending: "Generating Tracking Code...",
+                supportSuccessTitle: "Support Request Received!",
+                newTicket: "Send New Notice",
+                rights: "Academic.io © 2026 — All Rights Reserved."
+            },
+            de: {
+                tag: "v2.7 • INTERNATIONALE MEHRSPRACHIGE BENUTZEROBERFLÄCHE",
+                title1: "KI-gestützter",
+                title2: "Akademischer Präsentationsassistent",
+                desc: "Geben Sie ein Thema ein; generieren Sie makellose akademische Präsentationen in Ihrer Zielsprache mit Google Translate.",
+                startBtn: "Präsentation jetzt erstellen",
+                card1Title: "12+ Globale Sprachen",
+                card1Desc: "Lokale Inseratserstellung auf Englisch, Deutsch, Französisch, Russisch und mehr.",
+                card2Title: "Google Translate Integration",
+                card2Desc: "Sofortige Übersetzung und akademische Synthese.",
+                card3Title: "Live PowerPoint Studio",
+                card3Desc: "Mehrsprachige Folien bearbeiten und als .pptx herunterladen.",
+                panelTitle: "Mehrsprachiges Präsentationspanel",
+                panelSub: "UI und Zielsprache synchronisiert",
+                topicLabel: "Präsentationsthema",
+                topicPlaceholder: "z.B. Künstliche Intelligenz...",
+                langLabel: "Oberflächen- & Präsentationssprache",
+                slidesLabel: "Folienanzahl",
+                colorLabel: "Farbthema",
+                genBtn: "Präsentation in gewählter Sprache erstellen",
+                genLoading: "Thema wird übersetzt & Folien generiert...",
+                sets: "Set:",
+                chronological: "Chronologisch",
+                analytical: "Analytisch",
+                conceptual: "Konzeptionell",
+                addSlide: "Folie hinzufügen",
+                deleteSlide: "Löschen",
+                downloadBtn: ".PPTX Herunterladen",
+                prevPage: "Vorherige Seite",
+                nextPage: "Nächste Seite",
+                slidePos: "Folienposition:",
+                homeBtn: "Zur Startseite",
+                supportTitle: "Academic.io Support-Panel",
+                supportDesc: "Für jede Nachricht wird automatisch eine Support-Tracking-Nummer generiert.",
+                supportEmail: "Ihre E-Mail-Adresse",
+                supportName: "Vollständiger Name",
+                supportMsg: "Ihr Anliegen",
+                supportBtn: "Support-Anfrage senden",
+                supportSending: "Wird gesendet...",
+                supportSuccessTitle: "Anfrage erhalten!",
+                newTicket: "Neue Nachricht senden",
+                rights: "Academic.io © 2026 — Alle Rechte vorbehalten."
+            },
+            fr: {
+                tag: "v2.7 • INTERFACE MULTILINGUE INTERNATIONALE ACTIVE",
+                title1: "Assistant de Présentation",
+                title2: "Académique Propulsé par l'IA",
+                desc: "Entrez un sujet dans n'importe quelle langue; générez des présentations académiques impeccables avec Google Translate.",
+                startBtn: "Commencer à créer",
+                card1Title: "12+ Langues Globales",
+                card1Desc: "Génération de contenu local en anglais, allemand, français, russe, etc.",
+                card2Title: "Intégration Google Translate",
+                card2Desc: "Traduction instantanée et synthèse académique.",
+                card3Title: "Studio PowerPoint en Direct",
+                card3Desc: "Modifiez les diapositives multilingues et téléchargez au format .pptx.",
+                panelTitle: "Panneau de Présentation Multilingue",
+                panelSub: "Interface et Langue Synchronisées",
+                topicLabel: "Sujet de Présentation",
+                topicPlaceholder: "ex: Intelligence Artificielle...",
+                langLabel: "Langue de l'Interface & Présentation",
+                slidesLabel: "Nombre de Diapositives",
+                colorLabel: "Thème de Couleur",
+                genBtn: "Générer la Présentation dans la Langue Choisie",
+                genLoading: "Traduction du Sujet & Génération...",
+                sets: "Ensemble:",
+                chronological: "Chronologique",
+                analytical: "Analytique",
+                conceptual: "Conceptuel",
+                addSlide: "Ajouter Diapositive",
+                deleteSlide: "Supprimer",
+                downloadBtn: "Télécharger .PPTX",
+                prevPage: "Page Précédente",
+                nextPage: "Page Suivante",
+                slidePos: "Position:",
+                homeBtn: "Retour à l'Accueil",
+                supportTitle: "Panneau de Support Academic.io",
+                supportDesc: "Chaque message génère automatiquement un code de suivi unique.",
+                supportEmail: "Votre Adresse E-mail",
+                supportName: "Nom et Prénom",
+                supportMsg: "Votre Message",
+                supportBtn: "Envoyer la Demande",
+                supportSending: "Envoi en cours...",
+                supportSuccessTitle: "Demande Reçue !",
+                newTicket: "Envoyer un autre message",
+                rights: "Academic.io © 2026 — Tous droits réservés."
+            }
+        };
+
+        const getDict = (lang) => DICT[lang] || DICT['tr'];
+
         const generate100Colors = () => {
             const baseTones = [
                 { name: "Saf Beyaz (Minimalist)", hex: "FFFFFF", text: "0F172A" },
@@ -119,11 +297,13 @@
         function App() {
             const [view, setView] = useState('portal');
             const [topic, setTopic] = useState("Klinik Psikoloji");
-            const [selectedLang, setSelectedLang] = useState("tr");
+            const [selectedLang, setSelectedLang] = useState("tr"); // Hem arayüz hem sunum dili
             const [slideCount, setSlideCount] = useState(20);
             const [selectedBg, setSelectedBg] = useState(COLOR_PALETTES[0]);
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
             const [textAlign, setTextAlign] = useState("justify");
+
+            const t = getDict(selectedLang);
 
             const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -182,7 +362,6 @@
                 }
             };
 
-            // GOOGLE TRANSLATE ÇEVİRİ KÖPRÜSÜ
             const translateTextWithGoogle = async (text, targetLang) => {
                 if (!text || targetLang === 'tr') return text;
                 try {
@@ -201,20 +380,16 @@
                 setLoading(true);
                 setError(null);
                 try {
-                    // 1. Arama konusunu seçilen hedef dile otomatik çevir
                     let translatedQuery = searchQuery;
                     if (lang !== 'tr') {
                         translatedQuery = await translateTextWithGoogle(searchQuery, lang);
                     }
 
-                    // 2. Hedef dilin Wikipedia API'sinden arama yap
                     const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=12`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
                     let searchResults = searchData.query ? searchData.query.search : [];
-                    
-                    // Eğer yerel dilde sonuç çıkmazsa İngilizce arayıp içeriği hedef dile çevir
                     let activeLangForWiki = lang;
                     if (searchResults.length === 0 && lang !== 'en') {
                         const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=12`;
@@ -225,7 +400,7 @@
                     }
 
                     if (searchResults.length === 0) {
-                        throw new Error(`Aradığınız konu (${searchQuery}) için akademik veri bulunamadı.`);
+                        throw new Error(`Veri bulunamadı / No data found.`);
                     }
 
                     const mainTitle = searchResults[0].title;
@@ -252,7 +427,6 @@
                             for (let p of pList) {
                                 let text = p.textContent.replace(/\[\d+\]/g, '').trim();
                                 if (text.length > 30) {
-                                    // Eğer içerik İngilizce gelip hedef dil farklıysa Google Translate ile anında çevir
                                     if (activeLangForWiki === 'en' && lang !== 'en') {
                                         text = await translateTextWithGoogle(text, lang);
                                     }
@@ -286,12 +460,12 @@
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
                             title: displayTitle.toUpperCase(),
-                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Google Translate & Wiki Entegrasyonu).`,
+                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} (Google Translate & Wiki).`,
                             sentences: [
-                                `Konu / Subject: ${displayTitle}`,
-                                `Dil / Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
-                                `Oluşturulma Saati: ${new Date().toLocaleTimeString()}`,
-                                `Doğrulanmış Literatür: 50 Adet Referans`
+                                `Topic: ${displayTitle}`,
+                                `Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
+                                `Time: ${new Date().toLocaleTimeString()}`,
+                                `References: 50 Verified Sources`
                             ]
                         });
 
@@ -302,7 +476,7 @@
                             if (chunk.length > 0) {
                                 slides.push({
                                     type: 'flow',
-                                    badge: `SAYFA ${slides.length + 1}`,
+                                    badge: `SLIDE ${slides.length + 1}`,
                                     sentences: chunk
                                 });
                             }
@@ -312,16 +486,16 @@
                         for (let r = 0; r < finalReferences.length && slides.length < targetCount; r += refsPerSlide) {
                             slides.push({
                                 type: 'references',
-                                badge: `KAYNAKÇA / REFERENCES (${r + 1} - ${r + refsPerSlide})`,
+                                badge: `REFERENCES (${r + 1} - ${r + refsPerSlide})`,
                                 references: finalReferences.slice(r, r + refsPerSlide)
                             });
                         }
                         return slides;
                     };
 
-                    const varA = createSlideSet(uniqueSentences, "Seçenek A: Kronolojik Derleme", 0);
-                    const varB = createSlideSet(uniqueSentences, "Seçenek B: Analitik Sentez", 5);
-                    const varC = createSlideSet(uniqueSentences, "Seçenek C: Kavramsal Odak", 10);
+                    const varA = createSlideSet(uniqueSentences, `${t.chronological}`, 0);
+                    const varB = createSlideSet(uniqueSentences, `${t.analytical}`, 5);
+                    const varC = createSlideSet(uniqueSentences, `${t.conceptual}`, 10);
 
                     setVariations({ A: varA, B: varB, C: varC });
                     setActiveVarKey('A');
@@ -329,7 +503,7 @@
                     setLoading(false);
                     setView('studio');
                 } catch (err) {
-                    setError(err.message || 'Veri işlenirken bir hata oluştu.');
+                    setError(err.message || 'Veri işlenirken hata oluştu.');
                     setLoading(false);
                 }
             };
@@ -358,8 +532,8 @@
                 const currentSlides = [...variations[activeVarKey]];
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
-                    badge: `SAYFA ${activeSlide + 2} (YENİ)`,
-                    sentences: Array(15).fill("Buraya düzenlenebilir akademik metin ekleyin...")
+                    badge: `SLIDE ${activeSlide + 2} (NEW)`,
+                    sentences: Array(15).fill("Edit this academic text...")
                 });
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
                 setActiveSlide(activeSlide + 1);
@@ -367,7 +541,7 @@
 
             const downloadAsPPTX = () => {
                 if (!window.PptxGenJS) {
-                    alert("PowerPoint kütüphanesi yükleniyor, lütfen tekrar deneyin.");
+                    alert("PowerPoint library loading...");
                     return;
                 }
 
@@ -410,7 +584,7 @@
                             fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '334155' : '94A3B8', lineSpacing: 14, align: textAlign
                         });
                     } else if (slideData.type === 'references') {
-                        slide.addText("AKADEMİK KAYNAKÇA & LİTERATÜR", {
+                        slide.addText("REFERENCES", {
                             x: 0.5, y: 0.7, w: 9.0, h: 0.4,
                             fontSize: 16, color: selectedBg.value === 'FFFFFF' ? '0F172A' : selectedBg.text, bold: true
                         });
@@ -418,7 +592,7 @@
                         slide.addText(refTexts, { x: 0.5, y: 1.3, w: 9.0, h: 3.8 });
                     }
 
-                    slide.addText(`Sayfa ${idx + 1} / ${activeSlides.length} - Academic.io Studio`, {
+                    slide.addText(`Slide ${idx + 1} / ${activeSlides.length} - Academic.io Studio`, {
                         x: 0.5, y: 5.3, w: 9.0, h: 0.3,
                         fontSize: 8, color: '64748B', align: 'right'
                     });
@@ -432,6 +606,7 @@
             return (
                 <div className="min-h-screen flex flex-col justify-between">
                     
+                    {/* NAVİGASYON VE KÜRESEL ARAYÜZ DİL SEÇİCİ */}
                     <nav className="border-b border-slate-200 bg-white/80 backdrop-blur px-8 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
                         <div className="flex items-center gap-3.5 cursor-pointer" onClick={() => setView('portal')}>
                             <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
@@ -441,22 +616,34 @@
                                 <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-1.5">
                                     Academic.io <span className="text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded">PRO</span>
                                 </h1>
-                                <p className="text-xs text-slate-500 font-medium">Yapay Zeka Destekli Çok Dilli Akademik Motor</p>
+                                <p className="text-xs text-slate-500 font-medium">Global AI Academic Motor</p>
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex items-center gap-2 bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl font-mono text-xs text-slate-700 shadow-inner">
-                            <i className="fa-regular fa-clock text-blue-600"></i>
-                            <span className="font-bold">{currentTime.toLocaleTimeString()}</span>
-                        </div>
+                        <div className="flex items-center gap-4">
+                            {/* KÜRESEL ARAYÜZ DİL SEÇİCİ DROPDOWN */}
+                            <div className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-xl px-3 py-1.5 shadow-inner">
+                                <i className="fa-solid fa-globe text-blue-600 text-xs"></i>
+                                <select 
+                                    value={selectedLang}
+                                    onChange={(e) => setSelectedLang(e.target.value)}
+                                    className="bg-transparent text-slate-800 text-xs font-bold focus:outline-none cursor-pointer"
+                                >
+                                    {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
+                                </select>
+                            </div>
 
-                        <div className="flex items-center gap-2">
+                            <div className="hidden sm:flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl font-mono text-xs text-slate-700 shadow-inner">
+                                <i className="fa-regular fa-clock text-blue-600"></i>
+                                <span className="font-bold">{currentTime.toLocaleTimeString()}</span>
+                            </div>
+
                             {view === 'studio' && (
                                 <button 
                                     onClick={() => setView('portal')}
                                     className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-300 cursor-pointer shadow-sm"
                                 >
-                                    <i className="fa-solid fa-house mr-1.5"></i> Ana Sayfaya Dön
+                                    <i className="fa-solid fa-house mr-1.5"></i> {t.homeBtn}
                                 </button>
                             )}
                         </div>
@@ -465,28 +652,28 @@
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
                             
-                            <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/90 hover:border-slate-300 text-slate-700 px-3.5 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
-                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.6</span>
+                            <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/95 hover:border-slate-300 text-slate-700 px-4 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
+                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">v2.7</span>
                                 <span className="text-slate-300">•</span>
                                 <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                                    <i className="fa-solid fa-globe text-blue-600 text-[11px]"></i> Google Translate & Wiki Çok Dilli Altyapı Aktif
+                                    <i className="fa-solid fa-globe text-blue-600 text-[11px]"></i> {t.tag}
                                 </span>
                             </div>
 
                             <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
-                                Çok Dilli Küresel <br />
-                                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Akademik Sunum Asistanı</span>
+                                {t.title1} <br />
+                                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t.title2}</span>
                             </h2>
 
                             <p className="text-slate-600 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-normal">
-                                İstediğiniz dilde konu girin; Google Translate çeviri altyapısı ve küresel veritabanları ile hedef dilde kusursuz akademik sunumlar üretin.
+                                {t.desc}
                             </p>
 
                             <button 
                                 onClick={() => setView('studio')}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-blue-600/20 flex items-center gap-3 cursor-pointer mb-20 hover:scale-[1.02]"
                             >
-                                <i className="fa-solid fa-wand-magic-sparkles text-lg"></i> Hemen Sunum Oluşturmaya Başla
+                                <i className="fa-solid fa-wand-magic-sparkles text-lg"></i> {t.startBtn}
                             </button>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
@@ -494,24 +681,24 @@
                                     <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
                                         <i className="fa-solid fa-language"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">12+ Küresel Dil Desteği</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">İngilizce, Almanca, Fransızca, Rusça, Çince, Arapça ve daha birçok dilde yerel içerik üretimi.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
                                 </div>
 
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-base font-bold">
                                         <i className="fa-solid fa-bolt"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">Google Translate Entegrasyonu</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">Seçilen hedef dil altyapısına göre anlık çeviri ve akademik sentez motoru.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card2Title}</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">{t.card2Desc}</p>
                                 </div>
 
                                 <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-300 transition">
                                     <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 text-base font-bold">
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">Canlı PowerPoint Stüdyosu</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">Üretilen çok dilli slaytları ekranda düzenleyin ve .pptx formatında indirin.</p>
+                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card3Title}</h3>
+                                    <p className="text-xs text-slate-600 leading-relaxed">{t.card3Desc}</p>
                                 </div>
                             </div>
                         </main>
@@ -523,26 +710,26 @@
                             <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm space-y-6 mb-8 text-left">
                                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                                        <i className="fa-solid fa-globe text-blue-600"></i> Çok Dilli Sunum Üretim Paneli
+                                        <i className="fa-solid fa-globe text-blue-600"></i> {t.panelTitle}
                                     </h3>
-                                    <span className="text-xs text-slate-400 font-medium">Google Translate Çeviri Köprüsü Aktif</span>
+                                    <span className="text-xs text-slate-400 font-medium">{t.panelSub}</span>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Sunum Konusu</label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.topicLabel}</label>
                                         <input 
                                             type="text" 
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
-                                            placeholder="Örn: Yapay Zeka, Clinical Psychology..."
+                                            placeholder={t.topicPlaceholder}
                                             className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium transition"
                                             required
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Hedef Dil (Google Translate Çeviri)</label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.langLabel}</label>
                                         <select 
                                             value={selectedLang}
                                             onChange={(e) => setSelectedLang(e.target.value)}
@@ -555,7 +742,7 @@
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Slayt Sayısı: <span className="text-blue-600 font-extrabold">{slideCount} Sayfa</span></label>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.slidesLabel}: <span className="text-blue-600 font-extrabold">{slideCount}</span></label>
                                         <input 
                                             type="range" 
                                             min="5" 
@@ -569,7 +756,7 @@
 
                                     <div>
                                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                            Varsayılan Renk Teması (<span className="text-blue-600">100+ Ton</span>)
+                                            {t.colorLabel}
                                         </label>
                                         <select 
                                             value={selectedBg.value}
@@ -591,12 +778,12 @@
                                     {loading ? (
                                         <>
                                             <i className="fa-solid fa-spinner animate-spin text-base"></i>
-                                            <span>Konu Çevriliyor ve Seçilen Dilde Slaytlar Üretiliyor...</span>
+                                            <span>{t.genLoading}</span>
                                         </>
                                     ) : (
                                         <>
                                             <i className="fa-solid fa-globe text-base"></i>
-                                            <span>Seçilen Dilde Sunum Üret ve Düzenle</span>
+                                            <span>{t.genBtn}</span>
                                         </>
                                     )}
                                 </button>
@@ -609,7 +796,7 @@
                                         
                                         <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl border border-slate-200/60">
                                             <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center gap-1">
-                                                <i className="fa-solid fa-layer-group text-slate-500"></i> Set:
+                                                <i className="fa-solid fa-layer-group text-slate-500"></i> {t.sets}
                                             </span>
                                             
                                             <button 
@@ -617,7 +804,7 @@
                                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'A' ? 'bg-white text-blue-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
                                             >
                                                 <span>A</span>
-                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">Kronolojik</span>
+                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">{t.chronological}</span>
                                             </button>
                                             
                                             <button 
@@ -625,7 +812,7 @@
                                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'B' ? 'bg-white text-indigo-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
                                             >
                                                 <span>B</span>
-                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">Analitik</span>
+                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">{t.analytical}</span>
                                             </button>
 
                                             <button 
@@ -633,7 +820,7 @@
                                                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'C' ? 'bg-white text-purple-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
                                             >
                                                 <span>C</span>
-                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">Kavramsal</span>
+                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">{t.conceptual}</span>
                                             </button>
                                         </div>
 
@@ -666,14 +853,14 @@
                                                 onClick={addNewSlide} 
                                                 className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition border border-slate-200 flex items-center gap-1.5 cursor-pointer"
                                             >
-                                                <i className="fa-solid fa-plus text-emerald-600"></i> Sayfa Ekle
+                                                <i className="fa-solid fa-plus text-emerald-600"></i> {t.addSlide}
                                             </button>
 
                                             <button 
                                                 onClick={deleteCurrentSlide} 
                                                 className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold px-3 py-2 rounded-xl transition border border-rose-200/70 flex items-center gap-1.5 cursor-pointer"
                                             >
-                                                <i className="fa-solid fa-trash-can text-rose-500"></i> Sil
+                                                <i className="fa-solid fa-trash-can text-rose-500"></i> {t.deleteSlide}
                                             </button>
 
                                             <div className="h-4 w-px bg-slate-200 mx-1"></div>
@@ -683,7 +870,7 @@
                                                 className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer"
                                             >
                                                 <i className="fa-solid fa-file-powerpoint text-orange-400 text-sm"></i>
-                                                <span>.PPTX İndir</span>
+                                                <span>{t.downloadBtn}</span>
                                             </button>
                                         </div>
 
@@ -713,7 +900,7 @@
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto">
                                                 <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1 opacity-75">
-                                                    <i className="fa-solid fa-i-cursor"></i> Canlı metin alanı - Değiştirmek istediğiniz kelimelere tıklayabilirsiniz:
+                                                    <i className="fa-solid fa-i-cursor"></i> Canlı editör - Düzenlemek istediğiniz metne tıklayabilirsiniz:
                                                 </p>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
                                                     <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
@@ -739,7 +926,7 @@
 
                                         {currentSlides[activeSlide].type === 'references' && (
                                             <div className="my-auto space-y-3">
-                                                <h2 className="text-lg font-bold" contentEditable suppressContentEditableWarning>AKADEMİK KAYNAKÇA & LİTERATÜR</h2>
+                                                <h2 className="text-lg font-bold" contentEditable suppressContentEditableWarning>REFERENCES</h2>
                                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] max-h-[260px] overflow-y-auto">
                                                     {currentSlides[activeSlide].references.map((ref, i) => (
                                                         <li key={i} className="p-2 rounded border truncate font-mono opacity-80" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
@@ -751,8 +938,8 @@
                                         )}
 
                                         <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300/60 pt-3">
-                                            <span>Academic.io Çok Dilli Stüdyo</span>
-                                            <span>Sayfa {activeSlide + 1} / {currentSlides.length}</span>
+                                            <span>Academic.io Studio</span>
+                                            <span>Slide {activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
@@ -762,11 +949,11 @@
                                             disabled={activeSlide === 0} 
                                             className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer flex items-center gap-1.5"
                                         >
-                                            <i className="fa-solid fa-chevron-left text-[10px]"></i> Önceki Sayfa
+                                            <i className="fa-solid fa-chevron-left text-[10px]"></i> {t.prevPage}
                                         </button>
                                         
                                         <div className="text-xs font-semibold text-slate-600 flex items-center gap-2">
-                                            <span>Slayt Konumu:</span>
+                                            <span>{t.slidePos}</span>
                                             <span className="font-mono bg-slate-100 px-2.5 py-1 rounded-lg text-slate-900 border border-slate-200">{activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
 
@@ -775,7 +962,7 @@
                                             disabled={activeSlide === currentSlides.length - 1} 
                                             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer flex items-center gap-1.5 shadow-sm"
                                         >
-                                            Sonraki Sayfa <i className="fa-solid fa-chevron-right text-[10px]"></i>
+                                            {t.nextPage} <i className="fa-solid fa-chevron-right text-[10px]"></i>
                                         </button>
                                     </div>
 
@@ -788,13 +975,13 @@
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
                                 <h4 className="text-slate-900 font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-headset text-blue-600"></i> Academic.io Destek ve Takip Paneli
+                                    <i className="fa-solid fa-headset text-blue-600"></i> {t.supportTitle}
                                 </h4>
                                 <p className="text-xs leading-relaxed mb-4">
-                                    Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir <strong className="text-slate-900">Destek Takip Numarası</strong> üretilir ve ekranda görüntülenir. Mesajınız doğrudan <strong className="text-slate-900">mayonez.contact@gmail.com</strong> adresine iletilir.
+                                    {t.supportDesc}
                                 </p>
                                 <div className="text-xs font-mono text-blue-700 bg-blue-50 p-3 rounded-xl border border-blue-200 inline-block font-semibold">
-                                    <i className="fa-solid fa-ticket mr-2"></i> Anında Otomatik Onay & Takip Kodu Aktif
+                                    <i className="fa-solid fa-ticket mr-2"></i> mayonez.contact@gmail.com
                                 </div>
                             </div>
 
@@ -803,21 +990,19 @@
                                     <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl text-center space-y-3">
                                         <i className="fa-solid fa-circle-check text-3xl text-emerald-600"></i>
                                         <div>
-                                            <h5 className="font-bold text-sm text-slate-900">Destek Talebiniz Alındı!</h5>
-                                            <p className="text-xs text-slate-600 mt-1">Sistem tarafından otomatik onay kodu oluşturuldu:</p>
+                                            <h5 className="font-bold text-sm text-slate-900">{t.supportSuccessTitle}</h5>
                                             <div className="inline-block bg-white border border-emerald-300 text-emerald-700 font-mono text-sm font-bold px-3 py-1 rounded-lg mt-2 shadow-sm">
-                                                Takip Kodu: {ticketId}
+                                                Ticket: {ticketId}
                                             </div>
                                         </div>
-                                        <p className="text-[11px] text-slate-500">Mesajınız başarıyla mayonez.contact@gmail.com adresine yönlendirildi. En kısa sürede geri dönüş yapılacaktır.</p>
                                         <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-bold mt-1 cursor-pointer w-full transition shadow-sm">
-                                            Yeni Bildirim Gönder
+                                            {t.newTicket}
                                         </button>
                                     </div>
                                 ) : (
                                     <form onSubmit={handleSupportSubmit} className="space-y-3">
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">E-Posta Adresiniz</label>
+                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">{t.supportEmail}</label>
                                             <input 
                                                 type="email" 
                                                 value={supportEmail} 
@@ -828,7 +1013,7 @@
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Adınız / Soyadınız</label>
+                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">{t.supportName}</label>
                                             <input 
                                                 type="text" 
                                                 value={supportName} 
@@ -839,11 +1024,11 @@
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Yaşadığınız Sorun veya Şikayetiniz</label>
+                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">{t.supportMsg}</label>
                                             <textarea 
                                                 value={supportMsg} 
                                                 onChange={(e) => setSupportMsg(e.target.value)}
-                                                placeholder="Sorunuzu veya karşılaştığınız problemi detaylıca açıklayın..." 
+                                                placeholder="..." 
                                                 rows="3"
                                                 className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
                                                 required 
@@ -857,12 +1042,12 @@
                                             {supportSending ? (
                                                 <>
                                                     <i className="fa-solid fa-spinner animate-spin"></i>
-                                                    <span>Takip Kodu Üretiliyor ve İletiliyor...</span>
+                                                    <span>{t.supportSending}</span>
                                                 </>
                                             ) : (
                                                 <>
                                                     <i className="fa-solid fa-paper-plane text-white"></i>
-                                                    <span>Destek Talebi Gönder & Takip Kodu Al</span>
+                                                    <span>{t.supportBtn}</span>
                                                 </>
                                             )}
                                         </button>
@@ -871,7 +1056,7 @@
                             </div>
                         </div>
                         <div className="border-t border-slate-200 mt-8 pt-6 text-center text-xs text-slate-500">
-                            <p>Academic.io &copy; 2026 — Tüm Hakları Saklıdır.</p>
+                            <p>{t.rights}</p>
                         </div>
                     </footer>
 
