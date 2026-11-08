@@ -66,187 +66,51 @@
             { code: "az", name: "Azərbaycan (AZ)" }
         ];
 
-        // ARAYÜZ ÇEVİRİLERİ (İ18N) - SABİT KURUMSAL ROZET İLE
-        const DICT = {
-            tr: {
-                tagBadge: "PRO",
-                tagText: "KÜRESEL AKADEMİK MOTOR & ÇOK DİLLİ ARAYÜZ AKTİF",
-                title1: "Yapay Zeka Destekli",
-                title2: "Akademik Sunum Asistanı",
-                desc: "İstediğiniz dilde konu girin; Google Translate çeviri altyapısı ve küresel veritabanları ile hedef dilde kusursuz akademik sunumlar üretin.",
-                startBtn: "Hemen Sunum Oluşturmaya Başla",
-                card1Title: "12+ Küresel Dil Desteği",
-                card1Desc: "İngilizce, Almanca, Fransızca, Rusça ve daha birçok dilde yerel içerik üretimi.",
-                card2Title: "Google Translate Entegrasyonu",
-                card2Desc: "Seçilen hedef dil altyapısına göre anlık çeviri ve akademik sentez motoru.",
-                card3Title: "Canlı PowerPoint Stüdyosu",
-                card3Desc: "Üretilen çok dilli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
-                panelTitle: "Çok Dilli Sunum Üretim Paneli",
-                panelSub: "Arayüz ve Hedef Dil Eşzamanlı Çalışır",
-                topicLabel: "Sunum Konusu",
-                topicPlaceholder: "Örn: Yapay Zeka, Clinical Psychology...",
-                langLabel: "Arayüz ve Sunum Dili",
-                slidesLabel: "Slayt Sayısı",
-                colorLabel: "Varsayılan Renk Teması",
-                genBtn: "Seçilen Dilde Sunum Üret ve Düzenle",
-                genLoading: "Konu Çevriliyor ve Seçilen Dilde Slaytlar Üretiliyor...",
-                sets: "Set:",
-                chronological: "Kronolojik",
-                analytical: "Analitik",
-                conceptual: "Kavramsal",
-                addSlide: "Sayfa Ekle",
-                deleteSlide: "Sil",
-                downloadBtn: ".PPTX İndir",
-                prevPage: "Önceki Sayfa",
-                nextPage: "Sonraki Sayfa",
-                slidePos: "Slayt Konumu:",
-                homeBtn: "Ana Sayfaya Dön",
-                supportTitle: "Academic.io Destek ve Takip Paneli",
-                supportDesc: "Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir Destek Takip Numarası üretilir.",
-                supportEmail: "E-Posta Adresiniz",
-                supportName: "Adınız / Soyadınız",
-                supportMsg: "Yaşadığınız Sorun veya Şikayetiniz",
-                supportBtn: "Destek Talebi Gönder & Takip Kodu Al",
-                supportSending: "Takip Kodu Üretiliyor...",
-                supportSuccessTitle: "Destek Talebiniz Alındı!",
-                newTicket: "Yeni Bildirim Gönder",
-                rights: "Academic.io © 2026 — Tüm Hakları Saklıdır."
-            },
-            en: {
-                tagBadge: "PRO",
-                tagText: "GLOBAL ACADEMIC ENGINE & MULTILINGUAL UI ACTIVE",
-                title1: "AI-Powered",
-                title2: "Academic Presentation Assistant",
-                desc: "Enter a topic in any language; generate flawless academic presentations in your target language using Google Translate and global databases.",
-                startBtn: "Start Creating Presentations Now",
-                card1Title: "12+ Global Languages",
-                card1Desc: "Local content generation in English, German, French, Russian, and many more.",
-                card2Title: "Google Translate Integration",
-                card2Desc: "Instant translation and academic synthesis engine based on the target language.",
-                card3Title: "Live PowerPoint Studio",
-                card3Desc: "Edit generated multilingual slides on screen and download as .pptx.",
-                panelTitle: "Multilingual Presentation Panel",
-                panelSub: "UI and Target Language Synchronized",
-                topicLabel: "Presentation Topic",
-                topicPlaceholder: "e.g., Artificial Intelligence, Quantum Physics...",
-                langLabel: "Interface & Presentation Language",
-                slidesLabel: "Slide Count",
-                colorLabel: "Default Color Theme",
-                genBtn: "Generate & Edit Presentation in Selected Language",
-                genLoading: "Translating Topic & Generating Slides...",
-                sets: "Set:",
-                chronological: "Chronological",
-                analytical: "Analytical",
-                conceptual: "Conceptual",
-                addSlide: "Add Slide",
-                deleteSlide: "Delete",
-                downloadBtn: "Download .PPTX",
-                prevPage: "Previous Page",
-                nextPage: "Next Page",
-                slidePos: "Slide Position:",
-                homeBtn: "Back to Home",
-                supportTitle: "Academic.io Support & Tracking Panel",
-                supportDesc: "Every feedback you send automatically generates a unique Support Tracking Number.",
-                supportEmail: "Your Email Address",
-                supportName: "Full Name",
-                supportMsg: "Your Issue or Feedback",
-                supportBtn: "Send Support Request & Get Tracking Code",
-                supportSending: "Generating Tracking Code...",
-                supportSuccessTitle: "Support Request Received!",
-                newTicket: "Send New Notice",
-                rights: "Academic.io © 2026 — All Rights Reserved."
-            },
-            de: {
-                tagBadge: "PRO",
-                tagText: "GLOBALE AKADEMISCHE MASCHINE & MEHRSPRACHIGE UI",
-                title1: "KI-gestützter",
-                title2: "Akademischer Präsentationsassistent",
-                desc: "Geben Sie ein Thema ein; generieren Sie makellose akademische Präsentationen in Ihrer Zielsprache mit Google Translate.",
-                startBtn: "Präsentation jetzt erstellen",
-                card1Title: "12+ Globale Sprachen",
-                card1Desc: "Lokale Inseratserstellung auf Englisch, Deutsch, Französisch, Russisch und mehr.",
-                card2Title: "Google Translate Integration",
-                card2Desc: "Sofortige Übersetzung und akademische Synthese.",
-                card3Title: "Live PowerPoint Studio",
-                card3Desc: "Mehrsprachige Folien bearbeiten und als .pptx herunterladen.",
-                panelTitle: "Mehrsprachiges Präsentationspanel",
-                panelSub: "UI und Zielsprache synchronisiert",
-                topicLabel: "Präsentationsthema",
-                topicPlaceholder: "z.B. Künstliche Intelligenz...",
-                langLabel: "Oberflächen- & Präsentationssprache",
-                slidesLabel: "Folienanzahl",
-                colorLabel: "Farbthema",
-                genBtn: "Präsentation in gewählter Sprache erstellen",
-                genLoading: "Thema wird übersetzt & Folien generiert...",
-                sets: "Set:",
-                chronological: "Chronologisch",
-                analytical: "Analytisch",
-                conceptual: "Konzeptionell",
-                addSlide: "Folie hinzufügen",
-                deleteSlide: "Löschen",
-                downloadBtn: ".PPTX Herunterladen",
-                prevPage: "Vorherige Seite",
-                nextPage: "Nächste Seite",
-                slidePos: "Folienposition:",
-                homeBtn: "Zur Startseite",
-                supportTitle: "Academic.io Support-Panel",
-                supportDesc: "Für jede Nachricht wird automatisch eine Support-Tracking-Nummer generiert.",
-                supportEmail: "Ihre E-Mail-Adresse",
-                supportName: "Vollständiger Name",
-                supportMsg: "Ihr Anliegen",
-                supportBtn: "Support-Anfrage senden",
-                supportSending: "Wird gesendet...",
-                supportSuccessTitle: "Anfrage erhalten!",
-                newTicket: "Neue Nachricht senden",
-                rights: "Academic.io © 2026 — Alle Rechte vorbehalten."
-            },
-            fr: {
-                tagBadge: "PRO",
-                tagText: "MOTEUR ACADÉMIQUE GLOBAL & INTERFACE MULTILINGUE",
-                title1: "Assistant de Présentation",
-                title2: "Académique Propulsé par l'IA",
-                desc: "Entrez un sujet dans n'importe quelle langue; générez des présentations académiques impeccables avec Google Translate.",
-                startBtn: "Commencer à créer",
-                card1Title: "12+ Langues Globales",
-                card1Desc: "Génération de contenu local en anglais, allemand, français, russe, etc.",
-                card2Title: "Intégration Google Translate",
-                card2Desc: "Traduction instantanée et synthèse académique.",
-                card3Title: "Studio PowerPoint en Direct",
-                card3Desc: "Modifiez les diapositives multilingues et téléchargez au format .pptx.",
-                panelTitle: "Panneau de Présentation Multilingue",
-                panelSub: "Interface et Langue Synchronisées",
-                topicLabel: "Sujet de Présentation",
-                topicPlaceholder: "ex: Intelligence Artificielle...",
-                langLabel: "Langue de l'Interface & Présentation",
-                slidesLabel: "Nombre de Diapositives",
-                colorLabel: "Thème de Couleur",
-                genBtn: "Générer la Présentation dans la Langue Choisie",
-                genLoading: "Traduction du Sujet & Génération...",
-                sets: "Ensemble:",
-                chronological: "Chronologique",
-                analytical: "Analytique",
-                conceptual: "Conceptuel",
-                addSlide: "Ajouter Diapositive",
-                deleteSlide: "Supprimer",
-                downloadBtn: "Télécharger .PPTX",
-                prevPage: "Page Précédente",
-                nextPage: "Page Suivante",
-                slidePos: "Position:",
-                homeBtn: "Retour à l'Accueil",
-                supportTitle: "Panneau de Support Academic.io",
-                supportDesc: "Chaque message génère automatiquement un code de suivi unique.",
-                supportEmail: "Votre Adresse E-mail",
-                supportName: "Nom et Prénom",
-                supportMsg: "Votre Message",
-                supportBtn: "Envoyer la Demande",
-                supportSending: "Envoi en cours...",
-                supportSuccessTitle: "Demande Reçue !",
-                newTicket: "Envoyer un autre message",
-                rights: "Academic.io © 2026 — Tous droits réservés."
-            }
+        // TEMEL DİL ŞABLONU (DİĞER TÜM DİLLER İÇİN GOOGLE TRANSLATE ANLIK ÇEVİRİR)
+        const BASE_DICT = {
+            tagBadge: "PRO",
+            tagText: "KÜRESEL AKADEMİK MOTOR & TÜM DİLLERDE ENTEGRASYON AKTİF",
+            title1: "Yapay Zeka Destekli",
+            title2: "Akademik Sunum Asistanı",
+            desc: "İstediğiniz dilde konu girin; Google Translate çeviri altyapısı ve küresel veritabanları ile hedef dilde kusursuz akademik sunumlar üretin.",
+            startBtn: "Hemen Sunum Oluşturmaya Başla",
+            card1Title: "Tüm Dünya Dillerinde Destek",
+            card1Desc: "İngilizce, Almanca, Fransızca, Rusça, Çince, Arapça ve daha birçok dilde anında yerel içerik üretimi.",
+            card2Title: "Google Translate Entegrasyonu",
+            card2Desc: "Seçilen hedef dil altyapısına göre anlık arayüz çevirisi ve akademik sentez motoru.",
+            card3Title: "Canlı PowerPoint Stüdyosu",
+            card3Desc: "Üretilen çok dilli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
+            panelTitle: "Çok Dilli Sunum Üretim Paneli",
+            panelSub: "Arayüz ve Hedef Dil Eşzamanlı Çalışır",
+            topicLabel: "Sunum Konusu",
+            topicPlaceholder: "Örn: Yapay Zeka, Clinical Psychology...",
+            langLabel: "Arayüz ve Sunum Dili",
+            slidesLabel: "Slayt Sayısı",
+            colorLabel: "Varsayılan Renk Teması",
+            genBtn: "Seçilen Dilde Sunum Üret ve Düzenle",
+            genLoading: "Konu ve Arayüz Çevriliyor, Slaytlar Üretiliyor...",
+            sets: "Set:",
+            chronological: "Kronolojik",
+            analytical: "Analitik",
+            conceptual: "Kavramsal",
+            addSlide: "Sayfa Ekle",
+            deleteSlide: "Sil",
+            downloadBtn: ".PPTX İndir",
+            prevPage: "Önceki Sayfa",
+            nextPage: "Sonraki Sayfa",
+            slidePos: "Slayt Konumu:",
+            homeBtn: "Ana Sayfaya Dön",
+            supportTitle: "Academic.io Destek ve Takip Paneli",
+            supportDesc: "Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir Destek Takip Numarası üretilir.",
+            supportEmail: "E-Posta Adresiniz",
+            supportName: "Adınız / Soyadınız",
+            supportMsg: "Yaşadığınız Sorun veya Şikayetiniz",
+            supportBtn: "Destek Talebi Gönder & Takip Kodu Al",
+            supportSending: "Takip Kodu Üretiliyor...",
+            supportSuccessTitle: "Destek Talebiniz Alındı!",
+            newTicket: "Yeni Bildirim Gönder",
+            rights: "Academic.io © 2026 — Tüm Hakları Saklıdır."
         };
-
-        const getDict = (lang) => DICT[lang] || DICT['tr'];
 
         const generate100Colors = () => {
             const baseTones = [
@@ -307,7 +171,8 @@
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
             const [textAlign, setTextAlign] = useState("justify");
 
-            const t = getDict(selectedLang);
+            const [uiDict, setUiDict] = useState(BASE_DICT);
+            const [translatingUi, setTranslatingUi] = useState(false);
 
             const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -315,6 +180,47 @@
                 const timer = setInterval(() => setCurrentTime(new Date()), 1000);
                 return () => clearInterval(timer);
             }, []);
+
+            // GOOGLE TRANSLATE SERVİSİ
+            const translateTextWithGoogle = async (text, targetLang) => {
+                if (!text || targetLang === 'tr') return text;
+                try {
+                    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+                    const data = await res.json();
+                    if (data && data[0]) {
+                        return data[0].map(item => item[0]).join('');
+                    }
+                } catch (e) {
+                    console.error("Çeviri hatası:", e);
+                }
+                return text;
+            };
+
+            // DİL DEĞİŞTİĞİNDE ARAYÜZÜN TAMAMINI ANINDA SEÇİLEN DİLE ÇEVİRİR
+            useEffect(() => {
+                const updateUiLanguage = async () => {
+                    if (selectedLang === 'tr') {
+                        setUiDict(BASE_DICT);
+                        return;
+                    }
+                    setTranslatingUi(true);
+                    try {
+                        const keys = Object.keys(BASE_DICT);
+                        const translatedDict = {};
+                        for (let k of keys) {
+                            translatedDict[k] = await translateTextWithGoogle(BASE_DICT[k], selectedLang);
+                        }
+                        setUiDict(translatedDict);
+                    } catch (e) {
+                        setUiDict(BASE_DICT);
+                    } finally {
+                        setTranslatingUi(false);
+                    }
+                };
+                updateUiLanguage();
+            }, [selectedLang]);
+
+            const t = uiDict;
 
             const [loading, setLoading] = useState(false);
             const [error, setError] = useState(null);
@@ -364,20 +270,6 @@
                 } finally {
                     setSupportSending(false);
                 }
-            };
-
-            const translateTextWithGoogle = async (text, targetLang) => {
-                if (!text || targetLang === 'tr') return text;
-                try {
-                    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
-                    const data = await res.json();
-                    if (data && data[0]) {
-                        return data[0].map(item => item[0]).join('');
-                    }
-                } catch (e) {
-                    console.error("Çeviri hatası:", e);
-                }
-                return text;
             };
 
             const fetchAndBuildVariations = async (searchQuery, lang, targetCount) => {
@@ -619,13 +511,13 @@
                                 <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-1.5">
                                     Academic.io <span className="text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded">PRO</span>
                                 </h1>
-                                <p className="text-xs text-slate-500 font-medium">Global AI Academic Motor</p>
+                                <p className="text-xs text-slate-500 font-medium">Global AI Academic Engine</p>
                             </div>
                         </div>
 
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-xl px-3 py-1.5 shadow-inner">
-                                <i className="fa-solid fa-globe text-blue-600 text-xs"></i>
+                                <i className={`fa-solid ${translatingUi ? 'fa-spinner animate-spin text-blue-600' : 'fa-globe text-blue-600'} text-xs`}></i>
                                 <select 
                                     value={selectedLang}
                                     onChange={(e) => setSelectedLang(e.target.value)}
@@ -654,7 +546,6 @@
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
                             
-                            {/* SABİT VE NET KURUMSAL ROZET */}
                             <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/95 hover:border-slate-300 text-slate-700 px-4 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
                                 <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">{t.tagBadge}</span>
                                 <span className="text-slate-300">•</span>
@@ -903,7 +794,7 @@
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto">
                                                 <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1 opacity-75">
-                                                    <i className="fa-solid fa-i-cursor"></i> Canlı editör - Düzenlemek istediğiniz metne tıklayabilirsiniz:
+                                                    <i className="fa-solid fa-i-cursor"></i> Editör - Metne tıklayarak düzenleyebilirsiniz:
                                                 </p>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
                                                     <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
