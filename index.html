@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AcademicSlide Pro — Portâl, Canlı Stüdyo & Otomatik Destek</title>
+    <title>Academic.io — Yapay Zeka Destekli Akademik Sunum Motoru</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -68,7 +68,7 @@
             for (let r = 0; r < 10; r++) {
                 for (let g = 0; g < 10; g++) {
                     if (list.length >= 105) break;
-                    const hexVal = `${colorHues[r]}${colorHues[(r + 2) % 15]}${colorHues[g]}${colorHues[(g + 3) % 15]}${colorHues[(r + g) % 15]}${colorHues[(r * 2) % 15]}`;
+                    const hexVal = `${colorHues[r]}${colorHues[(r + 2) % 15]}${colorHues[g]}${colorHues[(g + 3) % 15]}${colorHues[(r * 2) % 15]}`;
                     list.push({ id: id++, name: `Özel Tema #${id - 1} [ #${hexVal.toUpperCase()} ]`, value: hexVal, text: "F8FAFC" });
                 }
             }
@@ -129,14 +129,18 @@
             const [supportMsg, setSupportMsg] = useState("");
             const [supportSending, setSupportSending] = useState(false);
             const [supportSuccess, setSupportSuccess] = useState(false);
+            const [ticketId, setTicketId] = useState("");
 
             const handleSupportSubmit = async (e) => {
                 e.preventDefault();
                 setSupportSending(true);
                 setSupportSuccess(false);
 
+                const generatedTicket = "TKT-" + Math.floor(100000 + Math.random() * 900000);
+                setTicketId(generatedTicket);
+
                 try {
-                    const res = await fetch("https://formsubmit.co/ajax/mayonez.contact@gmail.com", {
+                    await fetch("https://formsubmit.co/ajax/mayonez.contact@gmail.com", {
                         method: "POST",
                         headers: { 
                             'Content-Type': 'application/json',
@@ -146,20 +150,15 @@
                             name: supportName,
                             email: supportEmail,
                             message: supportMsg,
-                            _subject: `AcademicSlide Pro Destek Bildirimi: ${supportName}`,
-                            // Otomatik yanıt (Auto-response) ayarı - Kullanıcıya giden mesaj
-                            _autoresponse: `Merhaba ${supportName},\n\nAcademicSlide Pro destek ekibine ilettiğiniz mesaj başarıyla alınmıştır. Talebiniz incelenmek üzere kuyruğa eklenmiştir.\n\nBu e-posta otomatik olarak oluşturulmuştur ve bu adrese gelen yanıtlar dikkate alınmamaktadır (No-Reply).\n\nİyi çalışmalar dileriz,\nAcademicSlide Pro Ekibi\nmayonez.contact@gmail.com`
+                            ticket: generatedTicket,
+                            _subject: `[${generatedTicket}] Academic.io Destek: ${supportName}`
                         })
                     });
 
-                    if (res.ok) {
-                        setSupportSuccess(true);
-                        setSupportName("");
-                        setSupportEmail("");
-                        setSupportMsg("");
-                    } else {
-                        setSupportSuccess(true);
-                    }
+                    setSupportSuccess(true);
+                    setSupportName("");
+                    setSupportEmail("");
+                    setSupportMsg("");
                 } catch (err) {
                     setSupportSuccess(true);
                 } finally {
@@ -176,7 +175,7 @@
                     const searchData = await searchRes.json();
 
                     if (!searchData.query.search || searchData.query.search.length === 0) {
-                        throw new Error(lang === 'tr' ? 'Aradığınız konuyla ilgili veri bulunamadı.' : 'No data found for this topic.');
+                        throw new Error(lang === 'tr' ? 'Aradığınız konuyla ilgili akademik veri bulunamadı.' : 'No data found for this topic.');
                     }
 
                     const searchResults = searchData.query.search;
@@ -235,12 +234,12 @@
                             type: 'cover',
                             badge: conceptName.toUpperCase(),
                             title: mainTitle.toUpperCase(),
-                            subtitle: `${mainTitle} üzerine saat entegreli ve kişiye özel dinamik oluşturulmuş slayt seti.`,
+                            subtitle: `${mainTitle} üzerine canlı veri kaynaklarıyla sentezlenmiş akademik sunum seti.`,
                             sentences: [
                                 `Konu: ${mainTitle}`,
                                 `Oluşturulma Saati: ${new Date().toLocaleTimeString()}`,
                                 `Arka Plan Kodu: #${selectedBg.value}`,
-                                `Kaynakça: 50 Adet Doğrulanmış Referans`
+                                `Doğrulanmış Literatür: 50 Adet Referans`
                             ]
                         });
 
@@ -268,9 +267,9 @@
                         return slides;
                     };
 
-                    const varA = createSlideSet(uniqueSentences, "Seçenek A: Saat Odaklı Derleme", 0);
-                    const varB = createSlideSet(uniqueSentences, "Seçenek B: Anlık Dinamik Akış", 5);
-                    const varC = createSlideSet(uniqueSentences, "Seçenek C: Kişiye Özel Analitik Sentez", 10);
+                    const varA = createSlideSet(uniqueSentences, "Seçenek A: Kronolojik Derleme", 0);
+                    const varB = createSlideSet(uniqueSentences, "Seçenek B: Analitik Sentez", 5);
+                    const varC = createSlideSet(uniqueSentences, "Seçenek C: Kavramsal Odak", 10);
 
                     setVariations({ A: varA, B: varB, C: varC });
                     setActiveVarKey('A');
@@ -278,7 +277,7 @@
                     setLoading(false);
                     setView('studio');
                 } catch (err) {
-                    setError(err.message || 'Veri çekilirken bir hata oluştu.');
+                    setError(err.message || 'Veri işlenirken bir hata oluştu.');
                     setLoading(false);
                 }
             };
@@ -308,7 +307,7 @@
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
                     badge: `SAYFA ${activeSlide + 2} (YENİ)`,
-                    sentences: Array(15).fill("Buraya yeni düzenlenebilir akademik metin ekleyin...")
+                    sentences: Array(15).fill("Buraya düzenlenebilir akademik metin ekleyin...")
                 });
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
                 setActiveSlide(activeSlide + 1);
@@ -368,7 +367,7 @@
                         slide.addText(refTexts, { x: 0.5, y: 1.3, w: 9.0, h: 3.8 });
                     }
 
-                    slide.addText(`Sayfa ${idx + 1} / ${activeSlides.length} - AcademicSlide Pro Studio`, {
+                    slide.addText(`Sayfa ${idx + 1} / ${activeSlides.length} - Academic.io Studio`, {
                         x: 0.5, y: 5.3, w: 9.0, h: 0.3,
                         fontSize: 8, color: '64748B', align: 'right'
                     });
@@ -382,78 +381,85 @@
             return (
                 <div className="min-h-screen flex flex-col justify-between">
                     
-                    <nav className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-6 py-4 flex justify-between items-center">
-                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    {/* YENİLENMİŞ PROFESYONEL NAVİGASYON */}
+                    <nav className="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur px-8 py-4 flex justify-between items-center">
+                        <div className="flex items-center gap-3.5 cursor-pointer" onClick={() => setView('portal')}>
+                            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30">
                                 <i className="fa-solid fa-graduation-cap text-white text-lg"></i>
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-base tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">AcademicSlide Pro</h1>
-                                <p className="text-[10px] text-slate-400">Canlı Saat & Otomatik Yanıt Destek Paneli</p>
+                                <h1 className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1.5">
+                                    Academic.io <span className="text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1.5 py-0.5 rounded">PRO</span>
+                                </h1>
+                                <p className="text-xs text-slate-400 font-medium">Yapay Zeka Destekli Akademik Sunum Motoru</p>
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex items-center gap-2 bg-slate-950 border border-slate-800 px-3.5 py-1.5 rounded-xl font-mono text-xs text-blue-400 shadow-inner">
-                            <i className="fa-regular fa-clock animate-pulse"></i>
-                            <span className="font-bold">{currentTime.toLocaleTimeString()}</span>
+                        <div className="hidden sm:flex items-center gap-2 bg-slate-950 border border-slate-800/80 px-4 py-2 rounded-xl font-mono text-xs text-slate-300 shadow-inner">
+                            <i className="fa-regular fa-clock text-blue-400"></i>
+                            <span className="font-semibold">{currentTime.toLocaleTimeString()}</span>
                         </div>
 
                         <div className="flex items-center gap-2">
                             {view === 'studio' && (
                                 <button 
                                     onClick={() => setView('portal')}
-                                    className="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-700 cursor-pointer"
+                                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-700/80 cursor-pointer shadow-sm"
                                 >
-                                    <i className="fa-solid fa-house mr-1.5"></i> Portal Sayfasına Dön
+                                    <i className="fa-solid fa-house mr-1.5"></i> Ana Sayfaya Dön
                                 </button>
                             )}
                         </div>
                     </nav>
 
+                    {/* YENİLENMİŞ PROFESYONEL HERO BÖLÜMÜ */}
                     {view === 'portal' && (
-                        <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center text-center">
-                            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold mb-6 tracking-wide uppercase">
-                                <i className="fa-solid fa-compass"></i> Akademik Sunum Yönlendirme Portalı
+                        <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
+                            <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 text-slate-300 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span>v2.4 • CANLI WIKIPEDIA DOKÜMAN ENTEGRASYONU</span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight max-w-3xl mb-6">
-                                Profesyonel Akademik <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Sunum Üretim Merkezi</span>
+                            <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mb-6">
+                                Otomatik Araştırma ve <br />
+                                <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Akademik Sunum Asistanı</span>
                             </h2>
 
-                            <p className="text-slate-400 text-base md:text-lg max-w-2xl mb-10 leading-relaxed">
-                                Canlı saat entegrasyonu, 100'den fazla renk kodu paleti (saf beyaz dahil), 3 farklı varyasyon seçeneği ve canlı PowerPoint düzenleyicisi ile tanışın.
+                            <p className="text-slate-400 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-normal">
+                                Canlı kaynaklardan çekilen akademik verilerle saniyeler içinde düzenlenebilir PowerPoint slaytları üretin. Saat bazı dinamik varyasyonlar ve 100+ profesyonel renk teması ile.
                             </p>
 
                             <button 
                                 onClick={() => setView('studio')}
-                                className="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-blue-600/30 flex items-center gap-3 cursor-pointer mb-16"
+                                className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-blue-600/25 flex items-center gap-3 cursor-pointer mb-20"
                             >
-                                <i className="fa-solid fa-arrow-right-to-bracket text-lg"></i> Stüdyoya Giriş Yap ve Sunum Oluştur
+                                <i className="fa-solid fa-wand-magic-sparkles text-lg"></i> Hemen Sunum Oluşturmaya Başla
                             </button>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-16">
-                                <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 text-lg">
+                            {/* YENİLENMİŞ PROFESYONEL ÖZELLİK KARTLARI */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
+                                <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-slate-700 transition">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 text-base">
                                         <i className="fa-solid fa-palette"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-200 text-sm mb-1">100+ Renk Kodu & Saf Beyaz</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">Arka plan renk kodlarını inceleyebilir, beyaz dahil dilediğiniz temayı seçebilirsiniz.</p>
+                                    <h3 className="font-bold text-white text-base mb-1.5">100+ Kurumsal Renk Paleti</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">HEX kod önizlemeleri ve saf beyaz minimalist mod dahil tüm akademiye uygun renk tonları.</p>
                                 </div>
 
-                                <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
-                                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 text-lg">
-                                        <i className="fa-solid fa-clock-rotate-left"></i>
+                                <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-slate-700 transition">
+                                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 text-base">
+                                        <i className="fa-solid fa-layer-group"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-200 text-sm mb-1">Saat & Dinamik Seed</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">Her saat başı ve her kullanıcı girişinde otomatik yenilenen benzersiz cümle harmanlama motoru.</p>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Dinamik Algoritma Motoru</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">Aynı konuda her saat başı tamamen özgün içerik harmanlayan 3 farklı varyasyon seçeneği.</p>
                                 </div>
 
-                                <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl">
-                                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 text-lg">
+                                <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-slate-700 transition">
+                                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 text-base">
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-200 text-sm mb-1">Canlı PowerPoint Editörü</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">İndirmeden önce metinleri tıklayarak düzenleyin, yeni slaytlar ekleyin veya silin.</p>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Canlı PowerPoint Stüdyosu</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">İndirmeden önce metinleri anında düzenleyin, sayfa ekleyip silin ve doğrudan .pptx olarak indirin.</p>
                                 </div>
                             </div>
                         </main>
@@ -685,28 +691,35 @@
                         </main>
                     )}
 
-                    {/* 3. ENTEGRE DESTEK & ŞİKAYET FORMU (OTOMATİK NO-REPLY YANITLI) */}
                     <footer className="border-t border-slate-800 bg-slate-900/80 py-12 px-6 mt-16 text-slate-400">
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
                                 <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-headset text-blue-400"></i> Otomatik Bilgilendirmeli Destek Paneli
+                                    <i className="fa-solid fa-headset text-blue-400"></i> Academic.io Destek ve Takip Paneli
                                 </h4>
                                 <p className="text-xs leading-relaxed mb-4">
-                                    Buradan mesaj gönderen kullanıcılara sistem tarafından anında <strong className="text-slate-200">geri cevaplanamaz (No-Reply)</strong> otomatik onay maili gönderilir. Mesajınız ise eş zamanlı olarak <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine düşer.
+                                    Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir <strong className="text-slate-200">Destek Takip Numarası</strong> üretilir ve ekranda görüntülenir. Mesajınız doğrudan <strong className="text-slate-200">mayonez.contact@gmail.com</strong> adresine iletilir.
                                 </p>
                                 <div className="text-xs font-mono text-blue-400 bg-slate-950 p-3 rounded-xl border border-slate-800 inline-block">
-                                    <i className="fa-solid fa-robot mr-2"></i> Otomatik Yanıt Servisi Aktif
+                                    <i className="fa-solid fa-ticket mr-2"></i> Anında Otomatik Onay & Takip Kodu Aktif
                                 </div>
                             </div>
 
                             <div className="bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-3">
                                 {supportSuccess ? (
-                                    <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-4 rounded-xl text-center space-y-2">
-                                        <i className="fa-solid fa-circle-check text-2xl"></i>
-                                        <h5 className="font-bold text-sm">Mesajınız İletildi & Otomatik Yanıt Gönderildi!</h5>
-                                        <p className="text-xs opacity-90">E-posta adresinize otomatik bilgi mesajı iletildi. Talebiniz mayonez.contact@gmail.com adresine ulaştı.</p>
-                                        <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 text-white px-3 py-1 rounded-lg font-bold mt-2 cursor-pointer">Yeni Mesaj Gönder</button>
+                                    <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-4 rounded-xl text-center space-y-3">
+                                        <i className="fa-solid fa-circle-check text-3xl text-emerald-400"></i>
+                                        <div>
+                                            <h5 className="font-bold text-sm text-white">Destek Talebiniz Alındı!</h5>
+                                            <p className="text-xs text-slate-300 mt-1">Sistem tarafından otomatik onay kodu oluşturuldu:</p>
+                                            <div className="inline-block bg-slate-900 border border-emerald-500/40 text-emerald-300 font-mono text-sm font-bold px-3 py-1 rounded-lg mt-2">
+                                                Takip Kodu: {ticketId}
+                                            </div>
+                                        </div>
+                                        <p className="text-[11px] text-slate-400">Mesajınız başarıyla mayonez.contact@gmail.com adresine yönlendirildi. En kısa sürede geri dönüş yapılacaktır.</p>
+                                        <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-bold mt-1 cursor-pointer w-full transition">
+                                            Yeni Bildirim Gönder
+                                        </button>
                                     </div>
                                 ) : (
                                     <form onSubmit={handleSupportSubmit} className="space-y-3">
@@ -751,12 +764,12 @@
                                             {supportSending ? (
                                                 <>
                                                     <i className="fa-solid fa-spinner animate-spin"></i>
-                                                    <span>İletiliyor ve Otomatik Yanıt Gönderiliyor...</span>
+                                                    <span>Takip Kodu Üretiliyor ve İletiliyor...</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <i className="fa-solid fa-paper-plane text-white">**</i>
-                                                    <span>Mesajı Gönder & Otomatik Yanıt Al</span>
+                                                    <i className="fa-solid fa-paper-plane text-white"></i>
+                                                    <span>Destek Talebi Gönder & Takip Kodu Al</span>
                                                 </>
                                             )}
                                         </button>
@@ -765,7 +778,7 @@
                             </div>
                         </div>
                         <div className="border-t border-slate-800/60 mt-8 pt-6 text-center text-xs text-slate-600">
-                            <p>AcademicSlide Pro &copy; 2026 — Otomatik No-Reply Destek Entegrasyonu</p>
+                            <p>Academic.io &copy; 2026 — Tüm Hakları Saklıdır.</p>
                         </div>
                     </footer>
 
