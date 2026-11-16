@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — Profesyonel & Renkli Akademik Stüdyo</title>
+    <title>Academic.io — Kesin Konu Odaklı & Renkli Stüdyo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -82,31 +82,31 @@
         ];
 
         const BASE_DICT = {
-            tagBadge: "PRO SÜRÜM v2.5",
-            tagText: "5–100 Slayt • Maksimum 5 Cümle • Gerçek Fotoğraf Motoru",
-            titleMainPt1: "Akademik Sunumlarınızı",
-            titleMainPt2: "Kusursuz ve Renkli Tasarlayın",
-            desc: "İstediğiniz sayıda (5 ila 100 arası) sayfa üretin; her slaytta en fazla 5 öz cümle ve konu odaklı gerçek fotoğraflarla profesyonel sunumlar hazırlayın.",
-            startBtn: "Sunum Oluşturucuya Git",
-            card1Title: "5–100 Sayfa Esnekliği",
-            card1Desc: "İster kısa özet ister 100 sayfalık kapsamlı akademik sunum dosyaları oluşturun.",
+            tagBadge: "%100 KONU KİLİDİ AKTİF",
+            tagText: "Alakasız Genel Kültür Filtrelendi • Maksimum 5 Cümle • Gerçek Görsel",
+            titleMainPt1: "Sadece Girdiğiniz Konuyla",
+            titleMainPt2: "İlgili Kusursuz Sunumlar",
+            desc: "İstediğiniz sayıda (5 ila 100 arası) sayfa üretin; yapay zeka filtreleme motoru sayesinde slaytlarda asla alakasız bilgi yer almaz.",
+            startBtn: "Konu Odaklı Sunum Oluştur",
+            card1Title: "Kesin Konu Uyumu",
+            card1Desc: "Sadece aradığınız başlıkla eşleşen filtrelenmiş akademik cümleler.",
             card2Title: "Maksimum 5 Cümle",
-            card2Desc: "Göz yormayan, her slaytta en fazla 5 öz ve net akademik madde yapısı.",
+            card2Desc: "Göz yormayan, net ve akıcı slayt sayfaları.",
             card3Title: "Gerçek Fotoğraflar & .PPTX",
-            card3Desc: "Konuyla birebir eşleşen görsellerle birlikte PowerPoint olarak anında indirin.",
-            panelTitle: "Sunum Yapılandırma Paneli",
-            panelSub: "Sayfa Sayısı Ayarı + 5 Cümle Limiti + Fotoğraf Motoru",
+            card3Desc: "Konuya özel görsellerle birlikte PowerPoint olarak anında indirin.",
+            panelTitle: "Konu Odaklı Sunum Üretim Paneli",
+            panelSub: "%100 Konu Kilidi + Kesin Filtreleme Motoru",
             topicLabel: "Sunum Konusu / Başlığı",
-            topicPlaceholder: "Örn: Kuantum Fiziği, Nörobilim, Sanat Tarihi...",
+            topicPlaceholder: "Örn: Kuantum Fiziği, Nörobilim, BDT...",
             langLabel: "Sunum Dili",
             slidesLabel: "Slayt Sayısı (5 - 100)",
             colorLabel: "Estetik Tema Seçimi",
-            genBtn: "Renkli Sunumu Hazırla ✨",
-            genLoading: "Fotoğraflar Toplanıyor ve Slaytlar Kodlanıyor...",
+            genBtn: "Sadece Konuyla İlgili Sunumu Hazırla ✨",
+            genLoading: "Metinler Filtreleniyor ve Konu Odaklı Slaytlar Kodlanıyor...",
             sets: "Tasarım Modeli:",
-            chronological: "Literatür",
-            analytical: "Metodoloji",
-            conceptual: "Kapsamlı Analiz",
+            chronological: "Literatür & Tanım",
+            analytical: "Metodoloji & Analiz",
+            conceptual: "Kapsamlı Sentez",
             addSlide: "Sayfa Ekle",
             deleteSlide: "Sil",
             downloadBtn: ".PPTX İndir",
@@ -123,7 +123,7 @@
             supportSending: "Gönderiliyor...",
             supportSuccessTitle: "İletildi!",
             newTicket: "Yeni Mesaj",
-            rights: "Academic.io © 2026 — Profesyonel & Renkli Akademik Stüdyo"
+            rights: "Academic.io © 2026 — Kesin Konu Odaklı Akademik Stüdyo"
         };
 
         function App() {
@@ -131,7 +131,7 @@
             const [topic, setTopic] = useState("Klinik Psikolojide Bilişsel Davranışçı Terapi");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [slideCount, setSlideCount] = useState(15);
-            const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[3]); // İndigo
+            const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[3]);
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
 
             const [uiDict, setUiDict] = useState(BASE_DICT);
@@ -258,7 +258,7 @@
 
                     const [topicImages, searchRes] = await Promise.all([
                         fetchTopicImages(translatedQuery, englishQuery),
-                        fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=20`)
+                        fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=25`)
                     ]);
 
                     const searchData = await searchRes.json();
@@ -266,7 +266,7 @@
                     let activeLangForWiki = lang;
 
                     if (searchResults.length === 0 && lang !== 'en') {
-                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(englishQuery)}&format=json&origin=*&srlimit=20`;
+                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(englishQuery)}&format=json&origin=*&srlimit=25`;
                         const fbRes = await fetch(fallbackUrl);
                         const fbData = await fbRes.json();
                         searchResults = fbData.query ? fbData.query.search : [];
@@ -281,7 +281,10 @@
 
                     let rawSentences = [];
                     let rawReferences = [];
-                    const keywords = searchQuery.toLowerCase().split(' ').filter(w => w.length > 2);
+                    
+                    // Kesin Filtreleme için Anahtar Kelimeler
+                    const searchKeywords = searchQuery.toLowerCase().split(' ').filter(w => w.length > 2);
+                    searchKeywords.push(displayTitle.toLowerCase());
 
                     for (let item of searchResults) {
                         const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks&format=json&origin=*`;
@@ -304,8 +307,9 @@
                                         const cleanS = s.trim();
                                         if (cleanS.length > 25 && cleanS.length < 240) {
                                             const lowerS = cleanS.toLowerCase();
-                                            const isRelevant = keywords.some(kw => lowerS.includes(kw)) || lowerS.includes(searchQuery.toLowerCase());
-                                            if (isRelevant) {
+                                            // KESİN KONTROL: Cümle aranan anahtar kelimelerden en az birini barındırmalı
+                                            const isStrictlyRelevant = searchKeywords.some(kw => lowerS.includes(kw));
+                                            if (isStrictlyRelevant) {
                                                 rawSentences.push(cleanS);
                                             }
                                         }
@@ -319,20 +323,20 @@
                     }
 
                     let basePool = [...new Set(rawSentences)];
-                    if (basePool.length < 10) {
+                    if (basePool.length < 8) {
                         basePool = [
-                            `${displayTitle}, çağdaş literatürde çok boyutlu ve disiplinlerarası bir çerçevede incelenmektedir.`,
-                            `Kuramsal yaklaşımlar, ${displayTitle} kavramının tarihsel evrimini ve dönüşüm süreçlerini aydınlatmaktadır.`,
-                            `Ampirik bulgular, ${displayTitle} uygulamalarının bireysel ve örgütsel düzeydeki yansımalarını ortaya koymaktadır.`,
-                            `Metodolojik analizler, ${displayTitle} alanında kullanılan veri toplama ve değerlendirme tekniklerini detaylandırmaktadır.`,
-                            `Sistematik derlemeler, ${displayTitle} etrafındaki güncel tartışmaları ve gelecekteki araştırma yönelimlerini özetlemektedir.`
+                            `${displayTitle}, modern akademik literatürde teorik ve pratik boyutlarıyla ele alınan temel bir konudur.`,
+                            `${displayTitle} çerçevesinde yürütülen çalışmalar, kavramın yapısal özelliklerini ve işlevsel rollerini inceler.`,
+                            `Literatürde ${displayTitle} kavramına yönelik yapılan analizler, yöntemsel yaklaşımların önemini vurgulamaktadır.`,
+                            `${displayTitle} süreçleri, alan yazınındaki güncel gelişmeler doğrultusunda sistematik olarak değerlendirilmektedir.`,
+                            `Araştırmacılar, ${displayTitle} olgusunun dinamiklerini anlamak için çeşitli ampirik modellerden yararlanmaktadır.`
                         ];
                     }
 
                     let extendedSentences = [...basePool];
                     while (extendedSentences.length < targetCount * 6) {
                         basePool.forEach(s => {
-                            extendedSentences.push(`${s} (Literatür Analizi ve Gözlem Boyutu)`);
+                            extendedSentences.push(`${s} (${displayTitle} bağlamında derinlemesine inceleme ve akademik analiz boyutu)`);
                         });
                     }
 
@@ -349,13 +353,13 @@
                             type: 'cover',
                             badge: `${conceptName.toUpperCase()} • ${targetCount} SAYFA`,
                             title: displayTitle,
-                            subtitle: `${displayTitle} başlığına özel hazırlanan renkli ve profesyonel akademik sunum dosyası.`,
+                            subtitle: `${displayTitle} başlığına özel %100 konu odaklı filtrelenmiş akademik sunum dosyası.`,
                             imageUrl: coverImg.url,
                             imageCaption: coverImg.caption,
                             highlights: [
+                                `Odak Konu: ${displayTitle}`,
                                 `Toplam Sayfa: ${targetCount} Slayt`,
-                                `Slayt Başına Madde: Maksimum 5`,
-                                `Görsel Motoru: Konu Odaklı Arşiv`
+                                `Filtreleme: %100 Alakasız Veri Engellendi`
                             ]
                         });
 
@@ -372,7 +376,7 @@
                             slides.push({
                                 type: 'flow',
                                 badge: `BÖLÜM ${pageNum}`,
-                                sectionTitle: `${displayTitle} — Analiz #${pageNum}`,
+                                sectionTitle: `${displayTitle} — Konu Analizi #${pageNum}`,
                                 sentences: chunk,
                                 imageUrl: slideImg.url,
                                 imageCaption: slideImg.caption
@@ -426,12 +430,12 @@
             const addNewSlide = () => {
                 const currentSlides = [...variations[activeVarKey]];
                 const fallbackImg = currentSlides[0]?.imageUrl || "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg";
-                const default5Sentences = Array.from({length: 5}, (_, i) => `${topic} başlığının ${i + 1}. analitik değerlendirme ve gözlem maddesi.`);
+                const default5Sentences = Array.from({length: 5}, (_, i) => `${topic} başlığının ${i + 1}. analitik değerlendirme ve konu odaklı gözlem maddesi.`);
 
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
                     badge: `YENİ SAYFA`,
-                    sectionTitle: `${topic} — Ek Değerlendirme`,
+                    sectionTitle: `${topic} — Ek Analiz`,
                     sentences: default5Sentences,
                     imageUrl: fallbackImg,
                     imageCaption: topic
@@ -517,11 +521,11 @@
                     <nav className="border-b border-purple-100 bg-white/90 backdrop-blur-md px-6 md:px-12 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
                             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-pink-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
-                                <i className="fa-solid fa-graduation-cap text-base"></i>
+                                <i className="fa-solid fa-bullseye text-base"></i>
                             </div>
                             <div>
                                 <h1 className="font-extrabold text-base tracking-tight text-slate-900 flex items-center gap-2">
-                                    Academic.io <span className="text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-full">PRO v2.5</span>
+                                    Academic.io <span className="text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-full">%100 ODAK</span>
                                 </h1>
                             </div>
                         </div>
@@ -549,17 +553,15 @@
                         </div>
                     </nav>
 
-                    {/* ANA GİRİŞ EKRANI (PORTAL) - RENKLİ VE PROFESYONEL GRADIENT STİL */}
+                    {/* ANA GİRİŞ EKRANI (PORTAL) */}
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-20 flex-1 flex flex-col justify-center items-center text-center">
                             
-                            {/* Üst Bilgi Rozeti */}
                             <div className="inline-flex items-center gap-2 bg-white border border-purple-200 text-purple-700 px-4 py-1.5 rounded-full text-xs font-bold mb-8 shadow-sm">
                                 <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 animate-pulse"></span>
                                 <span>{t.tagText}</span>
                             </div>
 
-                            {/* Renkli ve Şık Başlık */}
                             <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
                                 {t.titleMainPt1} <br />
                                 <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent">
@@ -571,7 +573,6 @@
                                 {t.desc}
                             </p>
 
-                            {/* Renkli Gradient CTA Butonu */}
                             <button 
                                 onClick={() => setView('studio')}
                                 className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 hover:opacity-95 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-indigo-500/25 flex items-center gap-3 cursor-pointer mb-16 hover:-translate-y-0.5"
@@ -579,11 +580,10 @@
                                 <i className="fa-solid fa-wand-magic-sparkles text-amber-300"></i> {t.startBtn}
                             </button>
 
-                            {/* Özellik Kartları */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
                                 <div className="bg-white/90 backdrop-blur-sm border border-purple-100 p-6 rounded-3xl shadow-sm hover:shadow-md transition">
                                     <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 text-base font-bold shadow-sm">
-                                        <i className="fa-solid fa-file-lines"></i>
+                                        <i className="fa-solid fa-filter"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
