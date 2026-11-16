@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — 100 Slayt & Görsel Destekli Akademik Stüdyo</title>
+    <title>Academic.io — Profesyonel Akademik Sunum Stüdyosu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -20,12 +20,12 @@
         .powerpoint-slide {
             width: 100%;
             aspect-ratio: 16 / 9;
-            box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.12), 0 12px 24px -8px rgba(15, 23, 42, 0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+            transition: all 0.3s ease;
         }
 
         [contenteditable="true"]:hover {
-            outline: 2px dashed #818cf8;
+            outline: 2px dashed #6366f1;
             border-radius: 6px;
         }
         [contenteditable="true"]:focus {
@@ -45,7 +45,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-50/60 via-white to-rose-50/60 text-slate-800 font-jakarta min-h-screen flex flex-col justify-between selection:bg-indigo-100 selection:text-indigo-900">
+<body class="bg-slate-50/50 text-slate-800 font-jakarta min-h-screen flex flex-col justify-between selection:bg-indigo-100 selection:text-indigo-900">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -82,28 +82,27 @@
         ];
 
         const BASE_DICT = {
-            tagBadge: "5 - 100 SLAYT & GÖRSEL DESTEKLİ",
-            tagText: "SLAYT BAŞINA MAKSİMUM 5 CÜMLE VE GERÇEK FOTOĞRAF MOTORU AKTİF",
-            title1: "100 Sayfaya Kadar",
-            title2: "Görselli & Özlü Akademik Sunum",
-            desc: "İstediğiniz sayıda (5 ila 100 arası) sayfa üretin; her slaytta maksimum 5 net cümle ve gerçek fotoğraflarla profesyonel sunumlar hazırlayın.",
-            startBtn: "Özel Sayfalı Görselli Sunum Oluştur",
-            card1Title: "5-100 Sayfa Seçeneği",
-            card1Desc: "İster kısa özet ister 100 sayfalık devasa akademik sunum dosyaları oluşturun.",
+            tagBadge: "PRO SÜRÜM",
+            tagText: "5–100 Slayt • Maksimum 5 Cümle • Gerçek Fotoğraf Motoru",
+            titleMain: "Akademik Sunumlarınızı Kusursuz Tasarlayın",
+            desc: "İstediğiniz sayıda (5 ila 100 arası) sayfa üretin; her slaytta en fazla 5 öz cümle ve konu odaklı gerçek fotoğraflarla profesyonel sunumlar hazırlayın.",
+            startBtn: "Sunum Oluşturucuya Git",
+            card1Title: "5–100 Sayfa Esnekliği",
+            card1Desc: "İster kısa özet ister 100 sayfalık kapsamlı akademik sunum dosyaları oluşturun.",
             card2Title: "Maksimum 5 Cümle",
-            card2Desc: "Göz yormayan, her slaytta en fazla 5 öz ve net akademik cümle yapısı.",
+            card2Desc: "Göz yormayan, her slaytta en fazla 5 öz ve net akademik madde yapısı.",
             card3Title: "Gerçek Fotoğraflar & .PPTX",
             card3Desc: "Konuyla birebir eşleşen görsellerle birlikte PowerPoint olarak anında indirin.",
-            panelTitle: "Gelişmiş Görselli Sunum Üretim Paneli",
+            panelTitle: "Sunum Yapılandırma Paneli",
             panelSub: "Sayfa Sayısı Ayarı + 5 Cümle Limiti + Fotoğraf Motoru",
             topicLabel: "Sunum Konusu / Başlığı",
             topicPlaceholder: "Örn: Kuantum Fiziği, Nörobilim, Sanat Tarihi...",
             langLabel: "Sunum Dili",
             slidesLabel: "Slayt Sayısı (5 - 100)",
             colorLabel: "Estetik Tema Seçimi",
-            genBtn: "Seçilen Sayfa Kadar Görselli Sunumu Üret ✨",
-            genLoading: "Fotoğraflar Toplanıyor ve Slaytlar Hazırlanıyor...",
-            sets: "Tasarım Varyasyonu:",
+            genBtn: "Sunumu Hazırla ✨",
+            genLoading: "Fotoğraflar Toplanıyor ve Slaytlar Kodlanıyor...",
+            sets: "Tasarım Modeli:",
             chronological: "Literatür",
             analytical: "Metodoloji",
             conceptual: "Kapsamlı Analiz",
@@ -123,7 +122,7 @@
             supportSending: "Gönderiliyor...",
             supportSuccessTitle: "İletildi!",
             newTicket: "Yeni Mesaj",
-            rights: "Academic.io © 2026 — Özlü & Görselli Akademik Sunum Motoru"
+            rights: "Academic.io © 2026 — Profesyonel Akademik Sunum Stüdyosu"
         };
 
         function App() {
@@ -131,7 +130,7 @@
             const [topic, setTopic] = useState("Klinik Psikolojide Bilişsel Davranışçı Terapi");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [slideCount, setSlideCount] = useState(15);
-            const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[0]);
+            const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[3]); // Varsayılan İndigo
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
 
             const [uiDict, setUiDict] = useState(BASE_DICT);
@@ -345,22 +344,20 @@
                         const slides = [];
                         const coverImg = topicImages[0];
 
-                        // 1. Kapak Slaytı
                         slides.push({
                             type: 'cover',
-                            badge: `🎯 ${conceptName.toUpperCase()} — ${targetCount} SAYFA`,
+                            badge: `${conceptName.toUpperCase()} • ${targetCount} SAYFA`,
                             title: displayTitle,
-                            subtitle: `${displayTitle} başlığına özel hazırlanan görselli ve özlü akademik sunum dosyası.`,
+                            subtitle: `${displayTitle} başlığına özel hazırlanan profesyonel akademik sunum dosyası.`,
                             imageUrl: coverImg.url,
                             imageCaption: coverImg.caption,
                             highlights: [
                                 `Toplam Sayfa: ${targetCount} Slayt`,
-                                `Slayt Başına Cümle: Maksimum 5 Madde`,
-                                `Görsel Desteği: Konu Odaklı Arşiv Fotoğrafı`
+                                `Slayt Başına Madde: Maksimum 5`,
+                                `Görsel Motoru: Konu Odaklı Arşiv`
                             ]
                         });
 
-                        // 2. İçerik Slaytları (İstenen sayfa sayısı kadar, her birinde maksimum 5 cümle)
                         let cursor = offset;
                         let pageNum = 1;
                         while (slides.length < targetCount - 1) {
@@ -373,8 +370,8 @@
 
                             slides.push({
                                 type: 'flow',
-                                badge: `BÖLÜM ${pageNum} • ${displayTitle.toUpperCase()}`,
-                                sectionTitle: `${displayTitle} — Özlü Analiz #${pageNum}`,
+                                badge: `BÖLÜM ${pageNum}`,
+                                sectionTitle: `${displayTitle} — Analiz #${pageNum}`,
                                 sentences: chunk,
                                 imageUrl: slideImg.url,
                                 imageCaption: slideImg.caption
@@ -382,10 +379,9 @@
                             pageNum++;
                         }
 
-                        // 3. Kaynakça Slaytı
                         slides.push({
                             type: 'references',
-                            badge: '📚 AKADEMİK KAYNAKÇA',
+                            badge: 'KAYNAKÇA',
                             references: finalReferences.slice(0, 12)
                         });
                         return slides;
@@ -429,13 +425,11 @@
             const addNewSlide = () => {
                 const currentSlides = [...variations[activeVarKey]];
                 const fallbackImg = currentSlides[0]?.imageUrl || "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg";
-                
-                // Yeni slaytta da tam 5 cümle olsun
                 const default5Sentences = Array.from({length: 5}, (_, i) => `${topic} başlığının ${i + 1}. analitik değerlendirme ve gözlem maddesi.`);
 
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
-                    badge: `YENİ SAYFA 🎯`,
+                    badge: `YENİ SAYFA`,
                     sectionTitle: `${topic} — Ek Değerlendirme`,
                     sentences: default5Sentences,
                     imageUrl: fallbackImg,
@@ -455,58 +449,58 @@
                     const slide = pptx.addSlide();
                     slide.background = { color: selectedTheme.pptBg };
 
-                    slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 10, h: 0.12, fill: { color: selectedTheme.pptAccent } });
+                    slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 10, h: 0.1, fill: { color: selectedTheme.pptAccent } });
 
                     slide.addText(slideData.badge, {
-                        x: 0.5, y: 0.3, w: 9.0, h: 0.25,
+                        x: 0.6, y: 0.3, w: 8.8, h: 0.25,
                         fontSize: 9, color: selectedTheme.pptAccent, bold: true
                     });
 
                     if (slideData.type === 'cover') {
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 0.75, w: 5.6, h: 4.1, fill: { color: "FFFFFF" }, line: { color: selectedTheme.pptAccent, width: 1 } });
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: 0.75, w: 5.5, h: 4.0, fill: { color: "FFFFFF" }, line: { color: "E2E8F0", width: 1 } });
                         slide.addText(slideData.title, {
-                            x: 0.75, y: 1.0, w: 5.1, h: 1.1,
+                            x: 0.9, y: 1.05, w: 4.9, h: 1.1,
                             fontSize: 20, color: selectedTheme.text, bold: true
                         });
                         slide.addText(slideData.subtitle, {
-                            x: 0.75, y: 2.2, w: 5.1, h: 0.9,
-                            fontSize: 11, color: "475569"
+                            x: 0.9, y: 2.2, w: 4.9, h: 0.9,
+                            fontSize: 11, color: "64748B"
                         });
                         const bullets = slideData.highlights.map(h => ({ text: h, options: { bullet: true, color: selectedTheme.text, fontSize: 9.5 } }));
-                        slide.addText(bullets, { x: 0.75, y: 3.2, w: 5.1, h: 1.4 });
+                        slide.addText(bullets, { x: 0.9, y: 3.1, w: 4.9, h: 1.4 });
 
                         if (slideData.imageUrl) {
                             try {
-                                slide.addImage({ path: slideData.imageUrl, x: 6.3, y: 0.75, w: 3.2, h: 4.1, sizing: { type: 'cover', w: 3.2, h: 4.1 } });
+                                slide.addImage({ path: slideData.imageUrl, x: 6.4, y: 0.75, w: 3.0, h: 4.0, sizing: { type: 'cover', w: 3.0, h: 4.0 } });
                             } catch (e) {}
                         }
                     } else if (slideData.type === 'flow') {
                         slide.addText(slideData.sectionTitle || topic, {
-                            x: 0.5, y: 0.65, w: 5.6, h: 0.4,
+                            x: 0.6, y: 0.65, w: 5.5, h: 0.4,
                             fontSize: 14, color: selectedTheme.text, bold: true
                         });
 
                         const flowTexts = slideData.sentences.map(s => ({ text: s, options: { bullet: true, color: selectedTheme.text, fontSize: 10 } }));
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.15, w: 5.6, h: 3.8, fill: { color: "FFFFFF" } });
-                        slide.addText(flowTexts, { x: 0.65, y: 1.3, w: 5.3, h: 3.5, lineSpacing: 16 });
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: 1.15, w: 5.5, h: 3.7, fill: { color: "FFFFFF" }, line: { color: "E2E8F0", width: 1 } });
+                        slide.addText(flowTexts, { x: 0.75, y: 1.3, w: 5.2, h: 3.4, lineSpacing: 16 });
 
                         if (slideData.imageUrl) {
                             try {
-                                slide.addImage({ path: slideData.imageUrl, x: 6.3, y: 1.15, w: 3.2, h: 3.8, sizing: { type: 'cover', w: 3.2, h: 3.8 } });
+                                slide.addImage({ path: slideData.imageUrl, x: 6.4, y: 1.15, w: 3.0, h: 3.7, sizing: { type: 'cover', w: 3.0, h: 3.7 } });
                             } catch (e) {}
                         }
                     } else if (slideData.type === 'references') {
                         slide.addText("KAYNAKÇA & REFERANSLAR", {
-                            x: 0.5, y: 0.7, w: 9.0, h: 0.4,
+                            x: 0.6, y: 0.7, w: 8.8, h: 0.4,
                             fontSize: 16, color: selectedTheme.text, bold: true
                         });
                         const refTexts = slideData.references.map(r => ({ text: r, options: { bullet: true, color: selectedTheme.pptAccent, fontSize: 8.5 } }));
-                        slide.addText(refTexts, { x: 0.5, y: 1.2, w: 9.0, h: 3.9 });
+                        slide.addText(refTexts, { x: 0.6, y: 1.2, w: 8.8, h: 3.8 });
                     }
 
                     slide.addText(`Academic.io Stüdyo  •  ${idx + 1} / ${activeSlides.length}`, {
-                        x: 0.5, y: 5.25, w: 9.0, h: 0.25,
-                        fontSize: 8, color: "64748B", align: "right"
+                        x: 0.6, y: 5.2, w: 8.8, h: 0.25,
+                        fontSize: 8, color: "94A3B8", align: "right"
                     });
                 });
 
@@ -518,26 +512,26 @@
             return (
                 <div className="min-h-screen flex flex-col justify-between">
                     
-                    <nav className="border-b border-indigo-100 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 flex justify-between items-center sticky top-0 z-50">
+                    {/* ÜST MENÜ */}
+                    <nav className="border-b border-slate-200/80 bg-white/90 backdrop-blur-md px-6 md:px-12 py-4 flex justify-between items-center sticky top-0 z-50">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-fuchsia-500 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white">
-                                <i className="fa-solid fa-images text-base"></i>
+                            <div className="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-sm">
+                                <i className="fa-solid fa-graduation-cap text-sm"></i>
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-2">
-                                    Academic.io <span className="text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-200 px-2 py-0.5 rounded-full">PRO 100</span>
+                                <h1 className="font-bold text-base tracking-tight text-slate-900 flex items-center gap-2">
+                                    Academic.io <span className="text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded-full">v2.4</span>
                                 </h1>
-                                <p className="text-[11px] text-slate-500 font-medium">Visual Presentation Engine</p>
                             </div>
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 bg-indigo-50/70 border border-indigo-100 rounded-2xl px-3 py-1.5">
-                                <i className={`fa-solid ${translatingUi ? 'fa-spinner animate-spin text-indigo-600' : 'fa-globe text-indigo-600'} text-xs`}></i>
+                            <div className="flex items-center gap-2 bg-slate-100/80 border border-slate-200 rounded-xl px-3 py-1.5">
+                                <i className={`fa-solid ${translatingUi ? 'fa-spinner animate-spin text-slate-600' : 'fa-globe text-slate-600'} text-xs`}></i>
                                 <select 
                                     value={selectedLang}
                                     onChange={(e) => setSelectedLang(e.target.value)}
-                                    className="bg-transparent text-slate-800 text-xs font-bold focus:outline-none cursor-pointer"
+                                    className="bg-transparent text-slate-700 text-xs font-semibold focus:outline-none cursor-pointer"
                                 >
                                     {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
                                 </select>
@@ -546,70 +540,76 @@
                             {view === 'studio' && (
                                 <button 
                                     onClick={() => setView('portal')}
-                                    className="bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold px-4 py-2 rounded-2xl transition border border-slate-200 cursor-pointer shadow-sm"
+                                    className="bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-200 cursor-pointer shadow-sm"
                                 >
-                                    <i className="fa-solid fa-house mr-1.5 text-indigo-500"></i> {t.homeBtn}
+                                    <i className="fa-solid fa-house mr-1.5 text-slate-500"></i> {t.homeBtn}
                                 </button>
                             )}
                         </div>
                     </nav>
 
+                    {/* ANA GİRİŞ EKRANI (PORTAL) - REFACTOR EDİLDİ */}
                     {view === 'portal' && (
-                        <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
-                            <div className="inline-flex items-center gap-2 bg-white border border-indigo-200/80 text-slate-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
-                                <span className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">{t.tagBadge}</span>
-                                <span className="text-slate-600">{t.tagText}</span>
+                        <main className="max-w-4xl mx-auto px-6 py-20 flex-1 flex flex-col justify-center items-center text-center">
+                            
+                            {/* Üst Bilgi Rozeti */}
+                            <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 text-slate-600 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6 shadow-sm">
+                                <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
+                                <span>{t.tagText}</span>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
-                                {t.title1} <br />
-                                <span className="bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">{t.title2}</span>
+                            {/* Ana Başlık (Daha Profesyonel ve Temiz Tipografi) */}
+                            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-3xl mb-5">
+                                {t.titleMain}
                             </h2>
 
-                            <p className="text-slate-600 text-base md:text-lg max-w-2xl mb-10 leading-relaxed">
+                            <p className="text-slate-600 text-sm md:text-base max-w-xl mb-10 leading-relaxed font-normal">
                                 {t.desc}
                             </p>
 
+                            {/* Tek ve Şık Eylem Butonu */}
                             <button 
                                 onClick={() => setView('studio')}
-                                className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-indigo-500/25 flex items-center gap-3 cursor-pointer mb-16 hover:-translate-y-0.5"
+                                className="bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition shadow-md flex items-center gap-2.5 cursor-pointer mb-16"
                             >
-                                <i className="fa-solid fa-sliders"></i> {t.startBtn}
+                                <i className="fa-solid fa-wand-magic-sparkles text-indigo-400"></i> {t.startBtn}
                             </button>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
-                                <div className="bg-white/90 border border-indigo-100 p-6 rounded-3xl shadow-sm">
-                                    <div className="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-lg">
+                            {/* Özellik Kartları */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full text-left">
+                                <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm">
+                                    <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3.5 text-sm font-bold">
                                         <i className="fa-solid fa-file-lines"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
+                                    <h3 className="font-bold text-slate-900 text-sm mb-1">{t.card1Title}</h3>
+                                    <p className="text-xs text-slate-500 leading-relaxed">{t.card1Desc}</p>
                                 </div>
 
-                                <div className="bg-white/90 border border-fuchsia-100 p-6 rounded-3xl shadow-sm">
-                                    <div className="w-11 h-11 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center mb-4 text-lg">
+                                <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm">
+                                    <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3.5 text-sm font-bold">
                                         <i className="fa-solid fa-align-left"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card2Title}</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">{t.card2Desc}</p>
+                                    <h3 className="font-bold text-slate-900 text-sm mb-1">{t.card2Title}</h3>
+                                    <p className="text-xs text-slate-500 leading-relaxed">{t.card2Desc}</p>
                                 </div>
 
-                                <div className="bg-white/90 border border-amber-100 p-6 rounded-3xl shadow-sm">
-                                    <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 text-lg">
+                                <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm">
+                                    <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center mb-3.5 text-sm font-bold">
                                         <i className="fa-solid fa-file-powerpoint"></i>
                                     </div>
-                                    <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card3Title}</h3>
-                                    <p className="text-xs text-slate-600 leading-relaxed">{t.card3Desc}</p>
+                                    <h3 className="font-bold text-slate-900 text-sm mb-1">{t.card3Title}</h3>
+                                    <p className="text-xs text-slate-500 leading-relaxed">{t.card3Desc}</p>
                                 </div>
                             </div>
                         </main>
                     )}
 
+                    {/* ÇALIŞMA STÜDYOSU EKRANI */}
                     {view === 'studio' && (
                         <main className="max-w-6xl mx-auto px-6 py-8 flex-1 w-full">
-                            <form onSubmit={handleStartGeneration} className="bg-white/95 border border-indigo-100 p-6 rounded-3xl shadow-sm space-y-5 mb-8">
+                            <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm space-y-5 mb-8">
                                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                                         <i className="fa-solid fa-sliders text-indigo-600"></i> {t.panelTitle}
                                     </h3>
                                     <span className="text-xs text-slate-400 font-medium">{t.panelSub}</span>
@@ -617,23 +617,23 @@
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.topicLabel}</label>
+                                        <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">{t.topicLabel}</label>
                                         <input 
                                             type="text" 
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
                                             placeholder={t.topicPlaceholder}
-                                            className="w-full bg-slate-50/80 border border-slate-200 text-slate-900 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
+                                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
                                             required
                                         />
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.colorLabel}</label>
+                                        <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">{t.colorLabel}</label>
                                         <select 
                                             value={selectedTheme.id}
                                             onChange={(e) => setSelectedTheme(AESTHETIC_THEMES.find(th => th.id === Number(e.target.value)))}
-                                            className="w-full bg-slate-50/80 border border-slate-200 text-slate-900 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm cursor-pointer font-semibold"
+                                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm cursor-pointer font-semibold"
                                         >
                                             {AESTHETIC_THEMES.map((th) => (
                                                 <option key={th.id} value={th.id}>{th.name}</option>
@@ -645,14 +645,14 @@
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                                     <div>
                                         <div className="flex justify-between items-center mb-2">
-                                            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">{t.slidesLabel}</label>
+                                            <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider">{t.slidesLabel}</label>
                                             <input 
                                                 type="number" 
                                                 min="5" 
                                                 max="100" 
                                                 value={slideCount} 
                                                 onChange={(e) => setSlideCount(Math.max(5, Math.min(100, Number(e.target.value))))}
-                                                className="w-16 bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-extrabold rounded-lg px-2 py-1 text-center"
+                                                className="w-16 bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold rounded-lg px-2 py-1 text-center"
                                             />
                                         </div>
                                         <input 
@@ -661,19 +661,14 @@
                                             onChange={(e) => setSlideCount(Number(e.target.value))}
                                             className="w-full accent-indigo-600 cursor-pointer"
                                         />
-                                        <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
-                                            <span>5 Sayfa</span>
-                                            <span>50 Sayfa</span>
-                                            <span>100 Sayfa</span>
-                                        </div>
                                     </div>
 
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.langLabel}</label>
+                                        <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">{t.langLabel}</label>
                                         <select 
                                             value={selectedLang}
                                             onChange={(e) => setSelectedLang(e.target.value)}
-                                            className="w-full bg-slate-50/80 border border-slate-200 text-slate-900 rounded-2xl px-4 py-2.5 text-sm cursor-pointer font-medium"
+                                            className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm cursor-pointer font-medium"
                                         >
                                             {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
                                         </select>
@@ -683,7 +678,7 @@
                                 <button 
                                     type="submit" 
                                     disabled={loading}
-                                    className="w-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-bold py-3.5 rounded-2xl transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 cursor-pointer"
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition shadow-sm flex items-center justify-center gap-2 text-sm disabled:opacity-50 cursor-pointer"
                                 >
                                     {loading ? <><i className="fa-solid fa-spinner animate-spin"></i><span>{t.genLoading}</span></> : <span>{t.genBtn}</span>}
                                 </button>
@@ -691,14 +686,14 @@
 
                             {currentSlides.length > 0 && (
                                 <div className="space-y-4">
-                                    <div className="bg-white border border-slate-200/80 p-3 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-3">
-                                        <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl">
+                                    <div className="bg-white border border-slate-200 p-3 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-3">
+                                        <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
                                             <span className="text-[11px] font-bold text-slate-500 px-2">{t.sets}</span>
                                             {['A', 'B', 'C'].map(key => (
                                                 <button 
                                                     key={key}
                                                     onClick={() => { setActiveVarKey(key); setActiveSlide(0); }}
-                                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${activeVarKey === key ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+                                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${activeVarKey === key ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
                                                 >
                                                     {key === 'A' ? t.chronological : key === 'B' ? t.analytical : t.conceptual}
                                                 </button>
@@ -726,10 +721,10 @@
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            <button onClick={addNewSlide} className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-2 rounded-xl border border-emerald-200/60 cursor-pointer">
+                                            <button onClick={addNewSlide} className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-xl border border-emerald-200 cursor-pointer">
                                                 <i className="fa-solid fa-plus mr-1"></i> {t.addSlide}
                                             </button>
-                                            <button onClick={deleteCurrentSlide} className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold px-3 py-2 rounded-xl border border-rose-200/60 cursor-pointer">
+                                            <button onClick={deleteCurrentSlide} className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold px-3 py-2 rounded-xl border border-rose-200 cursor-pointer">
                                                 <i className="fa-solid fa-trash-can mr-1"></i> {t.deleteSlide}
                                             </button>
                                             <button onClick={downloadAsPPTX} className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 shadow cursor-pointer">
@@ -738,52 +733,48 @@
                                         </div>
                                     </div>
 
-                                    {/* SLAYT SAHNESİ (Sol Metin [Max 5 Cümle] + Sağ Görsel) */}
+                                    {/* SLAYT SAHNESİ */}
                                     <div 
-                                        className={`powerpoint-slide rounded-3xl border-2 p-6 md:p-8 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`}
+                                        className={`powerpoint-slide rounded-2xl border border-slate-200 p-6 md:p-8 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`}
                                         style={{ 
                                             backgroundColor: `#${selectedTheme.bg}`, 
-                                            borderColor: `#${selectedTheme.accent}30`,
                                             color: `#${selectedTheme.text}`
                                         }}
                                     >
-                                        <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl opacity-25 pointer-events-none" style={{ backgroundColor: `#${selectedTheme.accent}` }}></div>
-                                        <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: `#${selectedTheme.accent}` }}></div>
-
-                                        <div className="flex justify-between items-center pb-2.5 border-b relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
+                                        <div className="flex justify-between items-center pb-2.5 border-b border-slate-200/60 relative z-10">
                                             <span 
-                                                className="text-[11px] font-extrabold tracking-wider uppercase px-3.5 py-1 rounded-full shadow-sm"
+                                                className="text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full shadow-sm"
                                                 style={{ backgroundColor: `#${selectedTheme.accent}`, color: '#FFFFFF' }}
                                             >
                                                 {currentSlides[activeSlide].badge}
                                             </span>
-                                            <span className="text-xs font-bold opacity-75">{topic}</span>
+                                            <span className="text-xs font-semibold opacity-75">{topic}</span>
                                         </div>
 
                                         {currentSlides[activeSlide].type === 'cover' && (
                                             <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
-                                                <div className="md:col-span-7 bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-sm border space-y-4" style={{ borderColor: `#${selectedTheme.accent}25` }}>
+                                                <div className="md:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
                                                     <h2 className="text-2xl md:text-3xl font-extrabold leading-tight" contentEditable suppressContentEditableWarning>
                                                         {currentSlides[activeSlide].title}
                                                     </h2>
-                                                    <p className="text-xs md:text-sm opacity-80 leading-relaxed" contentEditable suppressContentEditableWarning>
+                                                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed" contentEditable suppressContentEditableWarning>
                                                         {currentSlides[activeSlide].subtitle}
                                                     </p>
-                                                    <div className="flex flex-wrap gap-2 pt-2">
+                                                    <div className="flex flex-wrap gap-2 pt-1">
                                                         {currentSlides[activeSlide].highlights.map((h, i) => (
-                                                            <span key={i} className="text-[11px] font-bold px-3 py-1 rounded-xl" style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}>
+                                                            <span key={i} className="text-[11px] font-semibold px-2.5 py-1 rounded-lg" style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}>
                                                                 ✦ {h}
                                                             </span>
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <div className="md:col-span-5 h-52 md:h-60 rounded-3xl overflow-hidden shadow-lg border-4 border-white relative bg-white group">
+                                                <div className="md:col-span-5 h-52 md:h-60 rounded-2xl overflow-hidden shadow-sm border border-slate-200 relative bg-white">
                                                     <img 
                                                         src={currentSlides[activeSlide].imageUrl} 
                                                         alt={currentSlides[activeSlide].imageCaption}
-                                                        className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                                                        className="w-full h-full object-cover"
                                                     />
-                                                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 text-white text-[11px] font-semibold">
+                                                    <div className="absolute bottom-0 inset-x-0 bg-black/60 p-2.5 text-white text-[11px] font-medium truncate">
                                                         📷 {currentSlides[activeSlide].imageCaption}
                                                     </div>
                                                 </div>
@@ -792,19 +783,18 @@
 
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
-                                                <div className="md:col-span-7 space-y-2.5">
+                                                <div className="md:col-span-7 space-y-2">
                                                     <h3 className="text-sm md:text-base font-extrabold px-1" contentEditable suppressContentEditableWarning>
                                                         {currentSlides[activeSlide].sectionTitle}
                                                     </h3>
-                                                    <div className="grid grid-cols-1 gap-2 max-h-[250px] overflow-y-auto pr-1">
+                                                    <div className="grid grid-cols-1 gap-2 max-h-[240px] overflow-y-auto pr-1">
                                                         {currentSlides[activeSlide].sentences.map((sent, i) => (
                                                             <div 
                                                                 key={i} 
-                                                                className="bg-white/90 backdrop-blur-sm p-2.5 rounded-xl border shadow-sm flex items-start gap-2.5 text-xs md:text-sm leading-relaxed"
-                                                                style={{ borderColor: `#${selectedTheme.accent}20` }}
+                                                                className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-2.5 text-xs md:text-sm leading-relaxed"
                                                             >
                                                                 <span 
-                                                                    className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-extrabold shrink-0 mt-0.5"
+                                                                    className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5"
                                                                     style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}
                                                                 >
                                                                     {i + 1}
@@ -816,13 +806,13 @@
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <div className="md:col-span-5 h-52 md:h-60 rounded-3xl overflow-hidden shadow-lg border-4 border-white relative bg-white group">
+                                                <div className="md:col-span-5 h-52 md:h-60 rounded-2xl overflow-hidden shadow-sm border border-slate-200 relative bg-white">
                                                     <img 
                                                         src={currentSlides[activeSlide].imageUrl} 
                                                         alt={currentSlides[activeSlide].imageCaption}
-                                                        className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                                                        className="w-full h-full object-cover"
                                                     />
-                                                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 text-white text-[11px] font-semibold">
+                                                    <div className="absolute bottom-0 inset-x-0 bg-black/60 p-2.5 text-white text-[11px] font-medium truncate">
                                                         📷 {currentSlides[activeSlide].imageCaption}
                                                     </div>
                                                 </div>
@@ -830,11 +820,11 @@
                                         )}
 
                                         {currentSlides[activeSlide].type === 'references' && (
-                                            <div className="my-auto bg-white/90 p-6 rounded-3xl border space-y-3 relative z-10" style={{ borderColor: `#${selectedTheme.accent}25` }}>
-                                                <h3 className="text-base font-extrabold">Akademik Kaynakça & Referanslar</h3>
-                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-[230px] overflow-y-auto">
+                                            <div className="my-auto bg-white p-6 rounded-2xl border border-slate-200 space-y-3 relative z-10 shadow-sm">
+                                                <h3 className="text-base font-bold">Akademik Kaynakça</h3>
+                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-[220px] overflow-y-auto">
                                                     {currentSlides[activeSlide].references.map((ref, i) => (
-                                                        <li key={i} className="p-2.5 rounded-xl border truncate font-mono text-[11px]" style={{ backgroundColor: `#${selectedTheme.bg}`, borderColor: `#${selectedTheme.accent}20` }}>
+                                                        <li key={i} className="p-2.5 rounded-xl border border-slate-200 truncate font-mono text-[11px] bg-slate-50">
                                                             🔗 {ref}
                                                         </li>
                                                     ))}
@@ -842,18 +832,18 @@
                                             </div>
                                         )}
 
-                                        <div className="flex justify-between items-center text-[11px] font-semibold opacity-70 pt-2.5 border-t relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
-                                            <span>✨ Academic.io 100 Slayt Görselli Stüdyo</span>
+                                        <div className="flex justify-between items-center text-[11px] font-medium opacity-60 pt-2 border-t border-slate-200/60 relative z-10">
+                                            <span>Academic.io Studio</span>
                                             <span>{activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
                                     {/* ALT GEZİNME ÇUBUĞU */}
-                                    <div className="flex justify-between items-center bg-white border border-slate-200/80 px-4 py-3 rounded-2xl shadow-sm">
+                                    <div className="flex justify-between items-center bg-white border border-slate-200 px-4 py-3 rounded-2xl shadow-sm">
                                         <button 
                                             onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} 
                                             disabled={activeSlide === 0} 
-                                            className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
+                                            className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
                                         >
                                             <i className="fa-solid fa-arrow-left mr-1.5"></i> {t.prevPage}
                                         </button>
@@ -863,7 +853,7 @@
                                                 <button
                                                     key={idx}
                                                     onClick={() => setActiveSlide(idx)}
-                                                    className={`w-7 h-7 rounded-lg text-xs font-bold transition cursor-pointer shrink-0 ${activeSlide === idx ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                                                    className={`w-7 h-7 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0 ${activeSlide === idx ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
                                                 >
                                                     {idx + 1}
                                                 </button>
@@ -873,7 +863,7 @@
                                         <button 
                                             onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))} 
                                             disabled={activeSlide === currentSlides.length - 1} 
-                                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
+                                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
                                         >
                                             {t.nextPage} <i className="fa-solid fa-arrow-right ml-1.5"></i>
                                         </button>
@@ -883,40 +873,14 @@
                         </main>
                     )}
 
-                    <footer className="border-t border-indigo-100 bg-white/80 py-10 px-6 mt-12 text-slate-600">
-                        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <div>
-                                <h4 className="text-slate-900 font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-heart text-indigo-500"></i> {t.supportTitle}
-                                </h4>
-                                <p className="text-xs leading-relaxed mb-3">{t.supportDesc}</p>
-                                <div className="text-xs font-mono text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl border border-indigo-100 inline-block font-semibold">
-                                    mayonez.contact@gmail.com
-                                </div>
-                            </div>
-
-                            <div className="bg-slate-50/80 border border-slate-200/80 p-4 rounded-2xl">
-                                {supportSuccess ? (
-                                    <div className="text-center py-4 space-y-2">
-                                        <i className="fa-solid fa-circle-check text-2xl text-emerald-500"></i>
-                                        <p className="font-bold text-sm text-slate-900">{t.supportSuccessTitle} ({ticketId})</p>
-                                        <button onClick={() => setSupportSuccess(false)} className="text-xs bg-indigo-600 text-white px-4 py-1.5 rounded-xl font-bold cursor-pointer">{t.newTicket}</button>
-                                    </div>
-                                ) : (
-                                    <form onSubmit={handleSupportSubmit} className="space-y-2.5">
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <input type="text" value={supportName} onChange={(e) => setSupportName(e.target.value)} placeholder={t.supportName} className="bg-white border border-slate-200 text-xs rounded-xl px-3 py-2" required />
-                                            <input type="email" value={supportEmail} onChange={(e) => setSupportEmail(e.target.value)} placeholder={t.supportEmail} className="bg-white border border-slate-200 text-xs rounded-xl px-3 py-2" required />
-                                        </div>
-                                        <textarea value={supportMsg} onChange={(e) => setSupportMsg(e.target.value)} placeholder={t.supportMsg} rows="2" className="w-full bg-white border border-slate-200 text-xs rounded-xl p-2.5 resize-none" required />
-                                        <button type="submit" disabled={supportSending} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2.5 rounded-xl cursor-pointer">
-                                            {supportSending ? t.supportSending : t.supportBtn}
-                                        </button>
-                                    </form>
-                                )}
+                    {/* ALT BİLGİ (FOOTER) */}
+                    <footer className="border-t border-slate-200 bg-white py-8 px-6 mt-12 text-slate-500">
+                        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                            <p>{t.rights}</p>
+                            <div className="flex items-center gap-4 font-mono text-indigo-600">
+                                <span>mayonez.contact@gmail.com</span>
                             </div>
                         </div>
-                        <p className="text-center text-xs text-slate-400 mt-8">{t.rights}</p>
                     </footer>
                 </div>
             );
