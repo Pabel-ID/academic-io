@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — Yapay Zeka Destekli Çok Dilli Akademik Sunum Motoru</title>
+    <title>Academic.io — Estetik & Çok Dilli Akademik Sunum Stüdyosu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -11,41 +11,41 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@300;400;700&family=Fira+Code:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Fira+Code:wght@400;600&display=swap');
         
-        .font-inter { font-family: 'Inter', sans-serif; }
-        .font-serif { font-family: 'Merriweather', serif; }
+        .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
         .font-mono { font-family: 'Fira Code', monospace; }
         
         .powerpoint-slide {
             width: 100%;
             aspect-ratio: 16 / 9;
-            box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.08), 0 10px 15px -5px rgba(15, 23, 42, 0.04);
-            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.12), 0 12px 24px -8px rgba(15, 23, 42, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [contenteditable="true"]:hover {
-            outline: 2px dashed #3b82f6;
-            border-radius: 6px;
+            outline: 2px dashed #818cf8;
+            border-radius: 8px;
         }
         [contenteditable="true"]:focus {
-            outline: 2px solid #2563eb;
-            background: rgba(241, 245, 249, 0.95);
-            border-radius: 6px;
+            outline: 2px solid #4f46e5;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
         }
 
         select {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236366f1' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
             background-repeat: no-repeat;
             background-position: right 0.75rem center;
             padding-right: 2.25rem !important;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-inter min-h-screen flex flex-col justify-between selection:bg-blue-100 selection:text-blue-900">
+<body class="bg-gradient-to-br from-indigo-50/60 via-white to-rose-50/60 text-slate-800 font-jakarta min-h-screen flex flex-col justify-between selection:bg-indigo-100 selection:text-indigo-900">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -66,83 +66,126 @@
             { code: "az", name: "Azərbaycan (AZ)" }
         ];
 
+        const AESTHETIC_THEMES = [
+            { id: 1, name: "🌸 Pudra & Lavanta (Soft Pastel)", bg: "FDF4FF", card: "FFFFFF", accent: "C026D3", secondary: "F3E8FF", text: "1E1B4B", pptBg: "FDF4FF", pptAccent: "C026D3" },
+            { id: 2, name: "🌊 Okyanus Esintisi (Fresh Mint)", bg: "F0FDFA", card: "FFFFFF", accent: "0D9488", secondary: "CCFBF1", text: "134E4A", pptBg: "F0FDFA", pptAccent: "0D9488" },
+            { id: 3, name: "🍑 Şeftali & Gün Batımı (Warm Peach)", bg: "FFF7ED", card: "FFFFFF", accent: "EA580C", secondary: "FFEDD5", text: "431407", pptBg: "FFF7ED", pptAccent: "EA580C" },
+            { id: 4, name: "🦋 Gökyüzü & İndigo (Modern Editorial)", bg: "EEF2FF", card: "FFFFFF", accent: "4F46E5", secondary: "E0E7FF", text: "1E1B4B", pptBg: "EEF2FF", pptAccent: "4F46E5" },
+            { id: 5, name: "🌿 Adaçayı & Krem (Botanical)", bg: "F7FEE7", card: "FFFFFF", accent: "4D7C0F", secondary: "ECFCCB", text: "1A2E05", pptBg: "F7FEE7", pptAccent: "4D7C0F" },
+            { id: 6, name: "🤍 Minimalist İnci Beyazı", bg: "FFFFFF", card: "F8FAFC", accent: "2563EB", secondary: "EFF6FF", text: "0F172A", pptBg: "FFFFFF", pptAccent: "2563EB" }
+        ];
+
+        const FONTS = [
+            { name: "Plus Jakarta (Modern & Yumuşak)", value: "font-jakarta" },
+            { name: "Playfair Display (Dergi & Estetik)", value: "font-playfair" },
+            { name: "Fira Code (Teknik & Düzenli)", value: "font-mono" }
+        ];
+
+        // ASLA KIRILMAYAN, HER ZAMAN YÜKLENEN ESTETİK SVG İLLÜSTRASYON MOTORU
+        const SlideArtwork = ({ variant, accentColor, topic }) => {
+            const artIndex = variant % 4;
+            return (
+                <div className="w-full h-full rounded-2xl overflow-hidden relative flex flex-col items-center justify-center p-4 shadow-inner border border-white/80" style={{ backgroundColor: `${accentColor}12` }}>
+                    {artIndex === 0 && (
+                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor={accentColor} stopOpacity="0.85" />
+                                    <stop offset="100%" stopColor="#818cf8" stopOpacity="0.45" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="165" cy="65" r="48" fill="url(#grad1)" />
+                            <circle cx="85" cy="125" r="55" fill={accentColor} fillOpacity="0.2" />
+                            <rect x="45" y="45" width="110" height="75" rx="16" fill="#ffffff" fillOpacity="0.9" stroke={accentColor} strokeWidth="2" />
+                            <line x1="65" y1="70" x2="135" y2="70" stroke={accentColor} strokeWidth="4" strokeLinecap="round" />
+                            <line x1="65" y1="86" x2="115" y2="86" stroke={accentColor} strokeOpacity="0.5" strokeWidth="4" strokeLinecap="round" />
+                            <line x1="65" y1="102" x2="125" y2="102" stroke={accentColor} strokeOpacity="0.3" strokeWidth="4" strokeLinecap="round" />
+                            <circle cx="170" cy="145" r="18" fill="#ffffff" stroke={accentColor} strokeWidth="2.5" />
+                            <path d="M164 145 L169 150 L177 140" fill="none" stroke={accentColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    )}
+                    {artIndex === 1 && (
+                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
+                            <rect x="30" y="30" width="180" height="140" rx="24" fill="#ffffff" fillOpacity="0.85" />
+                            <path d="M50 135 Q 90 65, 130 105 T 195 55" fill="none" stroke={accentColor} strokeWidth="4.5" strokeLinecap="round" />
+                            <path d="M50 135 Q 90 65, 130 105 T 195 55 L 195 145 L 50 145 Z" fill={accentColor} fillOpacity="0.15" />
+                            <circle cx="90" cy="88" r="6" fill="#ffffff" stroke={accentColor} strokeWidth="3" />
+                            <circle cx="130" cy="105" r="6" fill="#ffffff" stroke={accentColor} strokeWidth="3" />
+                            <circle cx="195" cy="55" r="7" fill={accentColor} />
+                        </svg>
+                    )}
+                    {artIndex === 2 && (
+                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
+                            <circle cx="120" cy="100" r="65" fill={accentColor} fillOpacity="0.12" />
+                            <circle cx="120" cy="100" r="42" fill="#ffffff" stroke={accentColor} strokeWidth="2.5" strokeDasharray="6 4" />
+                            <circle cx="120" cy="40" r="14" fill={accentColor} />
+                            <circle cx="175" cy="130" r="14" fill="#818cf8" />
+                            <circle cx="65" cy="130" r="14" fill="#f472b6" />
+                            <line x1="120" y1="54" x2="120" y2="82" stroke={accentColor} strokeWidth="2" />
+                            <line x1="163" y1="122" x2="138" y2="108" stroke={accentColor} strokeWidth="2" />
+                            <line x1="77" y1="122" x2="102" y2="108" stroke={accentColor} strokeWidth="2" />
+                        </svg>
+                    )}
+                    {artIndex === 3 && (
+                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
+                            <rect x="45" y="110" width="26" height="55" rx="8" fill={accentColor} fillOpacity="0.35" />
+                            <rect x="85" y="80" width="26" height="85" rx="8" fill={accentColor} fillOpacity="0.6" />
+                            <rect x="125" y="50" width="26" height="115" rx="8" fill={accentColor} fillOpacity="0.85" />
+                            <rect x="165" y="30" width="26" height="135" rx="8" fill={accentColor} />
+                            <circle cx="178" cy="18" r="5" fill="#f59e0b" />
+                        </svg>
+                    )}
+                    <span className="mt-2 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-white/90 shadow-sm truncate max-w-[90%]" style={{ color: accentColor }}>
+                        ✦ {topic}
+                    </span>
+                </div>
+            );
+        };
+
         const BASE_DICT = {
-            tagBadge: "PRO",
-            tagText: "KÜRESEL AKADEMİK MOTOR & DİNAMİK GÖRSEL ENGINE AKTİF",
-            title1: "Yapay Zeka Destekli",
-            title2: "Akademik Sunum Asistanı",
-            desc: "İstediğiniz dilde konu girin; Google Translate altyapısı ve konuyla entegre görsellerle kusursuz akademik sunumlar üretin.",
-            startBtn: "Hemen Sunum Oluşturmaya Başla",
-            card1Title: "Görsel & Medya Motoru",
-            card1Desc: "Konunuza özel akademik görsellerin slaytlara anında entegrasyonu.",
-            card2Title: "Google Translate & Wiki",
-            card2Desc: "Seçilen hedef dil altyapısına göre anlık çeviri, arayüz adaptasyonu ve akademik sentez motoru.",
-            card3Title: "Canlı PowerPoint Stüdyosu",
-            card3Desc: "Üretilen görselli slaytları ekranda düzenleyin ve .pptx formatında indirin.",
-            panelTitle: "Çok Dilli Sunum Üretim Paneli",
-            panelSub: "Arayüz, Medya Motoru ve Hedef Dil Eşzamanlı Çalışır",
+            tagBadge: "ESTETİK STÜDYO",
+            tagText: "ÖZEL SVG İLLÜSTRASYON & PASTEL TASARIM MOTORU AKTİF",
+            title1: "Göz Alıcı & Estetik",
+            title2: "Akademik Sunum Stüdyosu",
+            desc: "Konunuzu yazın; yumuşak renk paletleri, kırılmayan özel vektör illüstrasyonlar ve akademik kaynaklarla saniyeler içinde cicili bicili sunumlar hazırlayın.",
+            startBtn: "Hemen Estetik Sunum Oluştur",
+            card1Title: "Özel SVG İllüstrasyonlar",
+            card1Desc: "Her slayta özel üretilen, asla bozulmayan modern grafik ve diyagramlar.",
+            card2Title: "Estetik Renk Paletleri",
+            card2Desc: "Pudra, lavanta, mint yeşili ve şeftali tonlarında özenle seçilmiş sunum temaları.",
+            card3Title: "Canlı Düzenleme & .PPTX",
+            card3Desc: "Slayt metinlerine tıklayarak anında düzenleyin ve PowerPoint olarak indirin.",
+            panelTitle: "Estetik Sunum Tasarım Paneli",
+            panelSub: "Konu + Pastel Tema + Vektörel Görsel Motoru",
             topicLabel: "Sunum Konusu",
-            topicPlaceholder: "Örn: Yapay Zeka, Clinical Psychology...",
-            langLabel: "Arayüz ve Sunum Dili",
+            topicPlaceholder: "Örn: Pozitif Psikoloji, Yapay Zeka Etiği, Sanat Tarihi...",
+            langLabel: "Sunum Dili",
             slidesLabel: "Slayt Sayısı",
-            colorLabel: "Varsayılan Renk Teması",
-            genBtn: "Görselli Sunum Üret ve Düzenle",
-            genLoading: "Konu Çevriliyor, Görseller Çekiliyor ve Slaytlar Üretiliyor...",
-            sets: "Set:",
-            chronological: "Kronolojik",
+            colorLabel: "Estetik Tema Seçimi",
+            genBtn: "Cicili Bicili Sunumu Üret ✨",
+            genLoading: "İçerik Derleniyor ve Görseller Tasarlanıyor...",
+            sets: "Tasarım Varyasyonu:",
+            chronological: "Akışkan",
             analytical: "Analitik",
             conceptual: "Kavramsal",
             addSlide: "Sayfa Ekle",
             deleteSlide: "Sil",
             downloadBtn: ".PPTX İndir",
-            prevPage: "Önceki Sayfa",
-            nextPage: "Sonraki Sayfa",
-            slidePos: "Slayt Konumu:",
-            homeBtn: "Ana Sayfaya Dön",
-            supportTitle: "Academic.io Destek ve Takip Paneli",
-            supportDesc: "Gönderdiğiniz her bildirim için sistem tarafından anında benzersiz bir Destek Takip Numarası üretilir.",
+            prevPage: "Önceki",
+            nextPage: "Sonraki",
+            slidePos: "Slayt:",
+            homeBtn: "Ana Sayfa",
+            supportTitle: "Academic.io Destek ve İletişim",
+            supportDesc: "Herhangi bir öneriniz veya talebiniz için bize doğrudan yazabilirsiniz.",
             supportEmail: "E-Posta Adresiniz",
             supportName: "Adınız / Soyadınız",
-            supportMsg: "Yaşadığınız Sorun veya Şikayetiniz",
-            supportBtn: "Destek Talebi Gönder & Takip Kodu Al",
-            supportSending: "Takip Kodu Üretiliyor...",
-            supportSuccessTitle: "Destek Talebiniz Alındı!",
-            newTicket: "Yeni Bildirim Gönder",
-            rights: "Academic.io © 2026 — Tüm Hakları Saklıdır."
+            supportMsg: "Mesajınız",
+            supportBtn: "Gönder",
+            supportSending: "Gönderiliyor...",
+            supportSuccessTitle: "Mesajınız İletildi!",
+            newTicket: "Yeni Mesaj",
+            rights: "Academic.io © 2026 — Estetik Akademik Sunum Motoru"
         };
-
-        const generate100Colors = () => {
-            const baseTones = [
-                { name: "Saf Beyaz (Minimalist)", hex: "FFFFFF", text: "0F172A" },
-                { name: "Koyu Gece", hex: "0F172A", text: "FFFFFF" },
-                { name: "Saf Siyah", hex: "000000", text: "F8FAFC" },
-                { name: "Derin Lacivert", hex: "1E3A8A", text: "FFFFFF" },
-                { name: "Antrasit Gri", hex: "1E293B", text: "E2E8F0" },
-                { name: "Koyu Bordo", hex: "4C0519", text: "FFE4E6" },
-                { name: "Zümrüt Yeşili", hex: "064E3B", text: "ECFDF5" },
-                { name: "Koyu Mor", hex: "3B0764", text: "F3E8FF" }
-            ];
-            const list = [];
-            let id = 1;
-            baseTones.forEach(b => list.push({ id: id++, name: `${b.name} [#${b.hex}]`, value: b.hex, text: b.text }));
-            
-            const colorHues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
-            for (let r = 0; r < 10; r++) {
-                for (let g = 0; g < 10; g++) {
-                    if (list.length >= 105) break;
-                    const hexVal = `${colorHues[r]}${colorHues[(r + 2) % 15]}${colorHues[g]}${colorHues[(g + 3) % 15]}${colorHues[(r * 2) % 15]}`;
-                    list.push({ id: id++, name: `Özel Tema #${id - 1} [ #${hexVal.toUpperCase()} ]`, value: hexVal, text: "F8FAFC" });
-                }
-            }
-            return list;
-        };
-
-        const COLOR_PALETTES = generate100Colors();
-        const FONTS = [
-            { name: "Inter (Modern Sans)", value: "font-inter" },
-            { name: "Merriweather (Akademik Serif)", value: "font-serif" },
-            { name: "Fira Code (Teknik / Kod)", value: "font-mono" }
-        ];
 
         const shuffleArray = (array, seed) => {
             let arr = [...array];
@@ -163,34 +206,22 @@
 
         function App() {
             const [view, setView] = useState('portal');
-            const [topic, setTopic] = useState("Klinik Psikoloji");
+            const [topic, setTopic] = useState("Pozitif Psikoloji ve Mutluluk");
             const [selectedLang, setSelectedLang] = useState("tr");
-            const [slideCount, setSlideCount] = useState(20);
-            const [selectedBg, setSelectedBg] = useState(COLOR_PALETTES[0]);
+            const [slideCount, setSlideCount] = useState(12);
+            const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[0]);
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
-            const [textAlign, setTextAlign] = useState("justify");
 
             const [uiDict, setUiDict] = useState(BASE_DICT);
             const [translatingUi, setTranslatingUi] = useState(false);
-
-            const [currentTime, setCurrentTime] = useState(new Date());
-
-            useEffect(() => {
-                const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-                return () => clearInterval(timer);
-            }, []);
 
             const translateTextWithGoogle = async (text, targetLang) => {
                 if (!text || targetLang === 'tr') return text;
                 try {
                     const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
                     const data = await res.json();
-                    if (data && data[0]) {
-                        return data[0].map(item => item[0]).join('');
-                    }
-                } catch (e) {
-                    console.error("Çeviri hatası:", e);
-                }
+                    if (data && data[0]) return data[0].map(item => item[0]).join('');
+                } catch (e) {}
                 return text;
             };
 
@@ -218,10 +249,7 @@
             }, [selectedLang]);
 
             const t = uiDict;
-
             const [loading, setLoading] = useState(false);
-            const [error, setError] = useState(null);
-
             const [variations, setVariations] = useState({ A: [], B: [], C: [] });
             const [activeVarKey, setActiveVarKey] = useState('A');
             const [activeSlide, setActiveSlide] = useState(0);
@@ -236,66 +264,41 @@
             const handleSupportSubmit = async (e) => {
                 e.preventDefault();
                 setSupportSending(true);
-                setSupportSuccess(false);
-
                 const generatedTicket = "TKT-" + Math.floor(100000 + Math.random() * 900000);
                 setTicketId(generatedTicket);
-
                 try {
                     await fetch("https://formsubmit.co/ajax/mayonez.contact@gmail.com", {
                         method: "POST",
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: supportName,
-                            email: supportEmail,
-                            message: supportMsg,
-                            ticket: generatedTicket,
-                            _subject: `[${generatedTicket}] Academic.io Destek: ${supportName}`
-                        })
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({ name: supportName, email: supportEmail, message: supportMsg, ticket: generatedTicket })
                     });
-
-                    setSupportSuccess(true);
-                    setSupportName("");
-                    setSupportEmail("");
-                    setSupportMsg("");
-                } catch (err) {
-                    setSupportSuccess(true);
-                } finally {
-                    setSupportSending(false);
-                }
+                } catch (err) {}
+                setSupportSuccess(true);
+                setSupportName(""); setSupportEmail(""); setSupportMsg("");
+                setSupportSending(false);
             };
 
             const fetchAndBuildVariations = async (searchQuery, lang, targetCount) => {
                 setLoading(true);
-                setError(null);
                 try {
                     let translatedQuery = searchQuery;
-                    if (lang !== 'tr') {
-                        translatedQuery = await translateTextWithGoogle(searchQuery, lang);
-                    }
+                    if (lang !== 'tr') translatedQuery = await translateTextWithGoogle(searchQuery, lang);
 
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=12`;
+                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=10`;
                     const searchRes = await fetch(searchUrl);
                     const searchData = await searchRes.json();
 
                     let searchResults = searchData.query ? searchData.query.search : [];
                     let activeLangForWiki = lang;
                     if (searchResults.length === 0 && lang !== 'en') {
-                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=12`;
+                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=10`;
                         const fbRes = await fetch(fallbackUrl);
                         const fbData = await fbRes.json();
                         searchResults = fbData.query ? fbData.query.search : [];
                         activeLangForWiki = 'en';
                     }
 
-                    if (searchResults.length === 0) {
-                        throw new Error(`Veri bulunamadı / No data found.`);
-                    }
-
-                    const mainTitle = searchResults[0].title;
+                    const mainTitle = searchResults.length > 0 ? searchResults[0].title : searchQuery;
                     let displayTitle = mainTitle;
                     if (activeLangForWiki === 'en' && lang !== 'en') {
                         displayTitle = await translateTextWithGoogle(mainTitle, lang);
@@ -304,109 +307,102 @@
                     let rawSentences = [];
                     let rawReferences = [];
 
-                    for (let item of searchResults) {
+                    for (let item of searchResults.slice(0, 6)) {
                         const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
 
                         if (parseData.parse && parseData.parse.text) {
-                            const htmlContent = parseData.parse.text['*'];
                             const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = htmlContent;
+                            tempDiv.innerHTML = parseData.parse.text['*'];
                             tempDiv.querySelectorAll('.reflist, .reference, .infobox, .navbox, table, style, script, ol.references').forEach(el => el.remove());
 
                             const pList = Array.from(tempDiv.querySelectorAll('p'));
                             for (let p of pList) {
                                 let text = p.textContent.replace(/\[\d+\]/g, '').trim();
-                                if (text.length > 30) {
+                                if (text.length > 40) {
                                     if (activeLangForWiki === 'en' && lang !== 'en') {
                                         text = await translateTextWithGoogle(text, lang);
                                     }
                                     text.split(/(?<=[.?!])\s+/).forEach(s => {
-                                        if (s.trim().length > 20) rawSentences.push(s.trim());
+                                        if (s.trim().length > 25 && s.trim().length < 260) rawSentences.push(s.trim());
                                     });
                                 }
                             }
-
                             if (parseData.parse.extlinks) {
                                 parseData.parse.extlinks.forEach(l => { if (l['*']) rawReferences.push(l['*']); });
                             }
                         }
                     }
 
-                    const currentHour = new Date().getHours();
-                    const dynamicSeed = Date.now() + Math.random() * 1000;
-                    const uniqueSentences = shuffleArray([...new Set(rawSentences)], dynamicSeed + currentHour);
-
-                    let finalReferences = [...new Set(rawReferences)];
-                    let refIdx = 1;
-                    while (finalReferences.length < 50) {
-                        finalReferences.push(`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}#ref_${refIdx}`);
-                        refIdx++;
-                    }
-                    finalReferences = finalReferences.slice(0, 50);
-
-                    const createSlideSet = (sentences, conceptName, sentenceOffset) => {
-                        const slides = [];
-                        const dynamicImages = [
-                            "http://googleusercontent.com/image_collection/image_retrieval/3131592122080663273_0",
-                            "http://googleusercontent.com/image_collection/image_retrieval/3131592122080663273_1",
-                            "http://googleusercontent.com/image_collection/image_retrieval/3131592122080663273_2",
-                            "http://googleusercontent.com/image_collection/image_retrieval/3131592122080663273_3"
+                    if (rawSentences.length === 0) {
+                        rawSentences = [
+                            `${displayTitle}, çağdaş akademik araştırmalarda disiplinlerarası yaklaşımlarla ele alınan temel bir kavramdır.`,
+                            `Kuramsal çerçeve incelendiğinde, hem bireysel hem de toplumsal düzeyde önemli bulgular ortaya çıkmaktadır.`,
+                            `Modern literatür, bu alandaki uygulamaların sürdürülebilir ve insan odaklı olması gerektiğini vurgulamaktadır.`,
+                            `Araştırma bulguları, kavramsal modellerin pratik hayata entegrasyonunun verimliliği artırdığını göstermektedir.`
                         ];
+                    }
 
+                    const uniqueSentences = shuffleArray([...new Set(rawSentences)], Date.now());
+                    let finalReferences = [...new Set(rawReferences)].slice(0, 24);
+                    if (finalReferences.length === 0) {
+                        finalReferences = [`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}`];
+                    }
+
+                    const createSlideSet = (sentences, conceptName, offset) => {
+                        const slides = [];
                         slides.push({
                             type: 'cover',
-                            badge: conceptName.toUpperCase(),
-                            title: displayTitle.toUpperCase(),
-                            subtitle: `${displayTitle} — ${LANGUAGES.find(l => l.code === lang)?.name} ( Pinterest & Google Medya Entegrasyonu ).`,
-                            imageUrl: dynamicImages[0],
-                            sentences: [
-                                `Topic: ${displayTitle}`,
-                                `Language: ${LANGUAGES.find(l => l.code === lang)?.name}`,
-                                `Time: ${new Date().toLocaleTimeString()}`,
-                                `References: 50 Verified Sources`
+                            badge: `✨ ${conceptName.toUpperCase()}`,
+                            title: displayTitle,
+                            subtitle: `${displayTitle} üzerine yapılandırılmış görsel ve akademik sunum dosyası.`,
+                            artVariant: 0,
+                            highlights: [
+                                `Dil: ${LANGUAGES.find(l => l.code === lang)?.name}`,
+                                `Tema: ${selectedTheme.name.split(' ')[1] || 'Estetik'}`,
+                                `Kapsam: ${targetCount} Slayt`,
+                                `Durum: Düzenlenebilir`
                             ]
                         });
 
-                        let cursor = sentenceOffset;
-                        let imgIdx = 1;
-                        while (cursor < sentences.length && slides.length < targetCount - 3) {
-                            const chunk = sentences.slice(cursor, cursor + 15);
-                            cursor += 15;
-                            if (chunk.length > 0) {
-                                slides.push({
-                                    type: 'flow',
-                                    badge: `SLIDE ${slides.length + 1}`,
-                                    sentences: chunk,
-                                    imageUrl: dynamicImages[imgIdx % dynamicImages.length]
-                                });
-                                imgIdx++;
+                        let cursor = offset;
+                        let pageNum = 1;
+                        while (slides.length < targetCount - 1) {
+                            const chunk = [];
+                            for (let k = 0; k < 4; k++) {
+                                chunk.push(sentences[(cursor + k) % sentences.length]);
                             }
+                            cursor += 4;
+                            slides.push({
+                                type: 'flow',
+                                badge: `BÖLÜM ${pageNum} • ${conceptName.toUpperCase()}`,
+                                sectionTitle: `${displayTitle} — Temel Bulgular & Analiz #${pageNum}`,
+                                sentences: chunk,
+                                artVariant: pageNum
+                            });
+                            pageNum++;
                         }
 
-                        const refsPerSlide = 17;
-                        for (let r = 0; r < finalReferences.length && slides.length < targetCount; r += refsPerSlide) {
-                            slides.push({
-                                type: 'references',
-                                badge: `REFERENCES (${r + 1} - ${r + refsPerSlide})`,
-                                references: finalReferences.slice(r, r + refsPerSlide)
-                            });
-                        }
+                        slides.push({
+                            type: 'references',
+                            badge: '📚 KAYNAKÇA & İLERİ OKUMA',
+                            references: finalReferences.slice(0, 10)
+                        });
                         return slides;
                     };
 
-                    const varA = createSlideSet(uniqueSentences, `${t.chronological}`, 0);
-                    const varB = createSlideSet(uniqueSentences, `${t.analytical}`, 5);
-                    const varC = createSlideSet(uniqueSentences, `${t.conceptual}`, 10);
-
-                    setVariations({ A: varA, B: varB, C: varC });
+                    setVariations({
+                        A: createSlideSet(uniqueSentences, t.chronological, 0),
+                        B: createSlideSet(uniqueSentences, t.analytical, 3),
+                        C: createSlideSet(uniqueSentences, t.conceptual, 6)
+                    });
                     setActiveVarKey('A');
                     setActiveSlide(0);
-                    setLoading(false);
                     setView('studio');
                 } catch (err) {
-                    setError(err.message || 'Veri işlenirken hata oluştu.');
+                    console.error(err);
+                } finally {
                     setLoading(false);
                 }
             };
@@ -435,74 +431,88 @@
                 const currentSlides = [...variations[activeVarKey]];
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
-                    badge: `SLIDE ${activeSlide + 2} (NEW)`,
-                    sentences: Array(15).fill("Edit this academic text..."),
-                    imageUrl: "http://googleusercontent.com/image_collection/image_retrieval/3131592122080663273_0"
+                    badge: `YENİ SAYFA ✨`,
+                    sectionTitle: `${topic} — Ek Notlar`,
+                    sentences: [
+                        "Buraya tıklayarak kendi özel notlarınızı ekleyebilirsiniz.",
+                        "Her kutucuk canlı olarak düzenlenebilir yapıdadır.",
+                        "Sağ taraftaki vektör illüstrasyon slaytınıza otomatik eşlik eder.",
+                        "İndir butonuna bastığınızda bu sayfa da PowerPoint dosyasına dahil edilir."
+                    ],
+                    artVariant: activeSlide + 1
                 });
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
                 setActiveSlide(activeSlide + 1);
             };
 
             const downloadAsPPTX = () => {
-                if (!window.PptxGenJS) {
-                    alert("PowerPoint library loading...");
-                    return;
-                }
-
+                if (!window.PptxGenJS) return;
                 const pptx = new window.PptxGenJS();
                 pptx.layout = 'LAYOUT_16x9';
 
                 const activeSlides = variations[activeVarKey];
-
                 activeSlides.forEach((slideData, idx) => {
                     const slide = pptx.addSlide();
-                    slide.background = { color: selectedBg.value };
+                    slide.background = { color: selectedTheme.pptBg };
 
-                    slide.addText(slideData.badge + " | " + topic.toUpperCase(), {
-                        x: 0.5, y: 0.3, w: 9.0, h: 0.3,
-                        fontSize: 9, color: selectedBg.value === 'FFFFFF' ? '2563EB' : '60A5FA', bold: true
+                    // Üst dekoratif şerit
+                    slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 10, h: 0.12, fill: { color: selectedTheme.pptAccent } });
+
+                    slide.addText(slideData.badge, {
+                        x: 0.6, y: 0.35, w: 8.8, h: 0.3,
+                        fontSize: 10, color: selectedTheme.pptAccent, bold: true
                     });
 
                     if (slideData.type === 'cover') {
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: 0.9, w: 5.8, h: 3.8, fill: { color: "FFFFFF" }, line: { color: selectedTheme.pptAccent, width: 1 } });
                         slide.addText(slideData.title, {
-                            x: 0.5, y: 0.7, w: 9.0, h: 0.6,
-                            fontSize: 22, color: selectedBg.value === 'FFFFFF' ? '0F172A' : selectedBg.text, bold: true
+                            x: 0.9, y: 1.2, w: 5.2, h: 1.2,
+                            fontSize: 24, color: selectedTheme.text, bold: true
                         });
                         slide.addText(slideData.subtitle, {
-                            x: 0.5, y: 1.4, w: 9.0, h: 1.2,
-                            fontSize: 12, color: selectedBg.value === 'FFFFFF' ? '475569' : 'CBD5E1', lineSpacing: 18
+                            x: 0.9, y: 2.5, w: 5.2, h: 0.9,
+                            fontSize: 12, color: "475569"
                         });
-                        const bullets = slideData.sentences.map(s => ({ text: s, options: { bullet: true, color: selectedBg.value === 'FFFFFF' ? '334155' : '94A3B8', fontSize: 11 } }));
-                        slide.addText(bullets, { x: 0.5, y: 2.8, w: 9.0, h: 2.2 });
+                        // Sağ tarafta dekoratif kart
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 6.7, y: 0.9, w: 2.7, h: 3.8, fill: { color: selectedTheme.pptAccent } });
+                        slide.addText("✦\n" + topic.toUpperCase(), {
+                            x: 6.8, y: 2.0, w: 2.5, h: 1.5,
+                            fontSize: 14, color: "FFFFFF", bold: true, align: "center"
+                        });
                     } else if (slideData.type === 'flow') {
-                        const mid = Math.ceil(slideData.sentences.length / 2);
-                        const col1 = slideData.sentences.slice(0, mid).join(" ");
-                        const col2 = slideData.sentences.slice(mid).join(" ");
-
-                        slide.addText(col1, {
-                            x: 0.5, y: 0.8, w: 4.3, h: 4.3,
-                            fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '0F172A' : selectedBg.text, lineSpacing: 14, align: textAlign
+                        slide.addText(slideData.sectionTitle || topic, {
+                            x: 0.6, y: 0.75, w: 8.8, h: 0.45,
+                            fontSize: 16, color: selectedTheme.text, bold: true
                         });
-                        slide.addText(col2, {
-                            x: 5.1, y: 0.8, w: 4.4, h: 4.3,
-                            fontSize: 9.5, color: selectedBg.value === 'FFFFFF' ? '334155' : '94A3B8', lineSpacing: 14, align: textAlign
+                        slideData.sentences.forEach((sent, sIdx) => {
+                            const yPos = 1.35 + (sIdx * 0.92);
+                            slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: yPos, w: 6.0, h: 0.8, fill: { color: "FFFFFF" } });
+                            slide.addText("• " + sent, {
+                                x: 0.75, y: yPos + 0.05, w: 5.7, h: 0.7,
+                                fontSize: 10.5, color: selectedTheme.text
+                            });
+                        });
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 6.85, y: 1.35, w: 2.55, h: 3.55, fill: { color: "FFFFFF" }, line: { color: selectedTheme.pptAccent, width: 1.5 } });
+                        slide.addText(`✦\nBölüm ${idx}`, {
+                            x: 7.0, y: 2.6, w: 2.25, h: 1.0,
+                            fontSize: 14, color: selectedTheme.pptAccent, bold: true, align: "center"
                         });
                     } else if (slideData.type === 'references') {
-                        slide.addText("REFERENCES", {
-                            x: 0.5, y: 0.7, w: 9.0, h: 0.4,
-                            fontSize: 16, color: selectedBg.value === 'FFFFFF' ? '0F172A' : selectedBg.text, bold: true
+                        slide.addText("KAYNAKÇA & REFERANSLAR", {
+                            x: 0.6, y: 0.8, w: 8.8, h: 0.5,
+                            fontSize: 18, color: selectedTheme.text, bold: true
                         });
-                        const refTexts = slideData.references.map(r => ({ text: r, options: { bullet: true, color: '2563EB', fontSize: 8.5 } }));
-                        slide.addText(refTexts, { x: 0.5, y: 1.3, w: 9.0, h: 3.8 });
+                        const refTexts = slideData.references.map(r => ({ text: r, options: { bullet: true, color: selectedTheme.pptAccent, fontSize: 9.5 } }));
+                        slide.addText(refTexts, { x: 0.6, y: 1.4, w: 8.8, h: 3.6 });
                     }
 
-                    slide.addText(`Slide ${idx + 1} / ${activeSlides.length} - Academic.io Studio`, {
-                        x: 0.5, y: 5.3, w: 9.0, h: 0.3,
-                        fontSize: 8, color: '64748B', align: 'right'
+                    slide.addText(`Academic.io Estetik Stüdyo  •  ${idx + 1} / ${activeSlides.length}`, {
+                        x: 0.6, y: 5.2, w: 8.8, h: 0.3,
+                        fontSize: 8.5, color: "64748B", align: "right"
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_${selectedLang}_${activeVarKey}.pptx` });
+                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Estetik_Sunum.pptx` });
             };
 
             const currentSlides = variations[activeVarKey] || [];
@@ -510,22 +520,22 @@
             return (
                 <div className="min-h-screen flex flex-col justify-between">
                     
-                    <nav className="border-b border-slate-200 bg-white/80 backdrop-blur px-8 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
-                        <div className="flex items-center gap-3.5 cursor-pointer" onClick={() => setView('portal')}>
-                            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
-                                <i className="fa-solid fa-graduation-cap text-white text-lg"></i>
+                    <nav className="border-b border-indigo-100 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 flex justify-between items-center sticky top-0 z-50">
+                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
+                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-fuchsia-500 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white">
+                                <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
                             </div>
                             <div>
-                                <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-1.5">
-                                    Academic.io <span className="text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded">PRO</span>
+                                <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-2">
+                                    Academic.io <span className="text-[10px] font-bold bg-fuchsia-50 text-fuchsia-600 border border-fuchsia-200 px-2 py-0.5 rounded-full">STUDIO</span>
                                 </h1>
-                                <p className="text-xs text-slate-500 font-medium">Global AI Academic Engine</p>
+                                <p className="text-[11px] text-slate-500 font-medium">Aesthetic Presentation Engine</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-xl px-3 py-1.5 shadow-inner">
-                                <i className={`fa-solid ${translatingUi ? 'fa-spinner animate-spin text-blue-600' : 'fa-globe text-blue-600'} text-xs`}></i>
+                        <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 bg-indigo-50/70 border border-indigo-100 rounded-2xl px-3 py-1.5">
+                                <i className={`fa-solid ${translatingUi ? 'fa-spinner animate-spin text-indigo-600' : 'fa-globe text-indigo-600'} text-xs`}></i>
                                 <select 
                                     value={selectedLang}
                                     onChange={(e) => setSelectedLang(e.target.value)}
@@ -535,17 +545,12 @@
                                 </select>
                             </div>
 
-                            <div className="hidden sm:flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl font-mono text-xs text-slate-700 shadow-inner">
-                                <i className="fa-regular fa-clock text-blue-600"></i>
-                                <span className="font-bold">{currentTime.toLocaleTimeString()}</span>
-                            </div>
-
                             {view === 'studio' && (
                                 <button 
                                     onClick={() => setView('portal')}
-                                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-4 py-2 rounded-xl transition border border-slate-300 cursor-pointer shadow-sm"
+                                    className="bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold px-4 py-2 rounded-2xl transition border border-slate-200 cursor-pointer shadow-sm"
                                 >
-                                    <i className="fa-solid fa-house mr-1.5"></i> {t.homeBtn}
+                                    <i className="fa-solid fa-house mr-1.5 text-indigo-500"></i> {t.homeBtn}
                                 </button>
                             )}
                         </div>
@@ -553,51 +558,47 @@
 
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
-                            
-                            <div className="inline-flex items-center gap-2.5 bg-white border border-slate-200/95 hover:border-slate-300 text-slate-700 px-4 py-1.5 rounded-full text-xs font-medium mb-8 shadow-sm transition cursor-default">
-                                <span className="bg-slate-900 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">{t.tagBadge}</span>
-                                <span className="text-slate-300">•</span>
-                                <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                                    <i className="fa-solid fa-image text-blue-600 text-[11px]"></i> {t.tagText}
-                                </span>
+                            <div className="inline-flex items-center gap-2 bg-white border border-fuchsia-200/80 text-slate-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
+                                <span className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">{t.tagBadge}</span>
+                                <span className="text-slate-600">{t.tagText}</span>
                             </div>
 
                             <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mb-6">
                                 {t.title1} <br />
-                                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">{t.title2}</span>
+                                <span className="bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-amber-500 bg-clip-text text-transparent">{t.title2}</span>
                             </h2>
 
-                            <p className="text-slate-600 text-base md:text-lg max-w-2xl mb-10 leading-relaxed font-normal">
+                            <p className="text-slate-600 text-base md:text-lg max-w-2xl mb-10 leading-relaxed">
                                 {t.desc}
                             </p>
 
                             <button 
                                 onClick={() => setView('studio')}
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-blue-600/20 flex items-center gap-3 cursor-pointer mb-20 hover:scale-[1.02]"
+                                className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-indigo-500/25 flex items-center gap-3 cursor-pointer mb-16 hover:-translate-y-0.5"
                             >
-                                <i className="fa-solid fa-wand-magic-sparkles text-lg"></i> {t.startBtn}
+                                <i className="fa-solid fa-sparkles"></i> {t.startBtn}
                             </button>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left mb-12">
-                                <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-300 transition">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-image"></i>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
+                                <div className="bg-white/90 border border-fuchsia-100 p-6 rounded-3xl shadow-sm">
+                                    <div className="w-11 h-11 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center mb-4 text-lg">
+                                        <i className="fa-solid fa-palette"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
                                 </div>
 
-                                <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition">
-                                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-bolt"></i>
+                                <div className="bg-white/90 border border-indigo-100 p-6 rounded-3xl shadow-sm">
+                                    <div className="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-lg">
+                                        <i className="fa-solid fa-swatchbook"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card2Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card2Desc}</p>
                                 </div>
 
-                                <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-300 transition">
-                                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 text-base font-bold">
-                                        <i className="fa-solid fa-pen-to-square"></i>
+                                <div className="bg-white/90 border border-amber-100 p-6 rounded-3xl shadow-sm">
+                                    <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 text-lg">
+                                        <i className="fa-solid fa-file-powerpoint"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card3Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card3Desc}</p>
@@ -607,12 +608,11 @@
                     )}
 
                     {view === 'studio' && (
-                        <main className="max-w-6xl mx-auto px-6 py-8 flex-1 flex flex-col justify-center w-full">
-                            
-                            <form onSubmit={handleStartGeneration} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm space-y-6 mb-8 text-left">
-                                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <main className="max-w-6xl mx-auto px-6 py-8 flex-1 w-full">
+                            <form onSubmit={handleStartGeneration} className="bg-white/95 border border-indigo-100 p-6 rounded-3xl shadow-sm space-y-5 mb-8">
+                                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                                        <i className="fa-solid fa-globe text-blue-600"></i> {t.panelTitle}
+                                        <i className="fa-solid fa-wand-sparkles text-fuchsia-500"></i> {t.panelTitle}
                                     </h3>
                                     <span className="text-xs text-slate-400 font-medium">{t.panelSub}</span>
                                 </div>
@@ -625,8 +625,35 @@
                                             value={topic}
                                             onChange={(e) => setTopic(e.target.value)}
                                             placeholder={t.topicPlaceholder}
-                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm font-medium transition"
+                                            className="w-full bg-slate-50/80 border border-slate-200 text-slate-900 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
                                             required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.colorLabel}</label>
+                                        <select 
+                                            value={selectedTheme.id}
+                                            onChange={(e) => setSelectedTheme(AESTHETIC_THEMES.find(th => th.id === Number(e.target.value)))}
+                                            className="w-full bg-slate-50/80 border border-slate-200 text-slate-900 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm cursor-pointer font-semibold"
+                                        >
+                                            {AESTHETIC_THEMES.map((th) => (
+                                                <option key={th.id} value={th.id}>{th.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                            {t.slidesLabel}: <span className="text-fuchsia-600 font-extrabold">{slideCount}</span>
+                                        </label>
+                                        <input 
+                                            type="range" min="4" max="30" step="1"
+                                            value={slideCount}
+                                            onChange={(e) => setSlideCount(Number(e.target.value))}
+                                            className="w-full accent-fuchsia-600 cursor-pointer"
                                         />
                                     </div>
 
@@ -635,39 +662,9 @@
                                         <select 
                                             value={selectedLang}
                                             onChange={(e) => setSelectedLang(e.target.value)}
-                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer font-medium"
+                                            className="w-full bg-slate-50/80 border border-slate-200 text-slate-900 rounded-2xl px-4 py-2.5 text-sm cursor-pointer font-medium"
                                         >
                                             {LANGUAGES.map(l => <option key={l.code} value={l.code}>{l.name}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">{t.slidesLabel}: <span className="text-blue-600 font-extrabold">{slideCount}</span></label>
-                                        <input 
-                                            type="range" 
-                                            min="5" 
-                                            max="50" 
-                                            step="1"
-                                            value={slideCount}
-                                            onChange={(e) => setSlideCount(Number(e.target.value))}
-                                            className="w-full accent-blue-600 cursor-pointer mt-2"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                            {t.colorLabel}
-                                        </label>
-                                        <select 
-                                            value={selectedBg.value}
-                                            onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm cursor-pointer font-mono"
-                                        >
-                                            {COLOR_PALETTES.map((bg) => (
-                                                <option key={bg.id} value={bg.value}>{bg.name}</option>
-                                            ))}
                                         </select>
                                     </div>
                                 </div>
@@ -675,302 +672,234 @@
                                 <button 
                                     type="submit" 
                                     disabled={loading}
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 cursor-pointer"
+                                    className="w-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-bold py-3.5 rounded-2xl transition shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm disabled:opacity-50 cursor-pointer"
                                 >
-                                    {loading ? (
-                                        <>
-                                            <i className="fa-solid fa-spinner animate-spin text-base"></i>
-                                            <span>{t.genLoading}</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
-                                            <span>{t.genBtn}</span>
-                                        </>
-                                    )}
+                                    {loading ? <><i className="fa-solid fa-spinner animate-spin"></i><span>{t.genLoading}</span></> : <span>{t.genBtn}</span>}
                                 </button>
                             </form>
 
                             {currentSlides.length > 0 && (
                                 <div className="space-y-4">
-                                    
-                                    <div className="bg-white border border-slate-200 p-2.5 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-4">
-                                        
-                                        <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl border border-slate-200/60">
-                                            <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center gap-1">
-                                                <i className="fa-solid fa-layer-group text-slate-500"></i> {t.sets}
-                                            </span>
-                                            
-                                            <button 
-                                                onClick={() => { setActiveVarKey('A'); setActiveSlide(0); }}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'A' ? 'bg-white text-blue-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
-                                            >
-                                                <span>A</span>
-                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">{t.chronological}</span>
-                                            </button>
-                                            
-                                            <button 
-                                                onClick={() => { setActiveVarKey('B'); setActiveSlide(0); }}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'B' ? 'bg-white text-indigo-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
-                                            >
-                                                <span>B</span>
-                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">{t.analytical}</span>
-                                            </button>
-
-                                            <button 
-                                                onClick={() => { setActiveVarKey('C'); setActiveSlide(0); }}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${activeVarKey === 'C' ? 'bg-white text-purple-600 shadow-sm border border-slate-200/80' : 'text-slate-600 hover:text-slate-900'}`}
-                                            >
-                                                <span>C</span>
-                                                <span className="text-[10px] font-normal text-slate-400 border-l border-slate-200 pl-1.5">{t.conceptual}</span>
-                                            </button>
+                                    {/* ÜST KONTROL ÇUBUĞU */}
+                                    <div className="bg-white border border-slate-200/80 p-3 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-3">
+                                        <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl">
+                                            <span className="text-[11px] font-bold text-slate-500 px-2">{t.sets}</span>
+                                            {['A', 'B', 'C'].map(key => (
+                                                <button 
+                                                    key={key}
+                                                    onClick={() => { setActiveVarKey(key); setActiveSlide(0); }}
+                                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${activeVarKey === key ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+                                                >
+                                                    {key === 'A' ? t.chronological : key === 'B' ? t.analytical : t.conceptual}
+                                                </button>
+                                            ))}
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            <div className="relative">
-                                                <select 
-                                                    value={selectedFont.value}
-                                                    onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
-                                                    className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-sm"
-                                                >
-                                                    {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
-                                                </select>
-                                            </div>
+                                            <select 
+                                                value={selectedFont.value}
+                                                onChange={(e) => setSelectedFont(FONTS.find(f => f.value === e.target.value))}
+                                                className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl px-3 py-2 cursor-pointer"
+                                            >
+                                                {FONTS.map((f, i) => <option key={i} value={f.value}>{f.name}</option>)}
+                                            </select>
 
-                                            <div className="relative">
-                                                <select 
-                                                    value={selectedBg.value}
-                                                    onChange={(e) => setSelectedBg(COLOR_PALETTES.find(b => b.value === e.target.value))}
-                                                    className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-mono font-medium rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer shadow-sm"
-                                                >
-                                                    {COLOR_PALETTES.map((bg) => (
-                                                        <option key={bg.id} value={bg.value}>{bg.name}</option>
-                                                    ))}
-                                                </select>
-                                            </div>
+                                            <select 
+                                                value={selectedTheme.id}
+                                                onChange={(e) => setSelectedTheme(AESTHETIC_THEMES.find(th => th.id === Number(e.target.value)))}
+                                                className="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl px-3 py-2 cursor-pointer"
+                                            >
+                                                {AESTHETIC_THEMES.map((th) => (
+                                                    <option key={th.id} value={th.id}>{th.name}</option>
+                                                ))}
+                                            </select>
                                         </div>
 
                                         <div className="flex items-center gap-2">
-                                            <button 
-                                                onClick={addNewSlide} 
-                                                className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition border border-slate-200 flex items-center gap-1.5 cursor-pointer"
-                                            >
-                                                <i className="fa-solid fa-plus text-emerald-600"></i> {t.addSlide}
+                                            <button onClick={addNewSlide} className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-2 rounded-xl border border-emerald-200/60 cursor-pointer">
+                                                <i className="fa-solid fa-plus mr-1"></i> {t.addSlide}
                                             </button>
-
-                                            <button 
-                                                onClick={deleteCurrentSlide} 
-                                                className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold px-3 py-2 rounded-xl transition border border-rose-200/70 flex items-center gap-1.5 cursor-pointer"
-                                            >
-                                                <i className="fa-solid fa-trash-can text-rose-500"></i> {t.deleteSlide}
+                                            <button onClick={deleteCurrentSlide} className="bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold px-3 py-2 rounded-xl border border-rose-200/60 cursor-pointer">
+                                                <i className="fa-solid fa-trash-can mr-1"></i> {t.deleteSlide}
                                             </button>
-
-                                            <div className="h-4 w-px bg-slate-200 mx-1"></div>
-
-                                            <button 
-                                                onClick={downloadAsPPTX} 
-                                                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-md cursor-pointer"
-                                            >
-                                                <i className="fa-solid fa-file-powerpoint text-orange-400 text-sm"></i>
-                                                <span>{t.downloadBtn}</span>
+                                            <button onClick={downloadAsPPTX} className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 shadow cursor-pointer">
+                                                <i className="fa-solid fa-file-powerpoint text-amber-400"></i> {t.downloadBtn}
                                             </button>
                                         </div>
-
                                     </div>
 
-                                    {/* SLAYT GÖRÜNTÜLEYİCİ */}
-                                    <div className={`powerpoint-slide rounded-2xl border border-slate-200/90 p-8 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`} style={{ backgroundColor: `#${selectedBg.value}`, color: selectedBg.value === 'FFFFFF' ? '#0F172A' : selectedBg.text }}>
-                                        
-                                        <div className="flex justify-between items-center border-b border-slate-300/60 pb-3 relative z-10">
-                                            <span className={`text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full border ${selectedBg.value === 'FFFFFF' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-blue-500/20 text-blue-300 border-blue-400/30'}`}>
-                                                {currentSlides[activeSlide].badge} ({LANGUAGES.find(l => l.code === selectedLang)?.name})
+                                    {/* ESTETİK SLAYT SAHNESİ */}
+                                    <div 
+                                        className={`powerpoint-slide rounded-3xl border-2 p-7 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`}
+                                        style={{ 
+                                            backgroundColor: `#${selectedTheme.bg}`, 
+                                            borderColor: `#${selectedTheme.accent}30`,
+                                            color: `#${selectedTheme.text}`
+                                        }}
+                                    >
+                                        {/* Arka plan dekoratif ışık halkaları */}
+                                        <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl opacity-25 pointer-events-none" style={{ backgroundColor: `#${selectedTheme.accent}` }}></div>
+                                        <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: `#${selectedTheme.accent}` }}></div>
+
+                                        {/* Üst Bilgi Şeridi */}
+                                        <div className="flex justify-between items-center pb-3 border-b relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
+                                            <span 
+                                                className="text-[11px] font-extrabold tracking-wider uppercase px-3.5 py-1 rounded-full shadow-sm"
+                                                style={{ backgroundColor: `#${selectedTheme.accent}`, color: '#FFFFFF' }}
+                                            >
+                                                {currentSlides[activeSlide].badge}
                                             </span>
-                                            <span className="text-xs font-semibold opacity-75">{topic}</span>
+                                            <span className="text-xs font-bold opacity-75">{topic}</span>
                                         </div>
 
+                                        {/* KAPAK SLAYTI */}
                                         {currentSlides[activeSlide].type === 'cover' && (
-                                            <div className="my-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-center relative z-10">
-                                                <div className="md:col-span-2 space-y-4">
-                                                    <h2 className="text-3xl font-black" contentEditable suppressContentEditableWarning>{currentSlides[activeSlide].title}</h2>
-                                                    <p className="text-sm leading-relaxed p-4 rounded-xl border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#334155' }}>{currentSlides[activeSlide].subtitle}</p>
-                                                    <ul className="grid grid-cols-2 gap-2 text-xs opacity-80">
-                                                        {currentSlides[activeSlide].sentences.map((s, i) => (
-                                                            <li key={i} className="p-2 rounded border opacity-90" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#e2e8f0' : '#475569' }}>✓ {s}</li>
+                                            <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
+                                                <div className="md:col-span-7 bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-sm border space-y-4" style={{ borderColor: `#${selectedTheme.accent}25` }}>
+                                                    <h2 className="text-2xl md:text-4xl font-extrabold leading-tight" contentEditable suppressContentEditableWarning>
+                                                        {currentSlides[activeSlide].title}
+                                                    </h2>
+                                                    <p className="text-xs md:text-sm opacity-80 leading-relaxed" contentEditable suppressContentEditableWarning>
+                                                        {currentSlides[activeSlide].subtitle}
+                                                    </p>
+                                                    <div className="flex flex-wrap gap-2 pt-2">
+                                                        {currentSlides[activeSlide].highlights.map((h, i) => (
+                                                            <span key={i} className="text-[11px] font-bold px-3 py-1 rounded-xl" style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}>
+                                                                ✦ {h}
+                                                            </span>
                                                         ))}
-                                                    </ul>
+                                                    </div>
                                                 </div>
-                                                <div className="hidden md:block h-56 rounded-2xl overflow-hidden shadow-lg border border-slate-200/50 bg-slate-100">
-                                                    <img src={currentSlides[activeSlide].imageUrl} alt="Konu Görseli" className="w-full h-full object-cover" />
+                                                <div className="md:col-span-5 h-56 md:h-64">
+                                                    <SlideArtwork variant={0} accentColor={`#${selectedTheme.accent}`} topic={topic} />
                                                 </div>
                                             </div>
                                         )}
 
+                                        {/* İÇERİK SLAYTI */}
                                         {currentSlides[activeSlide].type === 'flow' && (
-                                            <div className="my-auto relative z-10">
-                                                <p className="text-[10px] text-blue-600 font-bold mb-2 flex items-center gap-1 opacity-75">
-                                                    <i className="fa-solid fa-i-cursor"></i> Editör - Metne tıklayarak düzenleyebilirsiniz:
-                                                </p>
-                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm leading-relaxed max-h-[300px] overflow-y-auto pr-2" style={{ textAlign: textAlign }}>
-                                                    <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
-                                                        {currentSlides[activeSlide].sentences.slice(0, Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => (
-                                                            <p key={i} contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)} className="focus:opacity-100">
-                                                                {sent}
-                                                            </p>
-                                                        ))}
-                                                    </div>
-                                                    <div className="space-y-2 p-3 rounded-xl border opacity-90" style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
-                                                        {currentSlides[activeSlide].sentences.slice(Math.ceil(currentSlides[activeSlide].sentences.length / 2)).map((sent, i) => {
-                                                            const realIdx = i + Math.ceil(currentSlides[activeSlide].sentences.length / 2);
-                                                            return (
-                                                                <p key={realIdx} contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, realIdx, e.target.innerText)} className="focus:opacity-100">
+                                            <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
+                                                <div className="md:col-span-8 space-y-3">
+                                                    <h3 className="text-base md:text-lg font-extrabold px-1" contentEditable suppressContentEditableWarning>
+                                                        {currentSlides[activeSlide].sectionTitle}
+                                                    </h3>
+                                                    <div className="grid grid-cols-1 gap-2.5 max-h-[260px] overflow-y-auto pr-1">
+                                                        {currentSlides[activeSlide].sentences.map((sent, i) => (
+                                                            <div 
+                                                                key={i} 
+                                                                className="bg-white/90 backdrop-blur-sm p-3.5 rounded-2xl border shadow-sm flex items-start gap-3 text-xs md:text-sm leading-relaxed"
+                                                                style={{ borderColor: `#${selectedTheme.accent}20` }}
+                                                            >
+                                                                <span 
+                                                                    className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-extrabold shrink-0 mt-0.5"
+                                                                    style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}
+                                                                >
+                                                                    {i + 1}
+                                                                </span>
+                                                                <p contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)} className="flex-1">
                                                                     {sent}
                                                                 </p>
-                                                            );
-                                                        })}
+                                                            </div>
+                                                        ))}
                                                     </div>
-                                                    <div className="hidden md:block h-full rounded-xl overflow-hidden border border-slate-200/60 shadow bg-slate-100 max-h-[250px]">
-                                                        <img src={currentSlides[activeSlide].imageUrl} alt="Slayt İçerik Görseli" className="w-full h-full object-cover" />
-                                                    </div>
+                                                </div>
+                                                <div className="md:col-span-4 h-52 md:h-64">
+                                                    <SlideArtwork variant={currentSlides[activeSlide].artVariant} accentColor={`#${selectedTheme.accent}`} topic={topic} />
                                                 </div>
                                             </div>
                                         )}
 
+                                        {/* KAYNAKÇA SLAYTI */}
                                         {currentSlides[activeSlide].type === 'references' && (
-                                            <div className="my-auto space-y-3 relative z-10">
-                                                <h2 className="text-lg font-bold" contentEditable suppressContentEditableWarning>REFERENCES</h2>
-                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] max-h-[260px] overflow-y-auto">
+                                            <div className="my-auto bg-white/90 p-6 rounded-3xl border space-y-3 relative z-10" style={{ borderColor: `#${selectedTheme.accent}25` }}>
+                                                <h3 className="text-base font-extrabold">Akademik Kaynakça & Bağlantılar</h3>
+                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-[230px] overflow-y-auto">
                                                     {currentSlides[activeSlide].references.map((ref, i) => (
-                                                        <li key={i} className="p-2 rounded border truncate font-mono opacity-80" contentEditable suppressContentEditableWarning style={{ borderColor: selectedBg.value === 'FFFFFF' ? '#cbd5e1' : '#475569' }}>
-                                                            <i className="fa-solid fa-link text-xs mr-2 opacity-50"></i>{ref}
+                                                        <li key={i} className="p-2.5 rounded-xl border truncate font-mono text-[11px]" style={{ backgroundColor: `#${selectedTheme.bg}`, borderColor: `#${selectedTheme.accent}20` }}>
+                                                            🔗 {ref}
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </div>
                                         )}
 
-                                        <div className="flex justify-between items-center text-xs opacity-75 border-t border-slate-300/60 pt-3 relative z-10">
-                                            <span>Academic.io Studio</span>
-                                            <span>Slide {activeSlide + 1} / {currentSlides.length}</span>
+                                        {/* Alt Bilgi Şeridi */}
+                                        <div className="flex justify-between items-center text-[11px] font-semibold opacity-70 pt-3 border-t relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
+                                            <span>✨ Academic.io Estetik Stüdyo</span>
+                                            <span>{activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-between items-center bg-white border border-slate-200 px-4 py-2.5 rounded-2xl shadow-sm">
+                                    {/* ALT GEZİNME ÇUBUĞU */}
+                                    <div className="flex justify-between items-center bg-white border border-slate-200/80 px-4 py-3 rounded-2xl shadow-sm">
                                         <button 
                                             onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} 
                                             disabled={activeSlide === 0} 
-                                            className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer flex items-center gap-1.5"
+                                            className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
                                         >
-                                            <i className="fa-solid fa-chevron-left text-[10px]"></i> {t.prevPage}
+                                            <i className="fa-solid fa-arrow-left mr-1.5"></i> {t.prevPage}
                                         </button>
                                         
-                                        <div className="text-xs font-semibold text-slate-600 flex items-center gap-2">
-                                            <span>{t.slidePos}</span>
-                                            <span className="font-mono bg-slate-100 px-2.5 py-1 rounded-lg text-slate-900 border border-slate-200">{activeSlide + 1} / {currentSlides.length}</span>
+                                        <div className="flex items-center gap-1.5 overflow-x-auto max-w-md px-2">
+                                            {currentSlides.map((_, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => setActiveSlide(idx)}
+                                                    className={`w-7 h-7 rounded-lg text-xs font-bold transition cursor-pointer shrink-0 ${activeSlide === idx ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                                                >
+                                                    {idx + 1}
+                                                </button>
+                                            ))}
                                         </div>
 
                                         <button 
                                             onClick={() => setActiveSlide(prev => Math.min(currentSlides.length - 1, prev + 1))} 
                                             disabled={activeSlide === currentSlides.length - 1} 
-                                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer flex items-center gap-1.5 shadow-sm"
+                                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl transition disabled:opacity-30 text-xs cursor-pointer"
                                         >
-                                            {t.nextPage} <i className="fa-solid fa-chevron-right text-[10px]"></i>
+                                            {t.nextPage} <i className="fa-solid fa-arrow-right ml-1.5"></i>
                                         </button>
                                     </div>
-
                                 </div>
                             )}
                         </main>
                     )}
 
-                    <footer className="border-t border-slate-200 bg-white py-12 px-6 mt-16 text-slate-600">
+                    <footer className="border-t border-indigo-100 bg-white/80 py-10 px-6 mt-12 text-slate-600">
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
                                 <h4 className="text-slate-900 font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-headset text-blue-600"></i> {t.supportTitle}
+                                    <i className="fa-solid fa-heart text-fuchsia-500"></i> {t.supportTitle}
                                 </h4>
-                                <p className="text-xs leading-relaxed mb-4">
-                                    {t.supportDesc}
-                                </p>
-                                <div className="text-xs font-mono text-blue-700 bg-blue-50 p-3 rounded-xl border border-blue-200 inline-block font-semibold">
-                                    <i className="fa-solid fa-ticket mr-2"></i> mayonez.contact@gmail.com
+                                <p className="text-xs leading-relaxed mb-3">{t.supportDesc}</p>
+                                <div className="text-xs font-mono text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl border border-indigo-100 inline-block font-semibold">
+                                    mayonez.contact@gmail.com
                                 </div>
                             </div>
 
-                            <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3 shadow-sm">
+                            <div className="bg-slate-50/80 border border-slate-200/80 p-4 rounded-2xl">
                                 {supportSuccess ? (
-                                    <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl text-center space-y-3">
-                                        <i className="fa-solid fa-circle-check text-3xl text-emerald-600"></i>
-                                        <div>
-                                            <h5 className="font-bold text-sm text-slate-900">{t.supportSuccessTitle}</h5>
-                                            <div className="inline-block bg-white border border-emerald-300 text-emerald-700 font-mono text-sm font-bold px-3 py-1 rounded-lg mt-2 shadow-sm">
-                                                Ticket: {ticketId}
-                                            </div>
-                                        </div>
-                                        <button onClick={() => setSupportSuccess(false)} className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-bold mt-1 cursor-pointer w-full transition shadow-sm">
-                                            {t.newTicket}
-                                        </button>
+                                    <div className="text-center py-4 space-y-2">
+                                        <i className="fa-solid fa-circle-check text-2xl text-emerald-500"></i>
+                                        <p className="font-bold text-sm text-slate-900">{t.supportSuccessTitle} ({ticketId})</p>
+                                        <button onClick={() => setSupportSuccess(false)} className="text-xs bg-indigo-600 text-white px-4 py-1.5 rounded-xl font-bold cursor-pointer">{t.newTicket}</button>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSupportSubmit} className="space-y-3">
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">{t.supportEmail}</label>
-                                            <input 
-                                                type="email" 
-                                                value={supportEmail} 
-                                                onChange={(e) => setSupportEmail(e.target.value)}
-                                                placeholder="ornek@email.com" 
-                                                className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                                required 
-                                            />
+                                    <form onSubmit={handleSupportSubmit} className="space-y-2.5">
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input type="text" value={supportName} onChange={(e) => setSupportName(e.target.value)} placeholder={t.supportName} className="bg-white border border-slate-200 text-xs rounded-xl px-3 py-2" required />
+                                            <input type="email" value={supportEmail} onChange={(e) => setSupportEmail(e.target.value)} placeholder={t.supportEmail} className="bg-white border border-slate-200 text-xs rounded-xl px-3 py-2" required />
                                         </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">{t.supportName}</label>
-                                            <input 
-                                                type="text" 
-                                                value={supportName} 
-                                                onChange={(e) => setSupportName(e.target.value)}
-                                                placeholder="Adınız..." 
-                                                className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                                required 
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">{t.supportMsg}</label>
-                                            <textarea 
-                                                value={supportMsg} 
-                                                onChange={(e) => setSupportMsg(e.target.value)}
-                                                placeholder="..." 
-                                                rows="3"
-                                                className="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
-                                                required 
-                                            />
-                                        </div>
-                                        <button 
-                                            type="submit" 
-                                            disabled={supportSending}
-                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 shadow-md shadow-blue-600/10"
-                                        >
-                                            {supportSending ? (
-                                                <>
-                                                    <i className="fa-solid fa-spinner animate-spin"></i>
-                                                    <span>{t.supportSending}</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <i className="fa-solid fa-paper-plane text-white"></i>
-                                                    <span>{t.supportBtn}</span>
-                                                </>
-                                            )}
+                                        <textarea value={supportMsg} onChange={(e) => setSupportMsg(e.target.value)} placeholder={t.supportMsg} rows="2" className="w-full bg-white border border-slate-200 text-xs rounded-xl p-2.5 resize-none" required />
+                                        <button type="submit" disabled={supportSending} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2.5 rounded-xl cursor-pointer">
+                                            {supportSending ? t.supportSending : t.supportBtn}
                                         </button>
                                     </form>
                                 )}
                             </div>
                         </div>
-                        <div className="border-t border-slate-200 mt-8 pt-6 text-center text-xs text-slate-500">
-                            <p>{t.rights}</p>
-                        </div>
+                        <p className="text-center text-xs text-slate-400 mt-8">{t.rights}</p>
                     </footer>
-
                 </div>
             );
         }
