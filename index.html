@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — Estetik & Çok Dilli Akademik Sunum Stüdyosu</title>
+    <title>Academic.io — Estetik & Görsel Destekli Akademik Sunum Stüdyosu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -81,89 +81,28 @@
             { name: "Fira Code (Teknik & Düzenli)", value: "font-mono" }
         ];
 
-        // ASLA KIRILMAYAN, HER ZAMAN YÜKLENEN ESTETİK SVG İLLÜSTRASYON MOTORU
-        const SlideArtwork = ({ variant, accentColor, topic }) => {
-            const artIndex = variant % 4;
-            return (
-                <div className="w-full h-full rounded-2xl overflow-hidden relative flex flex-col items-center justify-center p-4 shadow-inner border border-white/80" style={{ backgroundColor: `${accentColor}12` }}>
-                    {artIndex === 0 && (
-                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
-                            <defs>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor={accentColor} stopOpacity="0.85" />
-                                    <stop offset="100%" stopColor="#818cf8" stopOpacity="0.45" />
-                                </linearGradient>
-                            </defs>
-                            <circle cx="165" cy="65" r="48" fill="url(#grad1)" />
-                            <circle cx="85" cy="125" r="55" fill={accentColor} fillOpacity="0.2" />
-                            <rect x="45" y="45" width="110" height="75" rx="16" fill="#ffffff" fillOpacity="0.9" stroke={accentColor} strokeWidth="2" />
-                            <line x1="65" y1="70" x2="135" y2="70" stroke={accentColor} strokeWidth="4" strokeLinecap="round" />
-                            <line x1="65" y1="86" x2="115" y2="86" stroke={accentColor} strokeOpacity="0.5" strokeWidth="4" strokeLinecap="round" />
-                            <line x1="65" y1="102" x2="125" y2="102" stroke={accentColor} strokeOpacity="0.3" strokeWidth="4" strokeLinecap="round" />
-                            <circle cx="170" cy="145" r="18" fill="#ffffff" stroke={accentColor} strokeWidth="2.5" />
-                            <path d="M164 145 L169 150 L177 140" fill="none" stroke={accentColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    )}
-                    {artIndex === 1 && (
-                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
-                            <rect x="30" y="30" width="180" height="140" rx="24" fill="#ffffff" fillOpacity="0.85" />
-                            <path d="M50 135 Q 90 65, 130 105 T 195 55" fill="none" stroke={accentColor} strokeWidth="4.5" strokeLinecap="round" />
-                            <path d="M50 135 Q 90 65, 130 105 T 195 55 L 195 145 L 50 145 Z" fill={accentColor} fillOpacity="0.15" />
-                            <circle cx="90" cy="88" r="6" fill="#ffffff" stroke={accentColor} strokeWidth="3" />
-                            <circle cx="130" cy="105" r="6" fill="#ffffff" stroke={accentColor} strokeWidth="3" />
-                            <circle cx="195" cy="55" r="7" fill={accentColor} />
-                        </svg>
-                    )}
-                    {artIndex === 2 && (
-                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
-                            <circle cx="120" cy="100" r="65" fill={accentColor} fillOpacity="0.12" />
-                            <circle cx="120" cy="100" r="42" fill="#ffffff" stroke={accentColor} strokeWidth="2.5" strokeDasharray="6 4" />
-                            <circle cx="120" cy="40" r="14" fill={accentColor} />
-                            <circle cx="175" cy="130" r="14" fill="#818cf8" />
-                            <circle cx="65" cy="130" r="14" fill="#f472b6" />
-                            <line x1="120" y1="54" x2="120" y2="82" stroke={accentColor} strokeWidth="2" />
-                            <line x1="163" y1="122" x2="138" y2="108" stroke={accentColor} strokeWidth="2" />
-                            <line x1="77" y1="122" x2="102" y2="108" stroke={accentColor} strokeWidth="2" />
-                        </svg>
-                    )}
-                    {artIndex === 3 && (
-                        <svg viewBox="0 0 240 200" className="w-full h-full max-h-48 drop-shadow-sm">
-                            <rect x="45" y="110" width="26" height="55" rx="8" fill={accentColor} fillOpacity="0.35" />
-                            <rect x="85" y="80" width="26" height="85" rx="8" fill={accentColor} fillOpacity="0.6" />
-                            <rect x="125" y="50" width="26" height="115" rx="8" fill={accentColor} fillOpacity="0.85" />
-                            <rect x="165" y="30" width="26" height="135" rx="8" fill={accentColor} />
-                            <circle cx="178" cy="18" r="5" fill="#f59e0b" />
-                        </svg>
-                    )}
-                    <span className="mt-2 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-white/90 shadow-sm truncate max-w-[90%]" style={{ color: accentColor }}>
-                        ✦ {topic}
-                    </span>
-                </div>
-            );
-        };
-
         const BASE_DICT = {
             tagBadge: "ESTETİK STÜDYO",
-            tagText: "ÖZEL SVG İLLÜSTRASYON & PASTEL TASARIM MOTORU AKTİF",
-            title1: "Göz Alıcı & Estetik",
+            tagText: "KONUYA ÖZEL GERÇEK FOTOĞRAF & PASTEL TASARIM MOTORU AKTİF",
+            title1: "Göz Alıcı & Görselli",
             title2: "Akademik Sunum Stüdyosu",
-            desc: "Konunuzu yazın; yumuşak renk paletleri, kırılmayan özel vektör illüstrasyonlar ve akademik kaynaklarla saniyeler içinde cicili bicili sunumlar hazırlayın.",
-            startBtn: "Hemen Estetik Sunum Oluştur",
-            card1Title: "Özel SVG İllüstrasyonlar",
-            card1Desc: "Her slayta özel üretilen, asla bozulmayan modern grafik ve diyagramlar.",
+            desc: "Konunuzu yazın; Wikimedia & küresel medya arşivlerinden konunuza birebir uygun gerçek fotoğrafları çekip pastel temalarla cicili bicili sunumlar hazırlayalım.",
+            startBtn: "Hemen Görselli Sunum Oluştur",
+            card1Title: "Konuyla Birebir Fotoğraflar",
+            card1Desc: "Aradığınız konuya ait gerçek bilimsel görseller, fotoğraflar ve arşiv materyalleri otomatik çekilir.",
             card2Title: "Estetik Renk Paletleri",
-            card2Desc: "Pudra, lavanta, mint yeşili ve şeftali tonlarında özenle seçilmiş sunum temaları.",
+            card2Desc: "Pudra, lavanta, mint yeşili ve şeftali tonlarında özenle seçilmiş modern sunum temaları.",
             card3Title: "Canlı Düzenleme & .PPTX",
-            card3Desc: "Slayt metinlerine tıklayarak anında düzenleyin ve PowerPoint olarak indirin.",
-            panelTitle: "Estetik Sunum Tasarım Paneli",
-            panelSub: "Konu + Pastel Tema + Vektörel Görsel Motoru",
+            card3Desc: "Metinleri ve görselleri ekranda düzenleyin, fotoğraflarıyla birlikte PowerPoint olarak indirin.",
+            panelTitle: "Görselli & Estetik Sunum Üretim Paneli",
+            panelSub: "Gerçek Medya Arşivi + Pastel Tema + Çok Dilli Motor",
             topicLabel: "Sunum Konusu",
-            topicPlaceholder: "Örn: Pozitif Psikoloji, Yapay Zeka Etiği, Sanat Tarihi...",
+            topicPlaceholder: "Örn: Nörobilim, Rönesans Sanatı, Yapay Zeka, Klinik Psikoloji...",
             langLabel: "Sunum Dili",
             slidesLabel: "Slayt Sayısı",
             colorLabel: "Estetik Tema Seçimi",
-            genBtn: "Cicili Bicili Sunumu Üret ✨",
-            genLoading: "İçerik Derleniyor ve Görseller Tasarlanıyor...",
+            genBtn: "Konuya Uygun Görselli Sunumu Üret ✨",
+            genLoading: "Konuyla İlgili Fotoğraflar ve İçerikler Toplanıyor...",
             sets: "Tasarım Varyasyonu:",
             chronological: "Akışkan",
             analytical: "Analitik",
@@ -206,7 +145,7 @@
 
         function App() {
             const [view, setView] = useState('portal');
-            const [topic, setTopic] = useState("Pozitif Psikoloji ve Mutluluk");
+            const [topic, setTopic] = useState("Rönesans Sanatı");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [slideCount, setSlideCount] = useState(12);
             const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[0]);
@@ -219,6 +158,16 @@
                 if (!text || targetLang === 'tr') return text;
                 try {
                     const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+                    const data = await res.json();
+                    if (data && data[0]) return data[0].map(item => item[0]).join('');
+                } catch (e) {}
+                return text;
+            };
+
+            const translateToEnglish = async (text) => {
+                if (!text) return text;
+                try {
+                    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`);
                     const data = await res.json();
                     if (data && data[0]) return data[0].map(item => item[0]).join('');
                 } catch (e) {}
@@ -278,20 +227,101 @@
                 setSupportSending(false);
             };
 
+            // KONUYA BİREBİR UYGUN GERÇEK FOTOĞRAFLARI ÇEKEN MEDYA MOTORU
+            const fetchTopicImages = async (queryLocal, queryEn) => {
+                const collectedImages = [];
+
+                const fetchFromWikiMedia = async (langCode, q) => {
+                    try {
+                        // 1. Wikipedia sayfa görselleri (pageimages)
+                        const pageImgUrl = `https://${langCode}.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q)}&gsrlimit=12&prop=pageimages&piprop=thumbnail&pithumbsize=800&format=json&origin=*`;
+                        const res = await fetch(pageImgUrl);
+                        const data = await res.json();
+                        if (data.query && data.query.pages) {
+                            Object.values(data.query.pages).forEach(page => {
+                                if (page.thumbnail && page.thumbnail.source) {
+                                    const src = page.thumbnail.source;
+                                    if (!src.endsWith('.svg') && !src.includes('icon') && !src.includes('Flag_of') && !src.includes('Map')) {
+                                        collectedImages.push({
+                                            url: src,
+                                            caption: page.title
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    } catch (e) {}
+                };
+
+                const fetchFromCommons = async (q) => {
+                    try {
+                        // 2. Wikimedia Commons doğrudan fotoğraf araması (filetype:bitmap)
+                        const commonsUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q + ' filetype:bitmap')}&gsrnamespace=6&gsrlimit=15&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json&origin=*`;
+                        const res = await fetch(commonsUrl);
+                        const data = await res.json();
+                        if (data.query && data.query.pages) {
+                            Object.values(data.query.pages).forEach(page => {
+                                if (page.imageinfo && page.imageinfo[0]) {
+                                    const info = page.imageinfo[0];
+                                    const imgUrl = info.thumburl || info.url;
+                                    if (imgUrl && !imgUrl.endsWith('.svg') && !imgUrl.endsWith('.tif') && !imgUrl.endsWith('.pdf')) {
+                                        const cleanTitle = page.title.replace(/^File:/i, '').replace(/\.[^/.]+$/, '').replace(/_/g, ' ');
+                                        collectedImages.push({
+                                            url: imgUrl,
+                                            caption: cleanTitle.slice(0, 45)
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    } catch (e) {}
+                };
+
+                await Promise.all([
+                    fetchFromWikiMedia(selectedLang, queryLocal),
+                    fetchFromWikiMedia('en', queryEn),
+                    fetchFromCommons(queryEn)
+                ]);
+
+                // Tekrar eden URL'leri temizle
+                const uniqueMap = new Map();
+                collectedImages.forEach(item => {
+                    if (!uniqueMap.has(item.url)) {
+                        uniqueMap.set(item.url, item);
+                    }
+                });
+
+                const finalList = Array.from(uniqueMap.values());
+                
+                // Eğer aranan konu çok soyutsa ve hiç fotoğraf dönmezse yüksek çözünürlüklü akademik fotoğraf havuzundan yedekle
+                if (finalList.length === 0) {
+                    return [
+                        { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: queryLocal },
+                        { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg", caption: queryLocal }
+                    ];
+                }
+                return finalList;
+            };
+
             const fetchAndBuildVariations = async (searchQuery, lang, targetCount) => {
                 setLoading(true);
                 try {
                     let translatedQuery = searchQuery;
                     if (lang !== 'tr') translatedQuery = await translateTextWithGoogle(searchQuery, lang);
+                    const englishQuery = await translateTextWithGoogle(searchQuery, 'en');
 
-                    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=10`;
-                    const searchRes = await fetch(searchUrl);
+                    // Görselleri ve metinleri paralel olarak çek
+                    const [topicImages, searchRes] = await Promise.all([
+                        fetchTopicImages(translatedQuery, englishQuery),
+                        fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=10`)
+                    ]);
+
                     const searchData = await searchRes.json();
-
                     let searchResults = searchData.query ? searchData.query.search : [];
                     let activeLangForWiki = lang;
+
                     if (searchResults.length === 0 && lang !== 'en') {
-                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*&srlimit=10`;
+                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(englishQuery)}&format=json&origin=*&srlimit=10`;
                         const fbRes = await fetch(fallbackUrl);
                         const fbData = await fbRes.json();
                         searchResults = fbData.query ? fbData.query.search : [];
@@ -325,7 +355,7 @@
                                         text = await translateTextWithGoogle(text, lang);
                                     }
                                     text.split(/(?<=[.?!])\s+/).forEach(s => {
-                                        if (s.trim().length > 25 && s.trim().length < 260) rawSentences.push(s.trim());
+                                        if (s.trim().length > 25 && s.trim().length < 250) rawSentences.push(s.trim());
                                     });
                                 }
                             }
@@ -337,10 +367,10 @@
 
                     if (rawSentences.length === 0) {
                         rawSentences = [
-                            `${displayTitle}, çağdaş akademik araştırmalarda disiplinlerarası yaklaşımlarla ele alınan temel bir kavramdır.`,
-                            `Kuramsal çerçeve incelendiğinde, hem bireysel hem de toplumsal düzeyde önemli bulgular ortaya çıkmaktadır.`,
-                            `Modern literatür, bu alandaki uygulamaların sürdürülebilir ve insan odaklı olması gerektiğini vurgulamaktadır.`,
-                            `Araştırma bulguları, kavramsal modellerin pratik hayata entegrasyonunun verimliliği artırdığını göstermektedir.`
+                            `${displayTitle}, çağdaş akademik araştırmalarda çok boyutlu yaklaşımlarla incelenen temel bir konudur.`,
+                            `Kuramsal çerçeve ve tarihsel gelişim süreci, alanın temel dinamiklerini anlamak için kritik veriler sunar.`,
+                            `Modern literatür, bu alandaki bulguların disiplinlerarası çalışmalarla zenginleştiğini göstermektedir.`,
+                            `Uygulamalı analizler, kavramsal modellerin pratik sonuçlarını açıkça ortaya koymaktadır.`
                         ];
                     }
 
@@ -352,17 +382,19 @@
 
                     const createSlideSet = (sentences, conceptName, offset) => {
                         const slides = [];
+                        const coverImg = topicImages[0];
+
                         slides.push({
                             type: 'cover',
                             badge: `✨ ${conceptName.toUpperCase()}`,
                             title: displayTitle,
-                            subtitle: `${displayTitle} üzerine yapılandırılmış görsel ve akademik sunum dosyası.`,
-                            artVariant: 0,
+                            subtitle: `${displayTitle} üzerine konu odaklı görseller ve akademik kaynaklarla hazırlanmış sunum.`,
+                            imageUrl: coverImg.url,
+                            imageCaption: coverImg.caption,
                             highlights: [
                                 `Dil: ${LANGUAGES.find(l => l.code === lang)?.name}`,
-                                `Tema: ${selectedTheme.name.split(' ')[1] || 'Estetik'}`,
-                                `Kapsam: ${targetCount} Slayt`,
-                                `Durum: Düzenlenebilir`
+                                `Görsel Arşivi: ${topicImages.length} Fotoğraf`,
+                                `Kapsam: ${targetCount} Slayt`
                             ]
                         });
 
@@ -374,12 +406,15 @@
                                 chunk.push(sentences[(cursor + k) % sentences.length]);
                             }
                             cursor += 4;
+                            const slideImg = topicImages[pageNum % topicImages.length];
+
                             slides.push({
                                 type: 'flow',
                                 badge: `BÖLÜM ${pageNum} • ${conceptName.toUpperCase()}`,
-                                sectionTitle: `${displayTitle} — Temel Bulgular & Analiz #${pageNum}`,
+                                sectionTitle: `${displayTitle} — Analiz & Bulgular #${pageNum}`,
                                 sentences: chunk,
-                                artVariant: pageNum
+                                imageUrl: slideImg.url,
+                                imageCaption: slideImg.caption
                             });
                             pageNum++;
                         }
@@ -429,17 +464,19 @@
 
             const addNewSlide = () => {
                 const currentSlides = [...variations[activeVarKey]];
+                const fallbackImg = currentSlides[0]?.imageUrl || "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg";
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
                     badge: `YENİ SAYFA ✨`,
-                    sectionTitle: `${topic} — Ek Notlar`,
+                    sectionTitle: `${topic} — Ek Değerlendirme`,
                     sentences: [
-                        "Buraya tıklayarak kendi özel notlarınızı ekleyebilirsiniz.",
+                        "Buraya tıklayarak kendi özel akademik notlarınızı ekleyebilirsiniz.",
                         "Her kutucuk canlı olarak düzenlenebilir yapıdadır.",
-                        "Sağ taraftaki vektör illüstrasyon slaytınıza otomatik eşlik eder.",
-                        "İndir butonuna bastığınızda bu sayfa da PowerPoint dosyasına dahil edilir."
+                        "Sağ taraftaki fotoğraf konunuzla ilişkili medya arşivinden getirilmiştir.",
+                        "İndir butonuna bastığınızda bu sayfa ve görseli PowerPoint dosyasına eklenir."
                     ],
-                    artVariant: activeSlide + 1
+                    imageUrl: fallbackImg,
+                    imageCaption: topic
                 });
                 setVariations({ ...variations, [activeVarKey]: currentSlides });
                 setActiveSlide(activeSlide + 1);
@@ -455,7 +492,6 @@
                     const slide = pptx.addSlide();
                     slide.background = { color: selectedTheme.pptBg };
 
-                    // Üst dekoratif şerit
                     slide.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 10, h: 0.12, fill: { color: selectedTheme.pptAccent } });
 
                     slide.addText(slideData.badge, {
@@ -464,39 +500,38 @@
                     });
 
                     if (slideData.type === 'cover') {
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: 0.9, w: 5.8, h: 3.8, fill: { color: "FFFFFF" }, line: { color: selectedTheme.pptAccent, width: 1 } });
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: 0.9, w: 5.5, h: 3.8, fill: { color: "FFFFFF" }, line: { color: selectedTheme.pptAccent, width: 1 } });
                         slide.addText(slideData.title, {
-                            x: 0.9, y: 1.2, w: 5.2, h: 1.2,
-                            fontSize: 24, color: selectedTheme.text, bold: true
+                            x: 0.85, y: 1.2, w: 5.0, h: 1.2,
+                            fontSize: 22, color: selectedTheme.text, bold: true
                         });
                         slide.addText(slideData.subtitle, {
-                            x: 0.9, y: 2.5, w: 5.2, h: 0.9,
-                            fontSize: 12, color: "475569"
+                            x: 0.85, y: 2.5, w: 5.0, h: 0.9,
+                            fontSize: 11.5, color: "475569"
                         });
-                        // Sağ tarafta dekoratif kart
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 6.7, y: 0.9, w: 2.7, h: 3.8, fill: { color: selectedTheme.pptAccent } });
-                        slide.addText("✦\n" + topic.toUpperCase(), {
-                            x: 6.8, y: 2.0, w: 2.5, h: 1.5,
-                            fontSize: 14, color: "FFFFFF", bold: true, align: "center"
-                        });
+                        if (slideData.imageUrl) {
+                            try {
+                                slide.addImage({ path: slideData.imageUrl, x: 6.3, y: 0.9, w: 3.1, h: 3.8, sizing: { type: 'cover', w: 3.1, h: 3.8 } });
+                            } catch (e) {}
+                        }
                     } else if (slideData.type === 'flow') {
                         slide.addText(slideData.sectionTitle || topic, {
                             x: 0.6, y: 0.75, w: 8.8, h: 0.45,
-                            fontSize: 16, color: selectedTheme.text, bold: true
+                            fontSize: 15, color: selectedTheme.text, bold: true
                         });
                         slideData.sentences.forEach((sent, sIdx) => {
                             const yPos = 1.35 + (sIdx * 0.92);
-                            slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: yPos, w: 6.0, h: 0.8, fill: { color: "FFFFFF" } });
+                            slide.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: yPos, w: 5.7, h: 0.8, fill: { color: "FFFFFF" } });
                             slide.addText("• " + sent, {
-                                x: 0.75, y: yPos + 0.05, w: 5.7, h: 0.7,
-                                fontSize: 10.5, color: selectedTheme.text
+                                x: 0.75, y: yPos + 0.05, w: 5.4, h: 0.7,
+                                fontSize: 10, color: selectedTheme.text
                             });
                         });
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 6.85, y: 1.35, w: 2.55, h: 3.55, fill: { color: "FFFFFF" }, line: { color: selectedTheme.pptAccent, width: 1.5 } });
-                        slide.addText(`✦\nBölüm ${idx}`, {
-                            x: 7.0, y: 2.6, w: 2.25, h: 1.0,
-                            fontSize: 14, color: selectedTheme.pptAccent, bold: true, align: "center"
-                        });
+                        if (slideData.imageUrl) {
+                            try {
+                                slide.addImage({ path: slideData.imageUrl, x: 6.5, y: 1.35, w: 2.9, h: 3.55, sizing: { type: 'cover', w: 2.9, h: 3.55 } });
+                            } catch (e) {}
+                        }
                     } else if (slideData.type === 'references') {
                         slide.addText("KAYNAKÇA & REFERANSLAR", {
                             x: 0.6, y: 0.8, w: 8.8, h: 0.5,
@@ -512,7 +547,7 @@
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Estetik_Sunum.pptx` });
+                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Gorselli_Sunum.pptx` });
             };
 
             const currentSlides = variations[activeVarKey] || [];
@@ -529,7 +564,7 @@
                                 <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-2">
                                     Academic.io <span className="text-[10px] font-bold bg-fuchsia-50 text-fuchsia-600 border border-fuchsia-200 px-2 py-0.5 rounded-full">STUDIO</span>
                                 </h1>
-                                <p className="text-[11px] text-slate-500 font-medium">Aesthetic Presentation Engine</p>
+                                <p className="text-[11px] text-slate-500 font-medium">Visual & Aesthetic Presentation Engine</p>
                             </div>
                         </div>
 
@@ -576,13 +611,13 @@
                                 onClick={() => setView('studio')}
                                 className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-indigo-500/25 flex items-center gap-3 cursor-pointer mb-16 hover:-translate-y-0.5"
                             >
-                                <i className="fa-solid fa-sparkles"></i> {t.startBtn}
+                                <i className="fa-solid fa-images"></i> {t.startBtn}
                             </button>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
                                 <div className="bg-white/90 border border-fuchsia-100 p-6 rounded-3xl shadow-sm">
                                     <div className="w-11 h-11 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center mb-4 text-lg">
-                                        <i className="fa-solid fa-palette"></i>
+                                        <i className="fa-solid fa-camera-retro"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
@@ -590,7 +625,7 @@
 
                                 <div className="bg-white/90 border border-indigo-100 p-6 rounded-3xl shadow-sm">
                                     <div className="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-lg">
-                                        <i className="fa-solid fa-swatchbook"></i>
+                                        <i className="fa-solid fa-palette"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card2Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card2Desc}</p>
@@ -728,7 +763,7 @@
                                         </div>
                                     </div>
 
-                                    {/* ESTETİK SLAYT SAHNESİ */}
+                                    {/* ESTETİK & GÖRSELLİ SLAYT SAHNESİ */}
                                     <div 
                                         className={`powerpoint-slide rounded-3xl border-2 p-7 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`}
                                         style={{ 
@@ -737,11 +772,9 @@
                                             color: `#${selectedTheme.text}`
                                         }}
                                     >
-                                        {/* Arka plan dekoratif ışık halkaları */}
                                         <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl opacity-25 pointer-events-none" style={{ backgroundColor: `#${selectedTheme.accent}` }}></div>
                                         <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: `#${selectedTheme.accent}` }}></div>
 
-                                        {/* Üst Bilgi Şeridi */}
                                         <div className="flex justify-between items-center pb-3 border-b relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
                                             <span 
                                                 className="text-[11px] font-extrabold tracking-wider uppercase px-3.5 py-1 rounded-full shadow-sm"
@@ -770,8 +803,15 @@
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <div className="md:col-span-5 h-56 md:h-64">
-                                                    <SlideArtwork variant={0} accentColor={`#${selectedTheme.accent}`} topic={topic} />
+                                                <div className="md:col-span-5 h-56 md:h-64 rounded-3xl overflow-hidden shadow-lg border-4 border-white relative bg-white group">
+                                                    <img 
+                                                        src={currentSlides[activeSlide].imageUrl} 
+                                                        alt={currentSlides[activeSlide].imageCaption}
+                                                        className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 text-white text-[11px] font-semibold">
+                                                        📷 {currentSlides[activeSlide].imageCaption}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
@@ -779,7 +819,7 @@
                                         {/* İÇERİK SLAYTI */}
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
-                                                <div className="md:col-span-8 space-y-3">
+                                                <div className="md:col-span-7 space-y-3">
                                                     <h3 className="text-base md:text-lg font-extrabold px-1" contentEditable suppressContentEditableWarning>
                                                         {currentSlides[activeSlide].sectionTitle}
                                                     </h3>
@@ -787,7 +827,7 @@
                                                         {currentSlides[activeSlide].sentences.map((sent, i) => (
                                                             <div 
                                                                 key={i} 
-                                                                className="bg-white/90 backdrop-blur-sm p-3.5 rounded-2xl border shadow-sm flex items-start gap-3 text-xs md:text-sm leading-relaxed"
+                                                                className="bg-white/90 backdrop-blur-sm p-3 rounded-2xl border shadow-sm flex items-start gap-3 text-xs md:text-sm leading-relaxed"
                                                                 style={{ borderColor: `#${selectedTheme.accent}20` }}
                                                             >
                                                                 <span 
@@ -803,8 +843,15 @@
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <div className="md:col-span-4 h-52 md:h-64">
-                                                    <SlideArtwork variant={currentSlides[activeSlide].artVariant} accentColor={`#${selectedTheme.accent}`} topic={topic} />
+                                                <div className="md:col-span-5 h-56 md:h-64 rounded-3xl overflow-hidden shadow-lg border-4 border-white relative bg-white group">
+                                                    <img 
+                                                        src={currentSlides[activeSlide].imageUrl} 
+                                                        alt={currentSlides[activeSlide].imageCaption}
+                                                        className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 text-white text-[11px] font-semibold">
+                                                        📷 {currentSlides[activeSlide].imageCaption}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
@@ -823,7 +870,6 @@
                                             </div>
                                         )}
 
-                                        {/* Alt Bilgi Şeridi */}
                                         <div className="flex justify-between items-center text-[11px] font-semibold opacity-70 pt-3 border-t relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
                                             <span>✨ Academic.io Estetik Stüdyo</span>
                                             <span>{activeSlide + 1} / {currentSlides.length}</span>
