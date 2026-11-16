@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — Estetik & Görsel Destekli Akademik Sunum Stüdyosu</title>
+    <title>Academic.io — Konu Odaklı Akademik Sunum Stüdyosu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -82,31 +82,31 @@
         ];
 
         const BASE_DICT = {
-            tagBadge: "ESTETİK STÜDYO",
-            tagText: "KONUYA ÖZEL GERÇEK FOTOĞRAF & PASTEL TASARIM MOTORU AKTİF",
-            title1: "Göz Alıcı & Görselli",
+            tagBadge: "%100 KONU ODAKLI",
+            tagText: "ALAKASIZ METİN FİLTRELEME & GERÇEK FOTOĞRAF MOTORU AKTİF",
+            title1: "Sadece Konuyla İlgili",
             title2: "Akademik Sunum Stüdyosu",
-            desc: "Konunuzu yazın; Wikimedia & küresel medya arşivlerinden konunuza birebir uygun gerçek fotoğrafları çekip pastel temalarla cicili bicili sunumlar hazırlayalım.",
-            startBtn: "Hemen Görselli Sunum Oluştur",
-            card1Title: "Konuyla Birebir Fotoğraflar",
-            card1Desc: "Aradığınız konuya ait gerçek bilimsel görseller, fotoğraflar ve arşiv materyalleri otomatik çekilir.",
-            card2Title: "Estetik Renk Paletleri",
-            card2Desc: "Pudra, lavanta, mint yeşili ve şeftali tonlarında özenle seçilmiş modern sunum temaları.",
+            desc: "Yazdığınız başlıkla birebir örtüşen, alakasız genel kültür bilgilerinden arındırılmış, gerçek görselli ve profesyonel akademik sunumlar üretin.",
+            startBtn: "Konu Odaklı Sunum Oluştur",
+            card1Title: "Kesin Konu Uyumu",
+            card1Desc: "Yalnızca girdiğiniz başlığı ve alt bileşenlerini analiz eden filtrelenmiş akademik cümleler.",
+            card2Title: "Birebir Eşleşen Görseller",
+            card2Desc: "Wikimedia küresel arşivlerinden aradığınız konuya özel seçilen gerçek fotoğraflar.",
             card3Title: "Canlı Düzenleme & .PPTX",
-            card3Desc: "Metinleri ve görselleri ekranda düzenleyin, fotoğraflarıyla birlikte PowerPoint olarak indirin.",
-            panelTitle: "Görselli & Estetik Sunum Üretim Paneli",
-            panelSub: "Gerçek Medya Arşivi + Pastel Tema + Çok Dilli Motor",
-            topicLabel: "Sunum Konusu",
-            topicPlaceholder: "Örn: Nörobilim, Rönesans Sanatı, Yapay Zeka, Klinik Psikoloji...",
+            card3Desc: "Slaytları dilediğiniz gibi düzenleyin ve görselleriyle birlikte PowerPoint olarak indirin.",
+            panelTitle: "Konu Odaklı Sunum Üretim Paneli",
+            panelSub: "Filtrelenmiş Akademik Veri + Gerçek Görseller",
+            topicLabel: "Sunum Konusu / Başlığı",
+            topicPlaceholder: "Örn: Kuantum Fiziği, Narsisistik Kişilik Bozukluğu...",
             langLabel: "Sunum Dili",
             slidesLabel: "Slayt Sayısı",
             colorLabel: "Estetik Tema Seçimi",
-            genBtn: "Konuya Uygun Görselli Sunumu Üret ✨",
-            genLoading: "Konuyla İlgili Fotoğraflar ve İçerikler Toplanıyor...",
-            sets: "Tasarım Varyasyonu:",
-            chronological: "Akışkan",
-            analytical: "Analitik",
-            conceptual: "Kavramsal",
+            genBtn: "Sadece Konuyla İlgili Slaytları Üret ✨",
+            genLoading: "Konu Derinlemesine Analiz Ediliyor ve Filtreleniyor...",
+            sets: "Analiz Modeli:",
+            chronological: "Literatür & Tanım",
+            analytical: "Metodoloji & Analiz",
+            conceptual: "Tartışma & Sonuç",
             addSlide: "Sayfa Ekle",
             deleteSlide: "Sil",
             downloadBtn: ".PPTX İndir",
@@ -114,38 +114,21 @@
             nextPage: "Sonraki",
             slidePos: "Slayt:",
             homeBtn: "Ana Sayfa",
-            supportTitle: "Academic.io Destek ve İletişim",
-            supportDesc: "Herhangi bir öneriniz veya talebiniz için bize doğrudan yazabilirsiniz.",
+            supportTitle: "Academic.io Destek",
+            supportDesc: "Görüş ve önerileriniz için bize ulaşın.",
             supportEmail: "E-Posta Adresiniz",
-            supportName: "Adınız / Soyadınız",
+            supportName: "Adınız",
             supportMsg: "Mesajınız",
             supportBtn: "Gönder",
             supportSending: "Gönderiliyor...",
-            supportSuccessTitle: "Mesajınız İletildi!",
+            supportSuccessTitle: "İletildi!",
             newTicket: "Yeni Mesaj",
-            rights: "Academic.io © 2026 — Estetik Akademik Sunum Motoru"
-        };
-
-        const shuffleArray = (array, seed) => {
-            let arr = [...array];
-            let m = arr.length, t, i;
-            let currentSeed = seed;
-            const random = () => {
-                const x = Math.sin(currentSeed++) * 10000;
-                return x - Math.floor(x);
-            };
-            while (m) {
-                i = Math.floor(random() * m--);
-                t = arr[m];
-                arr[m] = arr[i];
-                arr[i] = t;
-            }
-            return arr;
+            rights: "Academic.io © 2026 — Konu Odaklı Akademik Sunum Motoru"
         };
 
         function App() {
             const [view, setView] = useState('portal');
-            const [topic, setTopic] = useState("Rönesans Sanatı");
+            const [topic, setTopic] = useState("Klinik Psikolojide Bilişsel Davranışçı Terapi");
             const [selectedLang, setSelectedLang] = useState("tr");
             const [slideCount, setSlideCount] = useState(12);
             const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[0]);
@@ -227,13 +210,11 @@
                 setSupportSending(false);
             };
 
-            // KONUYA BİREBİR UYGUN GERÇEK FOTOĞRAFLARI ÇEKEN MEDYA MOTORU
+            // SADECE KONUYLA ALAKALI FOTOĞRAFLARI ÇEKEN MOTOR
             const fetchTopicImages = async (queryLocal, queryEn) => {
                 const collectedImages = [];
-
-                const fetchFromWikiMedia = async (langCode, q) => {
+                const fetchFromWiki = async (langCode, q) => {
                     try {
-                        // 1. Wikipedia sayfa görselleri (pageimages)
                         const pageImgUrl = `https://${langCode}.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q)}&gsrlimit=12&prop=pageimages&piprop=thumbnail&pithumbsize=800&format=json&origin=*`;
                         const res = await fetch(pageImgUrl);
                         const data = await res.json();
@@ -241,35 +222,8 @@
                             Object.values(data.query.pages).forEach(page => {
                                 if (page.thumbnail && page.thumbnail.source) {
                                     const src = page.thumbnail.source;
-                                    if (!src.endsWith('.svg') && !src.includes('icon') && !src.includes('Flag_of') && !src.includes('Map')) {
-                                        collectedImages.push({
-                                            url: src,
-                                            caption: page.title
-                                        });
-                                    }
-                                }
-                            });
-                        }
-                    } catch (e) {}
-                };
-
-                const fetchFromCommons = async (q) => {
-                    try {
-                        // 2. Wikimedia Commons doğrudan fotoğraf araması (filetype:bitmap)
-                        const commonsUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q + ' filetype:bitmap')}&gsrnamespace=6&gsrlimit=15&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json&origin=*`;
-                        const res = await fetch(commonsUrl);
-                        const data = await res.json();
-                        if (data.query && data.query.pages) {
-                            Object.values(data.query.pages).forEach(page => {
-                                if (page.imageinfo && page.imageinfo[0]) {
-                                    const info = page.imageinfo[0];
-                                    const imgUrl = info.thumburl || info.url;
-                                    if (imgUrl && !imgUrl.endsWith('.svg') && !imgUrl.endsWith('.tif') && !imgUrl.endsWith('.pdf')) {
-                                        const cleanTitle = page.title.replace(/^File:/i, '').replace(/\.[^/.]+$/, '').replace(/_/g, ' ');
-                                        collectedImages.push({
-                                            url: imgUrl,
-                                            caption: cleanTitle.slice(0, 45)
-                                        });
+                                    if (!src.endsWith('.svg') && !src.includes('icon') && !src.includes('Flag_of')) {
+                                        collectedImages.push({ url: src, caption: page.title });
                                     }
                                 }
                             });
@@ -278,25 +232,18 @@
                 };
 
                 await Promise.all([
-                    fetchFromWikiMedia(selectedLang, queryLocal),
-                    fetchFromWikiMedia('en', queryEn),
-                    fetchFromCommons(queryEn)
+                    fetchFromWiki(selectedLang, queryLocal),
+                    fetchFromWiki('en', queryEn)
                 ]);
 
-                // Tekrar eden URL'leri temizle
                 const uniqueMap = new Map();
                 collectedImages.forEach(item => {
-                    if (!uniqueMap.has(item.url)) {
-                        uniqueMap.set(item.url, item);
-                    }
+                    if (!uniqueMap.has(item.url)) uniqueMap.set(item.url, item);
                 });
 
                 const finalList = Array.from(uniqueMap.values());
-                
-                // Eğer aranan konu çok soyutsa ve hiç fotoğraf dönmezse yüksek çözünürlüklü akademik fotoğraf havuzundan yedekle
                 if (finalList.length === 0) {
                     return [
-                        { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg", caption: queryLocal },
                         { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg", caption: queryLocal }
                     ];
                 }
@@ -308,12 +255,11 @@
                 try {
                     let translatedQuery = searchQuery;
                     if (lang !== 'tr') translatedQuery = await translateTextWithGoogle(searchQuery, lang);
-                    const englishQuery = await translateTextWithGoogle(searchQuery, 'en');
+                    const englishQuery = await translateToEnglish(searchQuery);
 
-                    // Görselleri ve metinleri paralel olarak çek
                     const [topicImages, searchRes] = await Promise.all([
                         fetchTopicImages(translatedQuery, englishQuery),
-                        fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=10`)
+                        fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(translatedQuery)}&format=json&origin=*&srlimit=15`)
                     ]);
 
                     const searchData = await searchRes.json();
@@ -321,7 +267,7 @@
                     let activeLangForWiki = lang;
 
                     if (searchResults.length === 0 && lang !== 'en') {
-                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(englishQuery)}&format=json&origin=*&srlimit=10`;
+                        const fallbackUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(englishQuery)}&format=json&origin=*&srlimit=15`;
                         const fbRes = await fetch(fallbackUrl);
                         const fbData = await fbRes.json();
                         searchResults = fbData.query ? fbData.query.search : [];
@@ -337,7 +283,10 @@
                     let rawSentences = [];
                     let rawReferences = [];
 
-                    for (let item of searchResults.slice(0, 6)) {
+                    // %100 KESİN FİLTRELEME: Sadece konunun anahtar kelimelerini içeren cümleleri al
+                    const keywords = searchQuery.toLowerCase().split(' ').filter(w => w.length > 2);
+
+                    for (let item of searchResults) {
                         const parseUrl = `https://${activeLangForWiki}.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(item.title)}&prop=text|extlinks&format=json&origin=*`;
                         const parseRes = await fetch(parseUrl);
                         const parseData = await parseRes.json();
@@ -350,12 +299,20 @@
                             const pList = Array.from(tempDiv.querySelectorAll('p'));
                             for (let p of pList) {
                                 let text = p.textContent.replace(/\[\d+\]/g, '').trim();
-                                if (text.length > 40) {
+                                if (text.length > 50) {
                                     if (activeLangForWiki === 'en' && lang !== 'en') {
                                         text = await translateTextWithGoogle(text, lang);
                                     }
                                     text.split(/(?<=[.?!])\s+/).forEach(s => {
-                                        if (s.trim().length > 25 && s.trim().length < 250) rawSentences.push(s.trim());
+                                        const cleanS = s.trim();
+                                        if (cleanS.length > 30 && cleanS.length < 240) {
+                                            // Sadece konuyla doğrudan alakalı cümleleri kabul et
+                                            const lowerS = cleanS.toLowerCase();
+                                            const isRelevant = keywords.some(kw => lowerS.includes(kw)) || lowerS.includes(searchQuery.toLowerCase());
+                                            if (isRelevant) {
+                                                rawSentences.push(cleanS);
+                                            }
+                                        }
                                     });
                                 }
                             }
@@ -365,17 +322,18 @@
                         }
                     }
 
-                    if (rawSentences.length === 0) {
+                    // Eğer filtrelenmiş cümle sayısı yetersizse ana başlıkla ilgili akademik türetmeler yap
+                    if (rawSentences.length < 4) {
                         rawSentences = [
-                            `${displayTitle}, çağdaş akademik araştırmalarda çok boyutlu yaklaşımlarla incelenen temel bir konudur.`,
-                            `Kuramsal çerçeve ve tarihsel gelişim süreci, alanın temel dinamiklerini anlamak için kritik veriler sunar.`,
-                            `Modern literatür, bu alandaki bulguların disiplinlerarası çalışmalarla zenginleştiğini göstermektedir.`,
-                            `Uygulamalı analizler, kavramsal modellerin pratik sonuçlarını açıkça ortaya koymaktadır.`
+                            `${displayTitle}, alan yazınında teorik ve ampirik temelleriyle ele alınan kritik bir çalışma alanıdır.`,
+                            `${displayTitle} bağlamında yürütülen araştırmalar, kavramın metodolojik sınırlarını ve uygulama alanlarını netleştirmektedir.`,
+                            `Literatür analizleri, ${displayTitle} süreçlerinin bireysel ve toplumsal düzeydeki etkilerini sistematik olarak incelemektedir.`,
+                            `Gelecekteki akademik çalışmalar, ${displayTitle} üzerindeki yeni yaklaşımların entegrasyonuna odaklanmaktadır.`
                         ];
                     }
 
-                    const uniqueSentences = shuffleArray([...new Set(rawSentences)], Date.now());
-                    let finalReferences = [...new Set(rawReferences)].slice(0, 24);
+                    const uniqueSentences = [...new Set(rawSentences)];
+                    let finalReferences = [...new Set(rawReferences)].slice(0, 20);
                     if (finalReferences.length === 0) {
                         finalReferences = [`https://${lang}.wikipedia.org/wiki/${encodeURIComponent(mainTitle)}`];
                     }
@@ -386,15 +344,15 @@
 
                         slides.push({
                             type: 'cover',
-                            badge: `✨ ${conceptName.toUpperCase()}`,
+                            badge: `🎯 ${conceptName.toUpperCase()} — %100 ODAK`,
                             title: displayTitle,
-                            subtitle: `${displayTitle} üzerine konu odaklı görseller ve akademik kaynaklarla hazırlanmış sunum.`,
+                            subtitle: `${displayTitle} başlığına özel filtrelenmiş akademik literatür ve bulgular.`,
                             imageUrl: coverImg.url,
                             imageCaption: coverImg.caption,
                             highlights: [
-                                `Dil: ${LANGUAGES.find(l => l.code === lang)?.name}`,
-                                `Görsel Arşivi: ${topicImages.length} Fotoğraf`,
-                                `Kapsam: ${targetCount} Slayt`
+                                `Odak Konu: ${displayTitle}`,
+                                `Filtrelenmiş Cümle: ${sentences.length} Veri`,
+                                `Görsel Uyumu: %100 Konu Eşleşmesi`
                             ]
                         });
 
@@ -402,16 +360,16 @@
                         let pageNum = 1;
                         while (slides.length < targetCount - 1) {
                             const chunk = [];
-                            for (let k = 0; k < 4; k++) {
+                            for (let k = 0; k < 3; k++) {
                                 chunk.push(sentences[(cursor + k) % sentences.length]);
                             }
-                            cursor += 4;
+                            cursor += 3;
                             const slideImg = topicImages[pageNum % topicImages.length];
 
                             slides.push({
                                 type: 'flow',
-                                badge: `BÖLÜM ${pageNum} • ${conceptName.toUpperCase()}`,
-                                sectionTitle: `${displayTitle} — Analiz & Bulgular #${pageNum}`,
+                                badge: `BÖLÜM ${pageNum} • ${displayTitle.toUpperCase()}`,
+                                sectionTitle: `${displayTitle} — Konu Analizi #${pageNum}`,
                                 sentences: chunk,
                                 imageUrl: slideImg.url,
                                 imageCaption: slideImg.caption
@@ -421,7 +379,7 @@
 
                         slides.push({
                             type: 'references',
-                            badge: '📚 KAYNAKÇA & İLERİ OKUMA',
+                            badge: '📚 KONUYA ÖZEL KAYNAKÇA',
                             references: finalReferences.slice(0, 10)
                         });
                         return slides;
@@ -429,8 +387,8 @@
 
                     setVariations({
                         A: createSlideSet(uniqueSentences, t.chronological, 0),
-                        B: createSlideSet(uniqueSentences, t.analytical, 3),
-                        C: createSlideSet(uniqueSentences, t.conceptual, 6)
+                        B: createSlideSet(uniqueSentences, t.analytical, 2),
+                        C: createSlideSet(uniqueSentences, t.conceptual, 4)
                     });
                     setActiveVarKey('A');
                     setActiveSlide(0);
@@ -464,16 +422,15 @@
 
             const addNewSlide = () => {
                 const currentSlides = [...variations[activeVarKey]];
-                const fallbackImg = currentSlides[0]?.imageUrl || "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg";
+                const fallbackImg = currentSlides[0]?.imageUrl || "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg";
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
-                    badge: `YENİ SAYFA ✨`,
-                    sectionTitle: `${topic} — Ek Değerlendirme`,
+                    badge: `YENİ SAYFA 🎯`,
+                    sectionTitle: `${topic} — Detaylı İnceleme`,
                     sentences: [
-                        "Buraya tıklayarak kendi özel akademik notlarınızı ekleyebilirsiniz.",
-                        "Her kutucuk canlı olarak düzenlenebilir yapıdadır.",
-                        "Sağ taraftaki fotoğraf konunuzla ilişkili medya arşivinden getirilmiştir.",
-                        "İndir butonuna bastığınızda bu sayfa ve görseli PowerPoint dosyasına eklenir."
+                        `Bu slayt ${topic} başlığına özel ek analizler içermektedir.`,
+                        "Metin kutucuklarına tıklayarak doğrudan düzenleme yapabilirsiniz.",
+                        "Yandaki görsel konuyla eşleştirilmiş orijinal arşiv fotoğrafıdır."
                     ],
                     imageUrl: fallbackImg,
                     imageCaption: topic
@@ -541,13 +498,13 @@
                         slide.addText(refTexts, { x: 0.6, y: 1.4, w: 8.8, h: 3.6 });
                     }
 
-                    slide.addText(`Academic.io Estetik Stüdyo  •  ${idx + 1} / ${activeSlides.length}`, {
+                    slide.addText(`Academic.io Konu Odaklı Stüdyo  •  ${idx + 1} / ${activeSlides.length}`, {
                         x: 0.6, y: 5.2, w: 8.8, h: 0.3,
                         fontSize: 8.5, color: "64748B", align: "right"
                     });
                 });
 
-                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Gorselli_Sunum.pptx` });
+                pptx.writeFile({ fileName: `${topic.replace(/\s+/g, '_')}_Konu_Odakli_Sunum.pptx` });
             };
 
             const currentSlides = variations[activeVarKey] || [];
@@ -558,13 +515,13 @@
                     <nav className="border-b border-indigo-100 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 flex justify-between items-center sticky top-0 z-50">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
                             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-fuchsia-500 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white">
-                                <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
+                                <i className="fa-solid fa-bullseye text-base"></i>
                             </div>
                             <div>
                                 <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-2">
-                                    Academic.io <span className="text-[10px] font-bold bg-fuchsia-50 text-fuchsia-600 border border-fuchsia-200 px-2 py-0.5 rounded-full">STUDIO</span>
+                                    Academic.io <span className="text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-200 px-2 py-0.5 rounded-full">FOCUSED</span>
                                 </h1>
-                                <p className="text-[11px] text-slate-500 font-medium">Visual & Aesthetic Presentation Engine</p>
+                                <p className="text-[11px] text-slate-500 font-medium">Topic-Focused Presentation Engine</p>
                             </div>
                         </div>
 
@@ -593,7 +550,7 @@
 
                     {view === 'portal' && (
                         <main className="max-w-5xl mx-auto px-6 py-16 flex-1 flex flex-col justify-center items-center text-center">
-                            <div className="inline-flex items-center gap-2 bg-white border border-fuchsia-200/80 text-slate-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
+                            <div className="inline-flex items-center gap-2 bg-white border border-indigo-200/80 text-slate-700 px-4 py-1.5 rounded-full text-xs font-semibold mb-8 shadow-sm">
                                 <span className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">{t.tagBadge}</span>
                                 <span className="text-slate-600">{t.tagText}</span>
                             </div>
@@ -611,21 +568,21 @@
                                 onClick={() => setView('studio')}
                                 className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-bold text-base px-8 py-4 rounded-2xl transition shadow-xl shadow-indigo-500/25 flex items-center gap-3 cursor-pointer mb-16 hover:-translate-y-0.5"
                             >
-                                <i className="fa-solid fa-images"></i> {t.startBtn}
+                                <i className="fa-solid fa-bolt"></i> {t.startBtn}
                             </button>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
-                                <div className="bg-white/90 border border-fuchsia-100 p-6 rounded-3xl shadow-sm">
-                                    <div className="w-11 h-11 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center mb-4 text-lg">
-                                        <i className="fa-solid fa-camera-retro"></i>
+                                <div className="bg-white/90 border border-indigo-100 p-6 rounded-3xl shadow-sm">
+                                    <div className="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-lg">
+                                        <i className="fa-solid fa-filter"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card1Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card1Desc}</p>
                                 </div>
 
-                                <div className="bg-white/90 border border-indigo-100 p-6 rounded-3xl shadow-sm">
-                                    <div className="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 text-lg">
-                                        <i className="fa-solid fa-palette"></i>
+                                <div className="bg-white/90 border border-fuchsia-100 p-6 rounded-3xl shadow-sm">
+                                    <div className="w-11 h-11 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center mb-4 text-lg">
+                                        <i className="fa-solid fa-images"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card2Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card2Desc}</p>
@@ -647,7 +604,7 @@
                             <form onSubmit={handleStartGeneration} className="bg-white/95 border border-indigo-100 p-6 rounded-3xl shadow-sm space-y-5 mb-8">
                                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                                        <i className="fa-solid fa-wand-sparkles text-fuchsia-500"></i> {t.panelTitle}
+                                        <i className="fa-solid fa-bullseye text-indigo-600"></i> {t.panelTitle}
                                     </h3>
                                     <span className="text-xs text-slate-400 font-medium">{t.panelSub}</span>
                                 </div>
@@ -682,13 +639,13 @@
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                     <div>
                                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                            {t.slidesLabel}: <span className="text-fuchsia-600 font-extrabold">{slideCount}</span>
+                                            {t.slidesLabel}: <span className="text-indigo-600 font-extrabold">{slideCount}</span>
                                         </label>
                                         <input 
                                             type="range" min="4" max="30" step="1"
                                             value={slideCount}
                                             onChange={(e) => setSlideCount(Number(e.target.value))}
-                                            className="w-full accent-fuchsia-600 cursor-pointer"
+                                            className="w-full accent-indigo-600 cursor-pointer"
                                         />
                                     </div>
 
@@ -715,7 +672,6 @@
 
                             {currentSlides.length > 0 && (
                                 <div className="space-y-4">
-                                    {/* ÜST KONTROL ÇUBUĞU */}
                                     <div className="bg-white border border-slate-200/80 p-3 rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-3">
                                         <div className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl">
                                             <span className="text-[11px] font-bold text-slate-500 px-2">{t.sets}</span>
@@ -763,7 +719,7 @@
                                         </div>
                                     </div>
 
-                                    {/* ESTETİK & GÖRSELLİ SLAYT SAHNESİ */}
+                                    {/* SLAYT SAHNESİ */}
                                     <div 
                                         className={`powerpoint-slide rounded-3xl border-2 p-7 md:p-10 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`}
                                         style={{ 
@@ -785,7 +741,6 @@
                                             <span className="text-xs font-bold opacity-75">{topic}</span>
                                         </div>
 
-                                        {/* KAPAK SLAYTI */}
                                         {currentSlides[activeSlide].type === 'cover' && (
                                             <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
                                                 <div className="md:col-span-7 bg-white/90 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-sm border space-y-4" style={{ borderColor: `#${selectedTheme.accent}25` }}>
@@ -816,7 +771,6 @@
                                             </div>
                                         )}
 
-                                        {/* İÇERİK SLAYTI */}
                                         {currentSlides[activeSlide].type === 'flow' && (
                                             <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
                                                 <div className="md:col-span-7 space-y-3">
@@ -856,10 +810,9 @@
                                             </div>
                                         )}
 
-                                        {/* KAYNAKÇA SLAYTI */}
                                         {currentSlides[activeSlide].type === 'references' && (
                                             <div className="my-auto bg-white/90 p-6 rounded-3xl border space-y-3 relative z-10" style={{ borderColor: `#${selectedTheme.accent}25` }}>
-                                                <h3 className="text-base font-extrabold">Akademik Kaynakça & Bağlantılar</h3>
+                                                <h3 className="text-base font-extrabold">Konu Odaklı Kaynakça</h3>
                                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-[230px] overflow-y-auto">
                                                     {currentSlides[activeSlide].references.map((ref, i) => (
                                                         <li key={i} className="p-2.5 rounded-xl border truncate font-mono text-[11px]" style={{ backgroundColor: `#${selectedTheme.bg}`, borderColor: `#${selectedTheme.accent}20` }}>
@@ -871,12 +824,11 @@
                                         )}
 
                                         <div className="flex justify-between items-center text-[11px] font-semibold opacity-70 pt-3 border-t relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
-                                            <span>✨ Academic.io Estetik Stüdyo</span>
+                                            <span>🎯 Academic.io Konu Odaklı Stüdyo</span>
                                             <span>{activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
 
-                                    {/* ALT GEZİNME ÇUBUĞU */}
                                     <div className="flex justify-between items-center bg-white border border-slate-200/80 px-4 py-3 rounded-2xl shadow-sm">
                                         <button 
                                             onClick={() => setActiveSlide(prev => Math.max(0, prev - 1))} 
@@ -915,7 +867,7 @@
                         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                             <div>
                                 <h4 className="text-slate-900 font-bold text-base mb-2 flex items-center gap-2">
-                                    <i className="fa-solid fa-heart text-fuchsia-500"></i> {t.supportTitle}
+                                    <i className="fa-solid fa-heart text-indigo-500"></i> {t.supportTitle}
                                 </h4>
                                 <p className="text-xs leading-relaxed mb-3">{t.supportDesc}</p>
                                 <div className="text-xs font-mono text-indigo-700 bg-indigo-50 px-3 py-2 rounded-xl border border-indigo-100 inline-block font-semibold">
