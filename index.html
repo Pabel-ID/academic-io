@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic.io — 100 Slayt & Zengin İçerikli Akademik Stüdyo</title>
+    <title>Academic.io — 100 Slayt & Görsel Destekli Akademik Stüdyo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -82,27 +82,27 @@
         ];
 
         const BASE_DICT = {
-            tagBadge: "5 - 100 SLAYT DESTEĞİ",
-            tagText: "SLAYT BAŞINA EN AZ 12 CÜMLE VE GERÇEK GÖRSEL MOTORU AKTİF",
+            tagBadge: "5 - 100 SLAYT & GÖRSEL DESTEKLİ",
+            tagText: "SLAYT BAŞINA MAKSİMUM 5 CÜMLE VE GERÇEK FOTOĞRAF MOTORU AKTİF",
             title1: "100 Sayfaya Kadar",
-            title2: "Zengin İçerikli Akademik Sunum",
-            desc: "İstediğiniz sayıda (5 ila 100 arası) sayfa üretin; her slaytta konuya özel en az 12 cümle ve gerçek fotoğraflarla profesyonel sunumlar hazırlayın.",
-            startBtn: "Özel Sayfalı Sunum Oluştur",
+            title2: "Görselli & Özlü Akademik Sunum",
+            desc: "İstediğiniz sayıda (5 ila 100 arası) sayfa üretin; her slaytta maksimum 5 net cümle ve gerçek fotoğraflarla profesyonel sunumlar hazırlayın.",
+            startBtn: "Özel Sayfalı Görselli Sunum Oluştur",
             card1Title: "5-100 Sayfa Seçeneği",
             card1Desc: "İster kısa özet ister 100 sayfalık devasa akademik sunum dosyaları oluşturun.",
-            card2Title: "Slayt Başına 12+ Cümle",
-            card2Desc: "Her slayt sayfasında konuyu derinlemesine inceleyen en az 12 zengin madde.",
+            card2Title: "Maksimum 5 Cümle",
+            card2Desc: "Göz yormayan, her slaytta en fazla 5 öz ve net akademik cümle yapısı.",
             card3Title: "Gerçek Fotoğraflar & .PPTX",
             card3Desc: "Konuyla birebir eşleşen görsellerle birlikte PowerPoint olarak anında indirin.",
-            panelTitle: "Gelişmiş Sunum Üretim Paneli",
-            panelSub: "Sayfa Sayısı Ayarı + Zengin Cümle Motoru",
+            panelTitle: "Gelişmiş Görselli Sunum Üretim Paneli",
+            panelSub: "Sayfa Sayısı Ayarı + 5 Cümle Limiti + Fotoğraf Motoru",
             topicLabel: "Sunum Konusu / Başlığı",
             topicPlaceholder: "Örn: Kuantum Fiziği, Nörobilim, Sanat Tarihi...",
             langLabel: "Sunum Dili",
             slidesLabel: "Slayt Sayısı (5 - 100)",
             colorLabel: "Estetik Tema Seçimi",
-            genBtn: "Seçilen Sayfa Kadar Sunumu Üret ✨",
-            genLoading: "İçerikler Zenginleştiriliyor ve Slaytlar Hazırlanıyor...",
+            genBtn: "Seçilen Sayfa Kadar Görselli Sunumu Üret ✨",
+            genLoading: "Fotoğraflar Toplanıyor ve Slaytlar Hazırlanıyor...",
             sets: "Tasarım Varyasyonu:",
             chronological: "Literatür",
             analytical: "Metodoloji",
@@ -123,14 +123,14 @@
             supportSending: "Gönderiliyor...",
             supportSuccessTitle: "İletildi!",
             newTicket: "Yeni Mesaj",
-            rights: "Academic.io © 2026 — Genişletilmiş Akademik Sunum Motoru"
+            rights: "Academic.io © 2026 — Özlü & Görselli Akademik Sunum Motoru"
         };
 
         function App() {
             const [view, setView] = useState('portal');
             const [topic, setTopic] = useState("Klinik Psikolojide Bilişsel Davranışçı Terapi");
             const [selectedLang, setSelectedLang] = useState("tr");
-            const [slideCount, setSlideCount] = useState(20);
+            const [slideCount, setSlideCount] = useState(15);
             const [selectedTheme, setSelectedTheme] = useState(AESTHETIC_THEMES[0]);
             const [selectedFont, setSelectedFont] = useState(FONTS[0]);
 
@@ -318,26 +318,21 @@
                         }
                     }
 
-                    // 100 slaytlık devasa talepleri karşılamak için cümle havuzunu zenginleştir ve genişlet
                     let basePool = [...new Set(rawSentences)];
-                    if (basePool.length < 15) {
+                    if (basePool.length < 10) {
                         basePool = [
                             `${displayTitle}, çağdaş literatürde çok boyutlu ve disiplinlerarası bir çerçevede incelenmektedir.`,
                             `Kuramsal yaklaşımlar, ${displayTitle} kavramının tarihsel evrimini ve dönüşüm süreçlerini aydınlatmaktadır.`,
                             `Ampirik bulgular, ${displayTitle} uygulamalarının bireysel ve örgütsel düzeydeki yansımalarını ortaya koymaktadır.`,
                             `Metodolojik analizler, ${displayTitle} alanında kullanılan veri toplama ve değerlendirme tekniklerini detaylandırmaktadır.`,
-                            `Sistematik derlemeler, ${displayTitle} etrafındaki güncel tartışmaları ve gelecekteki araştırma yönelimlerini özetlemektedir.`,
-                            `Uygulama alanındaki pratikler, teorik modellerin ${displayTitle} bağlamında ne ölçüde karşılık bulduğunu göstermektedir.`,
-                            `Kavramsal çerçeve, ${displayTitle} olgusunun sınırlarını ve temel dinamiklerini epistemolojik açıdan ele almaktadır.`,
-                            `Çoklu değişkenli analizler, ${displayTitle} süreçlerindeki kritik etkenlerin istatistiksel önemini doğrulamaktadır.`
+                            `Sistematik derlemeler, ${displayTitle} etrafındaki güncel tartışmaları ve gelecekteki araştırma yönelimlerini özetlemektedir.`
                         ];
                     }
 
-                    // Havuz yetersiz kalırsa 100 slayt için katlayarak genişlet
                     let extendedSentences = [...basePool];
-                    while (extendedSentences.length < targetCount * 14) {
+                    while (extendedSentences.length < targetCount * 6) {
                         basePool.forEach(s => {
-                            extendedSentences.push(`${s} (Derinlemesine İnceleme ve Literatür Boyutu)`);
+                            extendedSentences.push(`${s} (Literatür Analizi ve Gözlem Boyutu)`);
                         });
                     }
 
@@ -355,31 +350,31 @@
                             type: 'cover',
                             badge: `🎯 ${conceptName.toUpperCase()} — ${targetCount} SAYFA`,
                             title: displayTitle,
-                            subtitle: `${displayTitle} başlığına özel hazırlanan kapsamlı akademik sunum dosyası.`,
+                            subtitle: `${displayTitle} başlığına özel hazırlanan görselli ve özlü akademik sunum dosyası.`,
                             imageUrl: coverImg.url,
                             imageCaption: coverImg.caption,
                             highlights: [
                                 `Toplam Sayfa: ${targetCount} Slayt`,
-                                `Slayt Başına Cümle: 12+ Madde`,
-                                `Görsel Desteği: Konu Odaklı Arşiv`
+                                `Slayt Başına Cümle: Maksimum 5 Madde`,
+                                `Görsel Desteği: Konu Odaklı Arşiv Fotoğrafı`
                             ]
                         });
 
-                        // 2. İçerik Slaytları (İstenen sayfa sayısı kadar, her birinde en az 12 cümle)
+                        // 2. İçerik Slaytları (İstenen sayfa sayısı kadar, her birinde maksimum 5 cümle)
                         let cursor = offset;
                         let pageNum = 1;
                         while (slides.length < targetCount - 1) {
                             const chunk = [];
-                            for (let k = 0; k < 12; k++) {
+                            for (let k = 0; k < 5; k++) {
                                 chunk.push(sentences[(cursor + k) % sentences.length]);
                             }
-                            cursor += 12;
+                            cursor += 5;
                             const slideImg = topicImages[pageNum % topicImages.length];
 
                             slides.push({
                                 type: 'flow',
                                 badge: `BÖLÜM ${pageNum} • ${displayTitle.toUpperCase()}`,
-                                sectionTitle: `${displayTitle} — Detaylı Analiz & Literatür #${pageNum}`,
+                                sectionTitle: `${displayTitle} — Özlü Analiz #${pageNum}`,
                                 sentences: chunk,
                                 imageUrl: slideImg.url,
                                 imageCaption: slideImg.caption
@@ -398,8 +393,8 @@
 
                     setVariations({
                         A: createSlideSet(extendedSentences, t.chronological, 0),
-                        B: createSlideSet(extendedSentences, t.analytical, 5),
-                        C: createSlideSet(extendedSentences, t.conceptual, 10)
+                        B: createSlideSet(extendedSentences, t.analytical, 3),
+                        C: createSlideSet(extendedSentences, t.conceptual, 6)
                     });
                     setActiveVarKey('A');
                     setActiveSlide(0);
@@ -435,14 +430,14 @@
                 const currentSlides = [...variations[activeVarKey]];
                 const fallbackImg = currentSlides[0]?.imageUrl || "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg";
                 
-                // Yeni eklenen slayt da en az 12 cümle içersin
-                const default12Sentences = Array.from({length: 12}, (_, i) => `${topic} konusunun ${i + 1}. analitik boyutu ve akademik değerlendirme kriteri.`);
+                // Yeni slaytta da tam 5 cümle olsun
+                const default5Sentences = Array.from({length: 5}, (_, i) => `${topic} başlığının ${i + 1}. analitik değerlendirme ve gözlem maddesi.`);
 
                 currentSlides.splice(activeSlide + 1, 0, {
                     type: 'flow',
                     badge: `YENİ SAYFA 🎯`,
-                    sectionTitle: `${topic} — Genişletilmiş Bölüm`,
-                    sentences: default12Sentences,
+                    sectionTitle: `${topic} — Ek Değerlendirme`,
+                    sentences: default5Sentences,
                     imageUrl: fallbackImg,
                     imageCaption: topic
                 });
@@ -487,26 +482,19 @@
                         }
                     } else if (slideData.type === 'flow') {
                         slide.addText(slideData.sectionTitle || topic, {
-                            x: 0.5, y: 0.65, w: 9.0, h: 0.4,
+                            x: 0.5, y: 0.65, w: 5.6, h: 0.4,
                             fontSize: 14, color: selectedTheme.text, bold: true
                         });
 
-                        // 12 cümleyi PowerPoint'e 2 sütun halinde (6'şar madde) kusursuz yerleştir
-                        const mid = 6;
-                        const col1 = slideData.sentences.slice(0, mid).map(s => "• " + s);
-                        const col2 = slideData.sentences.slice(mid).map(s => "• " + s);
+                        const flowTexts = slideData.sentences.map(s => ({ text: s, options: { bullet: true, color: selectedTheme.text, fontSize: 10 } }));
+                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.15, w: 5.6, h: 3.8, fill: { color: "FFFFFF" } });
+                        slide.addText(flowTexts, { x: 0.65, y: 1.3, w: 5.3, h: 3.5, lineSpacing: 16 });
 
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 0.5, y: 1.15, w: 4.4, h: 3.8, fill: { color: "FFFFFF" } });
-                        slide.addText(col1, {
-                            x: 0.6, y: 1.25, w: 4.2, h: 3.6,
-                            fontSize: 7.5, color: selectedTheme.text, lineSpacing: 11
-                        });
-
-                        slide.addShape(pptx.ShapeType.roundRect, { x: 5.05, y: 1.15, w: 4.4, h: 3.8, fill: { color: "FFFFFF" } });
-                        slide.addText(col2, {
-                            x: 5.15, y: 1.25, w: 4.2, h: 3.6,
-                            fontSize: 7.5, color: selectedTheme.text, lineSpacing: 11
-                        });
+                        if (slideData.imageUrl) {
+                            try {
+                                slide.addImage({ path: slideData.imageUrl, x: 6.3, y: 1.15, w: 3.2, h: 3.8, sizing: { type: 'cover', w: 3.2, h: 3.8 } });
+                            } catch (e) {}
+                        }
                     } else if (slideData.type === 'references') {
                         slide.addText("KAYNAKÇA & REFERANSLAR", {
                             x: 0.5, y: 0.7, w: 9.0, h: 0.4,
@@ -533,13 +521,13 @@
                     <nav className="border-b border-indigo-100 bg-white/80 backdrop-blur-md px-6 md:px-10 py-4 flex justify-between items-center sticky top-0 z-50">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('portal')}>
                             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-fuchsia-500 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white">
-                                <i className="fa-solid fa-layer-group text-base"></i>
+                                <i className="fa-solid fa-images text-base"></i>
                             </div>
                             <div>
                                 <h1 className="font-extrabold text-lg tracking-tight text-slate-900 flex items-center gap-2">
                                     Academic.io <span className="text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-200 px-2 py-0.5 rounded-full">PRO 100</span>
                                 </h1>
-                                <p className="text-[11px] text-slate-500 font-medium">Multi-Page Academic Presentation Engine</p>
+                                <p className="text-[11px] text-slate-500 font-medium">Visual Presentation Engine</p>
                             </div>
                         </div>
 
@@ -600,7 +588,7 @@
 
                                 <div className="bg-white/90 border border-fuchsia-100 p-6 rounded-3xl shadow-sm">
                                     <div className="w-11 h-11 rounded-2xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center mb-4 text-lg">
-                                        <i className="fa-solid fa-list-check"></i>
+                                        <i className="fa-solid fa-align-left"></i>
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-base mb-1.5">{t.card2Title}</h3>
                                     <p className="text-xs text-slate-600 leading-relaxed">{t.card2Desc}</p>
@@ -750,7 +738,7 @@
                                         </div>
                                     </div>
 
-                                    {/* SLAYT SAHNESİ (2 Sütunlu 12+ Cümle Düzeni) */}
+                                    {/* SLAYT SAHNESİ (Sol Metin [Max 5 Cümle] + Sağ Görsel) */}
                                     <div 
                                         className={`powerpoint-slide rounded-3xl border-2 p-6 md:p-8 flex flex-col justify-between relative overflow-hidden ${selectedFont.value}`}
                                         style={{ 
@@ -803,28 +791,40 @@
                                         )}
 
                                         {currentSlides[activeSlide].type === 'flow' && (
-                                            <div className="my-auto space-y-2 relative z-10">
-                                                <h3 className="text-sm md:text-base font-extrabold px-1" contentEditable suppressContentEditableWarning>
-                                                    {currentSlides[activeSlide].sectionTitle}
-                                                </h3>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[260px] overflow-y-auto pr-1">
-                                                    {currentSlides[activeSlide].sentences.map((sent, i) => (
-                                                        <div 
-                                                            key={i} 
-                                                            className="bg-white/90 backdrop-blur-sm p-2.5 rounded-xl border shadow-sm flex items-start gap-2.5 text-[11px] md:text-xs leading-relaxed"
-                                                            style={{ borderColor: `#${selectedTheme.accent}20` }}
-                                                        >
-                                                            <span 
-                                                                className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-extrabold shrink-0 mt-0.5"
-                                                                style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}
+                                            <div className="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10 py-2">
+                                                <div className="md:col-span-7 space-y-2.5">
+                                                    <h3 className="text-sm md:text-base font-extrabold px-1" contentEditable suppressContentEditableWarning>
+                                                        {currentSlides[activeSlide].sectionTitle}
+                                                    </h3>
+                                                    <div className="grid grid-cols-1 gap-2 max-h-[250px] overflow-y-auto pr-1">
+                                                        {currentSlides[activeSlide].sentences.map((sent, i) => (
+                                                            <div 
+                                                                key={i} 
+                                                                className="bg-white/90 backdrop-blur-sm p-2.5 rounded-xl border shadow-sm flex items-start gap-2.5 text-xs md:text-sm leading-relaxed"
+                                                                style={{ borderColor: `#${selectedTheme.accent}20` }}
                                                             >
-                                                                {i + 1}
-                                                            </span>
-                                                            <p contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)} className="flex-1">
-                                                                {sent}
-                                                            </p>
-                                                        </div>
-                                                    ))}
+                                                                <span 
+                                                                    className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-extrabold shrink-0 mt-0.5"
+                                                                    style={{ backgroundColor: `#${selectedTheme.secondary}`, color: `#${selectedTheme.accent}` }}
+                                                                >
+                                                                    {i + 1}
+                                                                </span>
+                                                                <p contentEditable suppressContentEditableWarning onBlur={(e) => handleSentenceChange(activeSlide, i, e.target.innerText)} className="flex-1">
+                                                                    {sent}
+                                                                </p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <div className="md:col-span-5 h-52 md:h-60 rounded-3xl overflow-hidden shadow-lg border-4 border-white relative bg-white group">
+                                                    <img 
+                                                        src={currentSlides[activeSlide].imageUrl} 
+                                                        alt={currentSlides[activeSlide].imageCaption}
+                                                        className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent p-3 text-white text-[11px] font-semibold">
+                                                        📷 {currentSlides[activeSlide].imageCaption}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
@@ -843,7 +843,7 @@
                                         )}
 
                                         <div className="flex justify-between items-center text-[11px] font-semibold opacity-70 pt-2.5 border-t relative z-10" style={{ borderColor: `#${selectedTheme.accent}20` }}>
-                                            <span>✨ Academic.io 100 Slayt Stüdyosu</span>
+                                            <span>✨ Academic.io 100 Slayt Görselli Stüdyo</span>
                                             <span>{activeSlide + 1} / {currentSlides.length}</span>
                                         </div>
                                     </div>
